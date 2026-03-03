@@ -33,6 +33,7 @@
       color:var(--ink);
     }
     a{color:inherit}
+
     .wrap{max-width:var(--max); margin:0 auto; padding:18px 14px 60px}
 
     .topbar{
@@ -93,55 +94,70 @@
       gap:12px;
     }
     @media(min-width:900px){
-      .grid{grid-template-columns: 330px 1fr;}
+      .grid{grid-template-columns: 1fr 1fr;}
     }
 
-    .menu{
+    .card{
       padding:14px;
       background:rgba(255,255,255,.72);
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      height: fit-content;
-    }
-    .menu h2{margin:0 0 12px; font-size:15px}
-    .tabs{display:flex; flex-direction:column; gap:10px}
-    .tab{
-      display:flex; align-items:center; gap:10px;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:#fff;
-      cursor:pointer;
       transition:.15s transform, .15s background, .15s border-color;
+      text-decoration:none;
+      display:block;
+      position:relative;
+      overflow:hidden;
     }
-    .tab:hover{background:rgba(127,185,179,.08); border-color:rgba(127,185,179,.45)}
-    .tab[aria-selected="true"]{
-      background:rgba(127,185,179,.18);
-      border-color:rgba(127,185,179,.65);
+    .card:hover{ transform: translateY(-2px); }
+    .card:active{ transform: translateY(0px) scale(.995); }
+
+    .cardHead{
+      display:flex; align-items:flex-start; gap:12px;
     }
     .ico{
-      width:34px; height:34px; border-radius:12px;
+      width:44px; height:44px; border-radius:14px;
       display:grid; place-items:center;
       background:rgba(215,166,166,.18);
       border:1px solid rgba(215,166,166,.35);
+      font-size:18px;
+      flex:0 0 auto;
+    }
+    .ttl{
+      font-weight:900;
+      margin:0;
       font-size:16px;
+      letter-spacing:.15px;
     }
-    .tab .ttl{font-weight:800}
-    .tab .sub{font-size:12px; color:var(--muted); margin-top:2px}
-
-    .panel{
-      padding:16px;
-      background:rgba(255,255,255,.72);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      min-height: 520px;
+    .sub{
+      margin:6px 0 0;
+      color:var(--muted);
+      line-height:1.35;
+      font-size:13px;
     }
-    .panel h2{margin:0 0 6px; font-size:18px}
-    .panel p{margin:0 0 12px; color:var(--muted); line-height:1.45}
 
-    .actions{display:flex; flex-wrap:wrap; gap:10px; margin:10px 0 0}
+    .row{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(127,185,179,.14);
+      border:1px solid rgba(127,185,179,.35);
+      font-size:12px;
+      color:var(--ink);
+      white-space:nowrap;
+    }
+
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
       padding:10px 12px;
@@ -153,46 +169,15 @@
       transition:.15s transform, .15s background, .15s border-color;
       font-size:14px;
       text-decoration:none;
+      white-space:nowrap;
     }
     .btn:hover{background:rgba(127,185,179,.10); border-color:rgba(127,185,179,.45)}
-    .btn:active{transform:scale(.99)}
     .btn.primary{background:rgba(127,185,179,.20); border-color:rgba(127,185,179,.65)}
+    .btn:active{transform:scale(.99)}
 
-    .list{
-      margin-top:10px;
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-    @media(min-width:740px){ .list{grid-template-columns:1fr 1fr;} }
-
-    .item{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:16px;
-      padding:12px;
-    }
-    .item .name{font-weight:900; margin:0 0 6px}
-    .item .meta{font-size:12px; color:var(--muted); margin:0 0 10px; line-height:1.35}
-    .item .row{display:flex; gap:10px; flex-wrap:wrap}
-
-    .iframeWrap{
-      margin-top:12px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;
-      background:#fff;
-    }
-    iframe{
-      width:100%;
-      height:70vh;
-      border:0;
-      display:block;
-    }
-
-    .notice{
-      margin-top:12px;
-      padding:12px;
+    .note{
+      margin-top:14px;
+      padding:12px 14px;
       border-radius:16px;
       border:1px dashed rgba(127,185,179,.65);
       background:rgba(127,185,179,.10);
@@ -201,16 +186,12 @@
       font-size:13px;
     }
 
-    .small{font-size:12px; color:var(--muted)}
-    .divider{height:1px; background:var(--line); margin:12px 0}
-    .pill{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(215,166,166,.16);
-      border:1px solid rgba(215,166,166,.35);
+    footer{
+      margin-top:14px;
+      text-align:center;
       font-size:12px;
-      margin-right:8px;
+      color:var(--muted);
+      opacity:.95;
     }
   </style>
 </head>
@@ -236,406 +217,196 @@
     <section class="hero">
       <h1 data-i18n="hero_title">Bienvenid@ al Área Profesional</h1>
       <p data-i18n="hero_text">
-        Aquí tienes acceso directo a pedidos de repetición, descargas multimedia en alta resolución,
-        tarifas, calendario de campaña y condiciones.
+        Acceso directo a pedidos de repetición, descargas multimedia en alta resolución, tarifas, calendario de campaña y condiciones.
       </p>
     </section>
 
-    <section class="grid">
-      <aside class="menu">
-        <h2 data-i18n="menu_title">Secciones</h2>
-
-        <div class="tabs" role="tablist">
-          <button class="tab" data-tab="orders" aria-selected="true">
-            <div class="ico">🧾</div>
-            <div>
-              <div class="ttl" data-i18n="tab_orders">Pedidos repetición</div>
-              <div class="sub" data-i18n="tab_orders_sub">Formulario de pedido</div>
-            </div>
-          </button>
-
-          <button class="tab" data-tab="media" aria-selected="false">
-            <div class="ico">📸</div>
-            <div>
-              <div class="ttl" data-i18n="tab_media">Descarga multimedia</div>
-              <div class="sub" data-i18n="tab_media_sub">WeTransfer alta calidad</div>
-            </div>
-          </button>
-
-          <button class="tab" data-tab="prices" aria-selected="false">
-            <div class="ico">💶</div>
-            <div>
-              <div class="ttl" data-i18n="tab_prices">Tarifas</div>
-              <div class="sub" data-i18n="tab_prices_sub">PDF / Excel</div>
-            </div>
-          </button>
-
-          <button class="tab" data-tab="calendar" aria-selected="false">
-            <div class="ico">📅</div>
-            <div>
-              <div class="ttl" data-i18n="tab_calendar">Calendario</div>
-              <div class="sub" data-i18n="tab_calendar_sub">Fechas campaña</div>
-            </div>
-          </button>
-
-          <button class="tab" data-tab="terms" aria-selected="false">
-            <div class="ico">📌</div>
-            <div>
-              <div class="ttl" data-i18n="tab_terms">Condiciones</div>
-              <div class="sub" data-i18n="tab_terms_sub">Pago · envío · plazos</div>
-            </div>
-          </button>
+    <section class="grid" aria-label="Secciones">
+      <!-- PEDIDOS -->
+      <a class="card" href="./pedidos.html">
+        <div class="cardHead">
+          <div class="ico">🧾</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_orders">Pedidos repetición</h2>
+            <p class="sub" data-i18n="card_orders_sub">
+              Entra a la app a pantalla completa. (Con botón de volver)
+            </p>
+          </div>
         </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_fullscreen">Pantalla completa</span>
+          <span class="btn primary">Entrar →</span>
+        </div>
+      </a>
 
-        <div class="divider"></div>
-        <div class="small" data-i18n="footer_note">Soporte: info@abuelatata.com</div>
-      </aside>
-
-      <main class="panel">
-        <!-- PEDIDOS -->
-        <section id="panel-orders">
-          <h2 data-i18n="orders_title">Pedidos de repetición</h2>
-          <p data-i18n="orders_desc">
-            Rellena tu pedido desde la app. Si tu móvil no lo muestra bien, usa el botón de abrir en nueva pestaña.
-          </p>
-
-          <div class="actions">
-            <a class="btn primary" id="openOrders" target="_blank" rel="noopener"
-               href="https://abuelatata.github.io/repeticiones-ceremonia-26/">
-              🔗 <span data-i18n="open_new_tab">Abrir en nueva pestaña</span>
-            </a>
+      <!-- MULTIMEDIA -->
+      <a class="card" href="./multimedia.html">
+        <div class="cardHead">
+          <div class="ico">📸</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_media">Descarga multimedia</h2>
+            <p class="sub" data-i18n="card_media_sub">
+              WeTransfer en alta calidad (sin pérdida).
+            </p>
           </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_wetransfer">WeTransfer</span>
+          <span class="btn">Entrar →</span>
+        </div>
+      </a>
 
-          <div class="iframeWrap">
-            <iframe id="ordersFrame" title="Pedidos" src="https://abuelatata.github.io/repeticiones-ceremonia-26/"></iframe>
+      <!-- TARIFA -->
+      <a class="card" href="./tarifa.html">
+        <div class="cardHead">
+          <div class="ico">💶</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_prices">Tarifas</h2>
+            <p class="sub" data-i18n="card_prices_sub">
+              Tarifa oficial en PDF (y Excel si aplica).
+            </p>
           </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_pdf">PDF</span>
+          <span class="btn">Entrar →</span>
+        </div>
+      </a>
 
-          <div class="notice" data-i18n="orders_notice">
-            Nota: el total del pedido en la app es ANTES de impuestos (IVA/Recargo según cliente).
+      <!-- CALENDARIO -->
+      <a class="card" href="./calendario.html">
+        <div class="cardHead">
+          <div class="ico">📅</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_calendar">Calendario</h2>
+            <p class="sub" data-i18n="card_calendar_sub">
+              Fechas de campaña, cortes y plazos.
+            </p>
           </div>
-        </section>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_dates">Fechas</span>
+          <span class="btn">Entrar →</span>
+        </div>
+      </a>
 
-        <!-- MULTIMEDIA -->
-        <section id="panel-media" hidden>
-          <h2 data-i18n="media_title">Descarga Multimedia</h2>
-          <p data-i18n="media_desc">
-            Descarga el material oficial en alta resolución. Todo está alojado en WeTransfer para mantener la máxima calidad.
-          </p>
-
-          <div class="list">
-            <div class="item">
-              <div class="name">📸 <span data-i18n="media_photos">Fotografías Alta Resolución</span></div>
-              <div class="meta" data-i18n="media_photos_desc">Imágenes oficiales para web y redes.</div>
-              <div class="row">
-                <a class="btn primary" target="_blank" rel="noopener"
-                   href="https://we.tl/t-z9WqV8Ohkl">Descargar</a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="name">🎥 <span data-i18n="media_videos">Vídeos</span></div>
-              <div class="meta" data-i18n="media_videos_desc">Vídeos promocionales y contenido.</div>
-              <div class="row">
-                <a class="btn" target="_blank" rel="noopener"
-                   href="PON_AQUI_WETRANSFER_VIDEOS">Descargar</a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="name">📘 <span data-i18n="media_catalog">Catálogo HD</span></div>
-              <div class="meta" data-i18n="media_catalog_desc">PDF listo para impresión.</div>
-              <div class="row">
-                <a class="btn" target="_blank" rel="noopener"
-                   href="https://we.tl/t-ENZ6rwKF9n">Descargar</a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="name">🧵 <span data-i18n="media_logos">Logos y recursos</span></div>
-              <div class="meta" data-i18n="media_logos_desc">Logos oficiales y material de marca.</div>
-              <div class="row">
-                <a class="btn" target="_blank" rel="noopener"
-                   href="PON_AQUI_WETRANSFER_LOGOS">Descargar</a>
-              </div>
-            </div>
+      <!-- CONDICIONES -->
+      <a class="card" href="./condiciones.html">
+        <div class="cardHead">
+          <div class="ico">📌</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_terms">Condiciones</h2>
+            <p class="sub" data-i18n="card_terms_sub">
+              Pago · envío · plazos de repetición.
+            </p>
           </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_rules">Normas</span>
+          <span class="btn">Entrar →</span>
+        </div>
+      </a>
 
-          <div class="notice" data-i18n="media_notice">
-            Si algún enlace no funciona, avísanos y lo actualizamos al momento.
+      <!-- SOPORTE -->
+      <a class="card" href="mailto:info@abuelatata.com">
+        <div class="cardHead">
+          <div class="ico">✉️</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_support">Soporte</h2>
+            <p class="sub" data-i18n="card_support_sub">
+              Si hay cualquier incidencia, escríbenos.
+            </p>
           </div>
-        </section>
-
-        <!-- TARIFAS -->
-        <section id="panel-prices" hidden>
-          <h2 data-i18n="prices_title">Tarifas de precio</h2>
-          <p data-i18n="prices_desc">
-            Descarga la tarifa oficial. Puedes tener PDF y/o Excel.
-          </p>
-
-          <div class="list">
-            <div class="item">
-              <div class="name">📄 <span data-i18n="prices_pdf">Tarifa PDF</span></div>
-              <div class="meta" data-i18n="prices_pdf_desc">Para consultar e imprimir.</div>
-              <div class="row">
-                <a class="btn primary" target="_blank" rel="noopener"
-                   href="https://abuelatata.github.io/area-profesional-ceremonia-26-abuela-tata/tarifa-ceremonia-26-abuela-tata.pdf">Abrir</a>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="name">📊 <span data-i18n="prices_excel">Tarifa Excel</span></div>
-              <div class="meta" data-i18n="prices_excel_desc">Para trabajar internamente.</div>
-              <div class="row">
-                <a class="btn" target="_blank" rel="noopener"
-                   href="PON_AQUI_URL_TARIFA_EXCEL">Abrir</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="notice" data-i18n="prices_notice">
-            Nota: las condiciones fiscales (IVA/Recargo) dependen del tipo de cliente.
-          </div>
-        </section>
-
-        <!-- CALENDARIO -->
-        <section id="panel-calendar" hidden>
-          <h2 data-i18n="calendar_title">Calendario de repeticiones</h2>
-          <p data-i18n="calendar_desc">
-            Consulta fechas clave de campaña: plazos de repetición, cortes, y entregas previstas.
-          </p>
-
-          <div class="actions">
-            <a class="btn primary" target="_blank" rel="noopener"
-               href="https://abuelatata.github.io/area-profesional-ceremonia-26-abuela-tata/calendario-repeticiones-ceremonia-26.pdf">
-              🔗 <span data-i18n="calendar_open">Abrir calendario</span>
-            </a>
-          </div>
-
-          <div class="iframeWrap" id="calWrap" style="margin-top:12px;">
-            <iframe id="calFrame" title="Calendario"
-              src="PON_AQUI_URL_IFRAME_GOOGLE_CALENDAR"></iframe>
-          </div>
-
-          <div class="notice" data-i18n="calendar_notice">
-            Si prefieres, podemos usar un PDF calendario en vez de Google Calendar.
-          </div>
-        </section>
-
-        <!-- CONDICIONES -->
-        <section id="panel-terms" hidden>
-          <h2 data-i18n="terms_title">Condiciones</h2>
-          <p data-i18n="terms_desc">
-            Condiciones para pedidos de repetición: forma de pago, plazos y gastos de envío.
-          </p>
-
-          <div style="background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;line-height:1.55">
-            <div class="pill" data-i18n="terms_pill_1">Repeticiones</div>
-            <div class="pill" data-i18n="terms_pill_2">Pago</div>
-            <div class="pill" data-i18n="terms_pill_3">Envío</div>
-            <div style="margin-top:10px">
-              <strong data-i18n="terms_block_title">Resumen</strong><br>
-              <span data-i18n="terms_block_text">
-                Las repeticiones se tramitan por orden de entrada. El total del pedido es ANTES de impuestos (IVA/Recargo según cliente).
-                Los gastos de envío se aplicarán según destino y volumen. Para confirmar fechas y plazos, consulta el calendario de campaña.
-              </span>
-            </div>
-            <div style="margin-top:10px">
-              <strong data-i18n="terms_block_title2">Forma de pago</strong><br>
-              <span data-i18n="terms_block_text2">
-                La forma de pago se comunicará en la confirmación del pedido. Si necesitas una confirmación especial, indícalo en observaciones.
-              </span>
-            </div>
-            <div style="margin-top:10px">
-              <strong data-i18n="terms_block_title3">Gastos de envío</strong><br>
-              <span data-i18n="terms_block_text3">
-                Los gastos de envío no están incluidos y se calcularán según el envío. Si el cliente recoge o usa agencia propia, debe indicarlo.
-              </span>
-            </div>
-          </div>
-
-          <div class="actions" style="margin-top:12px">
-            <a class="btn" target="_blank" rel="noopener" href="PON_AQUI_URL_PDF_CONDICIONES">
-              📄 <span data-i18n="terms_pdf">Descargar condiciones (PDF)</span>
-            </a>
-          </div>
-
-          <div class="notice" data-i18n="terms_notice">
-            Si tienes dudas, escríbenos a info@abuelatata.com y te lo aclaramos al momento.
-          </div>
-        </section>
-      </main>
+        </div>
+        <div class="row">
+          <span class="pill">info@abuelatata.com</span>
+          <span class="btn">Escribir →</span>
+        </div>
+      </a>
     </section>
+
+    <div class="note" data-i18n="note">
+      Nota: el total del pedido en la app es ANTES de impuestos (IVA/Recargo según cliente).
+    </div>
+
+    <footer>
+      <span>© Abuela Tata · Uso profesional B2B</span>
+    </footer>
   </div>
 
   <script>
-    // Tabs
-    const tabs = document.querySelectorAll(".tab");
-    const panels = {
-      orders: document.getElementById("panel-orders"),
-      media: document.getElementById("panel-media"),
-      prices: document.getElementById("panel-prices"),
-      calendar: document.getElementById("panel-calendar"),
-      terms: document.getElementById("panel-terms"),
-    };
-
-    function openTab(key){
-      Object.keys(panels).forEach(k => panels[k].hidden = (k !== key));
-      tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === key)));
-      panels[key].scrollIntoView({behavior:"smooth", block:"start"});
-    }
-    tabs.forEach(t => t.addEventListener("click", () => openTab(t.dataset.tab)));
-
-    // i18n
     const i18n = {
       es: {
         brand_title:"Área Profesional",
         brand_sub:"Acceso para clientes · pedidos · descargas · tarifas",
         hero_title:"Bienvenid@ al Área Profesional",
-        hero_text:"Aquí tienes acceso directo a pedidos de repetición, descargas multimedia en alta resolución, tarifas, calendario de campaña y condiciones.",
-        menu_title:"Secciones",
-        tab_orders:"Pedidos repetición", tab_orders_sub:"Formulario de pedido",
-        tab_media:"Descarga multimedia", tab_media_sub:"WeTransfer alta calidad",
-        tab_prices:"Tarifas", tab_prices_sub:"PDF / Excel",
-        tab_calendar:"Calendario", tab_calendar_sub:"Fechas campaña",
-        tab_terms:"Condiciones", tab_terms_sub:"Pago · envío · plazos",
-        footer_note:"Soporte: info@abuelatata.com",
-        orders_title:"Pedidos de repetición",
-        orders_desc:"Rellena tu pedido desde la app. Si tu móvil no lo muestra bien, usa el botón de abrir en nueva pestaña.",
-        open_new_tab:"Abrir en nueva pestaña",
-        orders_notice:"Nota: el total del pedido en la app es ANTES de impuestos (IVA/Recargo según cliente).",
-        media_title:"Descarga Multimedia",
-        media_desc:"Descarga el material oficial en alta resolución. Todo está alojado en WeTransfer para mantener la máxima calidad.",
-        media_photos:"Fotografías Alta Resolución",
-        media_photos_desc:"Imágenes oficiales para web y redes.",
-        media_videos:"Vídeos",
-        media_videos_desc:"Vídeos promocionales y contenido.",
-        media_catalog:"Catálogo HD",
-        media_catalog_desc:"PDF listo para impresión.",
-        media_logos:"Logos y recursos",
-        media_logos_desc:"Logos oficiales y material de marca.",
-        media_notice:"Si algún enlace no funciona, avísanos y lo actualizamos al momento.",
-        prices_title:"Tarifas de precio",
-        prices_desc:"Descarga la tarifa oficial. Puedes tener PDF y/o Excel.",
-        prices_pdf:"Tarifa PDF",
-        prices_pdf_desc:"Para consultar e imprimir.",
-        prices_excel:"Tarifa Excel",
-        prices_excel_desc:"Para trabajar internamente.",
-        prices_notice:"Nota: las condiciones fiscales (IVA/Recargo) dependen del tipo de cliente.",
-        calendar_title:"Calendario de repeticiones",
-        calendar_desc:"Consulta fechas clave de campaña: plazos de repetición, cortes, y entregas previstas.",
-        calendar_open:"Abrir calendario",
-        calendar_notice:"Si prefieres, podemos usar un PDF calendario en vez de Google Calendar.",
-        terms_title:"Condiciones",
-        terms_desc:"Condiciones para pedidos de repetición: forma de pago, plazos y gastos de envío.",
-        terms_pill_1:"Repeticiones", terms_pill_2:"Pago", terms_pill_3:"Envío",
-        terms_block_title:"Resumen",
-        terms_block_text:"Las repeticiones se tramitan por orden de entrada. El total del pedido es ANTES de impuestos (IVA/Recargo según cliente). Los gastos de envío se aplicarán según destino y volumen. Para confirmar fechas y plazos, consulta el calendario de campaña.",
-        terms_block_title2:"Forma de pago",
-        terms_block_text2:"La forma de pago se comunicará en la confirmación del pedido. Si necesitas una confirmación especial, indícalo en observaciones.",
-        terms_block_title3:"Gastos de envío",
-        terms_block_text3:"Los gastos de envío no están incluidos y se calcularán según el envío. Si el cliente recoge o usa agencia propia, debe indicarlo.",
-        terms_pdf:"Descargar condiciones (PDF)",
-        terms_notice:"Si tienes dudas, escríbenos a info@abuelatata.com y te lo aclaramos al momento."
+        hero_text:"Acceso directo a pedidos de repetición, descargas multimedia en alta resolución, tarifas, calendario de campaña y condiciones.",
+        card_orders:"Pedidos repetición",
+        card_orders_sub:"Entra a la app a pantalla completa. (Con botón de volver)",
+        card_media:"Descarga multimedia",
+        card_media_sub:"WeTransfer en alta calidad (sin pérdida).",
+        card_prices:"Tarifas",
+        card_prices_sub:"Tarifa oficial en PDF (y Excel si aplica).",
+        card_calendar:"Calendario",
+        card_calendar_sub:"Fechas de campaña, cortes y plazos.",
+        card_terms:"Condiciones",
+        card_terms_sub:"Pago · envío · plazos de repetición.",
+        card_support:"Soporte",
+        card_support_sub:"Si hay cualquier incidencia, escríbenos.",
+        pill_fullscreen:"Pantalla completa",
+        pill_wetransfer:"WeTransfer",
+        pill_pdf:"PDF",
+        pill_dates:"Fechas",
+        pill_rules:"Normas",
+        note:"Nota: el total del pedido en la app es ANTES de impuestos (IVA/Recargo según cliente)."
       },
       en: {
         brand_title:"Professional Area",
         brand_sub:"Client access · orders · downloads · price lists",
         hero_title:"Welcome to the Professional Area",
         hero_text:"Direct access to repeat orders, high-resolution downloads, price lists, campaign calendar and terms.",
-        menu_title:"Sections",
-        tab_orders:"Repeat orders", tab_orders_sub:"Order form",
-        tab_media:"Media downloads", tab_media_sub:"WeTransfer high quality",
-        tab_prices:"Price lists", tab_prices_sub:"PDF / Excel",
-        tab_calendar:"Calendar", tab_calendar_sub:"Campaign dates",
-        tab_terms:"Terms", tab_terms_sub:"Payment · shipping · deadlines",
-        footer_note:"Support: info@abuelatata.com",
-        orders_title:"Repeat orders",
-        orders_desc:"Place your order from the app. If your phone does not display it properly, use “Open in new tab”.",
-        open_new_tab:"Open in new tab",
-        orders_notice:"Note: the order total in the app is BEFORE taxes (VAT / surcharge depending on the client).",
-        media_title:"Media downloads",
-        media_desc:"Download official high-resolution material. All files are hosted on WeTransfer to keep maximum quality.",
-        media_photos:"High-resolution photos",
-        media_photos_desc:"Official images for web and social media.",
-        media_videos:"Videos",
-        media_videos_desc:"Promotional and social content.",
-        media_catalog:"HD catalogue",
-        media_catalog_desc:"Print-ready PDF.",
-        media_logos:"Logos & assets",
-        media_logos_desc:"Official logos and brand resources.",
-        media_notice:"If any link fails, contact us and we will update it immediately.",
-        prices_title:"Price lists",
-        prices_desc:"Download the official price list (PDF and/or Excel).",
-        prices_pdf:"PDF price list",
-        prices_pdf_desc:"For viewing and printing.",
-        prices_excel:"Excel price list",
-        prices_excel_desc:"For internal work.",
-        prices_notice:"Note: tax conditions (VAT / surcharge) depend on the client type.",
-        calendar_title:"Repeat orders calendar",
-        calendar_desc:"Key campaign dates: deadlines, cut-offs and planned deliveries.",
-        calendar_open:"Open calendar",
-        calendar_notice:"If you prefer, we can use a PDF calendar instead of Google Calendar.",
-        terms_title:"Terms",
-        terms_desc:"Repeat order terms: payment method, deadlines and shipping costs.",
-        terms_pill_1:"Repeats", terms_pill_2:"Payment", terms_pill_3:"Shipping",
-        terms_block_title:"Summary",
-        terms_block_text:"Repeat orders are processed in order of arrival. The order total is BEFORE taxes (VAT / surcharge depending on the client). Shipping costs depend on destination and volume. Please check the campaign calendar for deadlines.",
-        terms_block_title2:"Payment",
-        terms_block_text2:"Payment method will be confirmed with the order confirmation. If you need a specific arrangement, please write it in notes.",
-        terms_block_title3:"Shipping costs",
-        terms_block_text3:"Shipping is not included and will be calculated for each shipment. If the client collects or uses their own carrier, they must indicate it.",
-        terms_pdf:"Download terms (PDF)",
-        terms_notice:"If you have any questions, email info@abuelatata.com."
+        card_orders:"Repeat orders",
+        card_orders_sub:"Open the app in full screen. (Back button included)",
+        card_media:"Media downloads",
+        card_media_sub:"WeTransfer in high quality (no loss).",
+        card_prices:"Price lists",
+        card_prices_sub:"Official PDF price list (and Excel if applicable).",
+        card_calendar:"Calendar",
+        card_calendar_sub:"Campaign dates, cut-offs and deadlines.",
+        card_terms:"Terms",
+        card_terms_sub:"Payment · shipping · repeat order deadlines.",
+        card_support:"Support",
+        card_support_sub:"If anything happens, email us.",
+        pill_fullscreen:"Full screen",
+        pill_wetransfer:"WeTransfer",
+        pill_pdf:"PDF",
+        pill_dates:"Dates",
+        pill_rules:"Rules",
+        note:"Note: the order total in the app is BEFORE taxes (VAT / surcharge depending on the client)."
       },
       pt: {
         brand_title:"Área Profissional",
         brand_sub:"Acesso para clientes · pedidos · downloads · preços",
         hero_title:"Bem-vind@ à Área Profissional",
         hero_text:"Acesso direto a pedidos de repetição, downloads em alta resolução, tabelas de preços, calendário e condições.",
-        menu_title:"Secções",
-        tab_orders:"Pedidos repetição", tab_orders_sub:"Formulário de pedido",
-        tab_media:"Download multimédia", tab_media_sub:"WeTransfer alta qualidade",
-        tab_prices:"Tabelas de preços", tab_prices_sub:"PDF / Excel",
-        tab_calendar:"Calendário", tab_calendar_sub:"Datas da campanha",
-        tab_terms:"Condições", tab_terms_sub:"Pagamento · envio · prazos",
-        footer_note:"Suporte: info@abuelatata.com",
-        orders_title:"Pedidos de repetição",
-        orders_desc:"Faça o seu pedido na app. Se o telemóvel não mostrar bem, use “Abrir em novo separador”.",
-        open_new_tab:"Abrir em novo separador",
-        orders_notice:"Nota: o total do pedido na app é ANTES de impostos (IVA/recargo conforme o cliente).",
-        media_title:"Download Multimédia",
-        media_desc:"Baixe o material oficial em alta resolução. Tudo está alojado no WeTransfer para manter a máxima qualidade.",
-        media_photos:"Fotografias Alta Resolução",
-        media_photos_desc:"Imagens oficiais para web e redes sociais.",
-        media_videos:"Vídeos",
-        media_videos_desc:"Conteúdo promocional.",
-        media_catalog:"Catálogo HD",
-        media_catalog_desc:"PDF pronto para impressão.",
-        media_logos:"Logótipos e recursos",
-        media_logos_desc:"Logótipos oficiais e recursos da marca.",
-        media_notice:"Se algum link falhar, contacte-nos e atualizamos de imediato.",
-        prices_title:"Tabelas de preços",
-        prices_desc:"Baixe a tabela oficial (PDF e/ou Excel).",
-        prices_pdf:"Tabela PDF",
-        prices_pdf_desc:"Para consultar e imprimir.",
-        prices_excel:"Tabela Excel",
-        prices_excel_desc:"Para uso interno.",
-        prices_notice:"Nota: as condições fiscais dependem do tipo de cliente.",
-        calendar_title:"Calendário de repetição",
-        calendar_desc:"Datas-chave: prazos, cortes e entregas previstas.",
-        calendar_open:"Abrir calendário",
-        calendar_notice:"Se preferir, podemos usar um calendário em PDF em vez do Google Calendar.",
-        terms_title:"Condições",
-        terms_desc:"Condições de repetição: pagamento, prazos e custos de envio.",
-        terms_pill_1:"Repetições", terms_pill_2:"Pagamento", terms_pill_3:"Envio",
-        terms_block_title:"Resumo",
-        terms_block_text:"As repetições são processadas por ordem de chegada. O total é ANTES de impostos. Os custos de envio variam conforme destino e volume. Consulte o calendário da campanha para prazos.",
-        terms_block_title2:"Pagamento",
-        terms_block_text2:"O método de pagamento será confirmado na confirmação do pedido. Se precisar de algo específico, indique nas observações.",
-        terms_block_title3:"Custos de envio",
-        terms_block_text3:"O envio não está incluído e será calculado caso a caso. Se o cliente recolher ou usar transportadora própria, deve indicar.",
-        terms_pdf:"Baixar condições (PDF)",
-        terms_notice:"Dúvidas? Envie email para info@abuelatata.com."
+        card_orders:"Pedidos repetição",
+        card_orders_sub:"Abra a app em ecrã completo. (Com botão de voltar)",
+        card_media:"Download multimédia",
+        card_media_sub:"WeTransfer em alta qualidade (sem perda).",
+        card_prices:"Tabelas de preços",
+        card_prices_sub:"Tabela oficial em PDF (e Excel se aplicável).",
+        card_calendar:"Calendário",
+        card_calendar_sub:"Datas da campanha, cortes e prazos.",
+        card_terms:"Condições",
+        card_terms_sub:"Pagamento · envio · prazos de repetição.",
+        card_support:"Suporte",
+        card_support_sub:"Se houver algum problema, envie-nos email.",
+        pill_fullscreen:"Ecrã completo",
+        pill_wetransfer:"WeTransfer",
+        pill_pdf:"PDF",
+        pill_dates:"Datas",
+        pill_rules:"Regras",
+        note:"Nota: o total do pedido na app é ANTES de impostos (IVA/recargo conforme o cliente)."
       }
     };
 
@@ -650,17 +421,11 @@
       document.getElementById("btn-pt").setAttribute("aria-pressed", String(lang==="pt"));
       localStorage.setItem("lang", lang);
     }
+
     document.getElementById("btn-es").addEventListener("click", ()=>setLang("es"));
     document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
     document.getElementById("btn-pt").addEventListener("click", ()=>setLang("pt"));
 
-    // Tabs init
-    function openTab(key){
-      Object.keys(panels).forEach(k => panels[k].hidden = (k !== key));
-      tabs.forEach(t => t.setAttribute("aria-selected", String(t.dataset.tab === key)));
-      panels[key].scrollIntoView({behavior:"smooth", block:"start"});
-    }
-    openTab("orders");
     setLang(localStorage.getItem("lang") || "es");
   </script>
 </body>
