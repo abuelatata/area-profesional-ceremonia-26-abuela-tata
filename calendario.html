@@ -31,15 +31,19 @@ body{
   text-decoration:none;
   color:#5f4636;
 }
-iframe{
-  position:fixed;
-  top:62px;
-  left:0;
-  right:0;
-  bottom:0;
-  width:100%;
-  height:calc(100vh - 62px);
-  border:0;
+.content{
+  margin-top:120px;
+  text-align:center;
+  padding:20px;
+}
+.download-btn{
+  display:inline-block;
+  padding:16px 28px;
+  background:#6e4f3a;
+  color:#fff;
+  text-decoration:none;
+  border-radius:10px;
+  font-size:18px;
 }
 </style>
 </head>
@@ -51,7 +55,20 @@ iframe{
   <div>Calendario de Repeticiones</div>
 </div>
 
-<iframe src="./calendario-repeticiones-ceremonia-26.pdf"></iframe>
+<div class="content">
+  <h2>Calendario · Ceremonia 26</h2>
+  <p>Pulsa el botón para ver o descargar el calendario completo.</p>
+
+  <br><br>
+
+  <a class="download-btn"
+     href="./calendario-repeticiones-ceremonia-26.pdf"
+     target="_blank"
+     rel="noopener"
+     download>
+     📅 Ver / Descargar Calendario (PDF)
+  </a>
+</div>
 
 </body>
 </html>
