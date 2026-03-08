@@ -5,13 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Área Profesional · Abuela Tata</title>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon.png" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="icon" href="./assets/favicon.png" />
   <link rel="manifest" href="./manifest.json" />
   <meta name="theme-color" content="#7fb9b3" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Abuela Tata" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
 
   <style>
     :root{
@@ -81,37 +78,6 @@
       border-color:rgba(127,185,179,.55);
     }
     .flag:active{transform:scale(.98)}
-
-    .installBtn{
-      display:none;
-      border:1px solid rgba(127,185,179,.55);
-      background:rgba(127,185,179,.18);
-    }
-    .installBtn.show{display:inline-flex}
-
-    .splash{
-      position:fixed; inset:0; z-index:9999;
-      display:flex; align-items:center; justify-content:center;
-      background:var(--bg);
-      transition:opacity .45s ease, visibility .45s ease;
-    }
-    .splash.hide{opacity:0; visibility:hidden; pointer-events:none}
-    .splashCard{
-      width:min(280px, 78vw);
-      padding:22px 18px;
-      border-radius:26px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.82);
-      box-shadow:var(--shadow);
-      text-align:center;
-    }
-    .splashLogo{
-      width:110px; height:110px; object-fit:contain;
-      display:block; margin:0 auto 14px;
-    }
-    .splashTitle{font-size:20px; font-weight:800; margin:0}
-    .splashSub{margin:6px 0 0; color:var(--muted); font-size:13px}
-
 
     .hero{
       margin-top:14px;
@@ -230,17 +196,86 @@
       color:var(--muted);
       opacity:.95;
     }
+
+
+    .installBar{
+      position:fixed;
+      left:50%;
+      bottom:12px;
+      transform:translateX(-50%);
+      width:min(calc(100% - 24px), 430px);
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      background:rgba(255,255,255,.96);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:0 12px 28px rgba(60,40,25,.16);
+      z-index:50;
+      backdrop-filter: blur(10px);
+    }
+    .installCopy{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .installTitle{
+      font-size:13px;
+      font-weight:800;
+      line-height:1.15;
+    }
+    .installText{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.2;
+    }
+    .installActions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+    }
+    .installMini{
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      font-size:12px;
+      box-shadow:0 6px 16px rgba(60,40,25,.08);
+      white-space:nowrap;
+    }
+    .installMini.primary{
+      background:rgba(127,185,179,.20);
+      border-color:rgba(127,185,179,.65);
+      font-weight:700;
+    }
+    @media(max-width:560px){
+      .wrap{padding:14px 10px 88px}
+      .topbar{padding:10px; gap:10px}
+      .brand{min-width:0; flex:1 1 auto}
+      .brand .t1{font-size:16px}
+      .brand .t2{font-size:11px}
+      .lang{gap:6px}
+      .flag{padding:7px 8px; font-size:12px}
+      .hero{padding:15px 14px}
+      .hero h1{font-size:20px}
+      .card{padding:12px}
+      .row{gap:8px}
+      .btn{padding:9px 10px; font-size:13px}
+      .pill{font-size:11px; padding:6px 9px}
+      .installBar{padding:10px; gap:8px}
+      .installTitle{font-size:12px}
+      .installText{font-size:10px}
+      .installMini{padding:8px 9px; font-size:11px}
+    }
   </style>
 </head>
 
 <body>
-  <div class="splash" id="splash">
-    <div class="splashCard">
-      <img class="splashLogo" src="./icons/icon-512.png" alt="Abuela Tata">
-      <h2 class="splashTitle">Abuela Tata</h2>
-      <p class="splashSub">Área Profesional</p>
-    </div>
-  </div>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -255,7 +290,6 @@
         <button class="flag" id="btn-es" aria-pressed="true" title="Español">🇪🇸 ES</button>
         <button class="flag" id="btn-en" aria-pressed="false" title="English">🇬🇧 EN</button>
         <button class="flag" id="btn-pt" aria-pressed="false" title="Português">🇵🇹 PT</button>
-        <button class="btn installBtn" id="installBtn" type="button">📲 Instalar app</button>
       </div>
     </div>
 
@@ -374,23 +408,25 @@
       Nota: el total del pedido en la app es ANTES de impuestos (IVA/Recargo según cliente).
     </div>
 
+
+
+    <div class="installBar" id="installBar" aria-live="polite">
+      <div class="installCopy">
+        <div class="installTitle" data-i18n="install_title">Instala la app en tu móvil</div>
+        <div class="installText" id="installText" data-i18n="install_text">Acceso directo en pantalla de inicio.</div>
+      </div>
+      <div class="installActions">
+        <button class="installMini" id="installClose" type="button" aria-label="Cerrar">✕</button>
+        <button class="installMini primary" id="installBtn" type="button" data-i18n="install_btn">Instalar</button>
+      </div>
+    </div>
+
     <footer>
       <span>© Abuela Tata · Uso profesional B2B</span>
     </footer>
   </div>
 
   <script>
-    let deferredPrompt = null;
-
-    function hideSplash(){
-      const splash = document.getElementById('splash');
-      if(splash) splash.classList.add('hide');
-    }
-
-    window.addEventListener('load', ()=>{
-      setTimeout(hideSplash, 900);
-    });
-
     const i18n = {
       es: {
         brand_title:"Área Profesional",
@@ -415,7 +451,10 @@
         pill_dates:"Fechas",
         pill_rules:"Normas",
         note:"Nota: el total del pedido en la app es ANTES de impuestos (IVA/Recargo según cliente).",
-        install_app:"📲 Instalar app"
+        install_title:"Instala la app en tu móvil",
+        install_text:"Acceso directo en pantalla de inicio.",
+        install_btn:"Instalar",
+        install_ios:"En iPhone: pulsa Compartir y luego Añadir a pantalla de inicio."
       },
       en: {
         brand_title:"Professional Area",
@@ -440,7 +479,10 @@
         pill_dates:"Dates",
         pill_rules:"Rules",
         note:"Note: the order total in the app is BEFORE taxes (VAT / surcharge depending on the client).",
-        install_app:"📲 Install app"
+        install_title:"Install the app on your phone",
+        install_text:"Add a shortcut to your home screen.",
+        install_btn:"Install",
+        install_ios:"On iPhone: tap Share and then Add to Home Screen."
       },
       pt: {
         brand_title:"Área Profissional",
@@ -465,7 +507,10 @@
         pill_dates:"Datas",
         pill_rules:"Regras",
         note:"Nota: o total do pedido na app é ANTES de impostos (IVA/recargo conforme o cliente).",
-        install_app:"📲 Instalar app"
+        install_title:"Instale a app no seu telemóvel",
+        install_text:"Atalho direto no ecrã inicial.",
+        install_btn:"Instalar",
+        install_ios:"No iPhone: toque em Partilhar e depois em Adicionar ao ecrã principal."
       }
     };
 
@@ -478,34 +523,79 @@
       document.getElementById("btn-es").setAttribute("aria-pressed", String(lang==="es"));
       document.getElementById("btn-en").setAttribute("aria-pressed", String(lang==="en"));
       document.getElementById("btn-pt").setAttribute("aria-pressed", String(lang==="pt"));
-      const installBtn = document.getElementById('installBtn');
-      if(installBtn && i18n[lang] && i18n[lang].install_app) installBtn.textContent = i18n[lang].install_app;
       localStorage.setItem("lang", lang);
+      if (typeof updateInstallText === "function") updateInstallText(lang);
     }
 
     document.getElementById("btn-es").addEventListener("click", ()=>setLang("es"));
     document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
     document.getElementById("btn-pt").addEventListener("click", ()=>setLang("pt"));
 
-    const installBtn = document.getElementById('installBtn');
+    setLang(localStorage.getItem("lang") || "es");
+  </script>
+
+
+  <script>
+    let deferredPrompt = null;
+
+    function isIos(){
+      return /iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    function isInStandaloneMode(){
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
+    function closeInstallBar(remind = true){
+      const bar = document.getElementById('installBar');
+      if(!bar) return;
+      bar.style.display = 'none';
+      if(remind) localStorage.setItem('installBarClosed', '1');
+    }
+
+    function openInstallBar(){
+      if(isInStandaloneMode()) return;
+      if(localStorage.getItem('installBarClosed') === '1') return;
+      const bar = document.getElementById('installBar');
+      if(bar) bar.style.display = 'flex';
+    }
+
+    function updateInstallText(lang){
+      const txt = document.getElementById('installText');
+      const btn = document.getElementById('installBtn');
+      if(!txt || !btn) return;
+
+      if(isIos() && !deferredPrompt){
+        txt.textContent = i18n[lang]?.install_ios || i18n.es.install_ios;
+        btn.style.display = 'none';
+      } else {
+        txt.textContent = i18n[lang]?.install_text || i18n.es.install_text;
+        btn.style.display = deferredPrompt ? 'inline-flex' : 'none';
+      }
+    }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.classList.add('show');
+      localStorage.removeItem('installBarClosed');
+      updateInstallText(document.documentElement.lang || 'es');
+      openInstallBar();
     });
 
-    installBtn.addEventListener('click', async () => {
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      closeInstallBar(false);
+    });
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
       if(!deferredPrompt) return;
       deferredPrompt.prompt();
       await deferredPrompt.userChoice;
       deferredPrompt = null;
-      installBtn.classList.remove('show');
+      closeInstallBar(false);
     });
 
-    window.addEventListener('appinstalled', () => {
-      installBtn.classList.remove('show');
-    });
+    document.getElementById('installClose').addEventListener('click', () => closeInstallBar(true));
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -513,7 +603,10 @@
       });
     }
 
-    setLang(localStorage.getItem("lang") || "es");
+    setTimeout(() => {
+      updateInstallText(document.documentElement.lang || 'es');
+      if(isIos() && !isInStandaloneMode()) openInstallBar();
+    }, 1200);
   </script>
 </body>
 </html>
