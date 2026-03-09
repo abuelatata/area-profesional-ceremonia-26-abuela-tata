@@ -228,46 +228,75 @@
     }
 
     /* =========================
-       APP ORIGINAL
+       APP ORIGINAL OPTIMIZADA
     ========================= */
     .appShell{display:none}
     .appShell.show{display:block}
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:18px 14px 60px}
+    .wrap{max-width:var(--max); margin:0 auto; padding:10px 12px 60px}
 
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px;
-      padding:12px 12px;
-      background:rgba(255,255,255,.72);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 10px;
+      background:rgba(255,255,255,.84);
       border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      position:sticky; top:10px; z-index:20;
+      border-radius:16px;
+      box-shadow:0 8px 24px rgba(60,40,25,.10);
+      position:sticky;
+      top:8px;
+      z-index:20;
       backdrop-filter: blur(8px);
     }
-    .brand{display:flex; align-items:center; gap:12px; min-width: 230px;}
-    .brand img{
-      width:46px; height:46px; object-fit:contain;
-      border-radius:12px; background:#fff; border:1px solid var(--line)
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      flex:1 1 auto;
     }
-    .brand .t1{font-size:17px; font-weight:800; letter-spacing:.2px}
-    .brand .t2{font-size:12px; color:var(--muted); margin-top:2px}
+    .brand img{
+      width:38px;
+      height:38px;
+      object-fit:contain;
+      border-radius:10px;
+      background:#fff;
+      border:1px solid var(--line)
+    }
+    .brand .t1{
+      font-size:15px;
+      font-weight:800;
+      letter-spacing:.15px;
+      line-height:1.05;
+    }
+    .brand .t2{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:2px;
+      line-height:1.15;
+    }
 
     .lang{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      display:flex;
+      gap:6px;
+      align-items:center;
+      flex-wrap:wrap;
       justify-content:flex-end;
+      flex:0 0 auto;
     }
     .flag{
       border:1px solid var(--line);
       background:#fff;
-      padding:8px 10px;
-      border-radius:12px;
-      box-shadow:0 6px 16px rgba(60,40,25,.08);
+      padding:7px 8px;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(60,40,25,.06);
       cursor:pointer;
-      font-size:14px;
+      font-size:12px;
       user-select:none;
       transition:.15s transform, .15s background, .15s border-color;
+      line-height:1;
     }
     .flag[aria-pressed="true"]{
       background:rgba(127,185,179,.18);
@@ -276,31 +305,31 @@
     .flag:active{transform:scale(.98)}
 
     .hero{
-      margin-top:14px;
-      padding:18px 16px;
+      margin-top:10px;
+      padding:14px 14px;
       background:rgba(255,255,255,.72);
       border:1px solid var(--line);
-      border-radius:var(--radius);
+      border-radius:16px;
       box-shadow:var(--shadow);
     }
-    .hero h1{margin:0 0 6px; font-size:22px}
-    .hero p{margin:0; color:var(--muted); line-height:1.45}
+    .hero h1{margin:0 0 4px; font-size:20px; line-height:1.08}
+    .hero p{margin:0; color:var(--muted); line-height:1.38; font-size:14px}
 
     .grid{
-      margin-top:14px;
+      margin-top:10px;
       display:grid;
       grid-template-columns: 1fr;
-      gap:12px;
+      gap:10px;
     }
     @media(min-width:900px){
       .grid{grid-template-columns: 1fr 1fr;}
     }
 
     .card{
-      padding:14px;
+      padding:13px;
       background:rgba(255,255,255,.72);
       border:1px solid var(--line);
-      border-radius:var(--radius);
+      border-radius:16px;
       box-shadow:var(--shadow);
       transition:.15s transform, .15s background, .15s border-color;
       text-decoration:none;
@@ -312,33 +341,34 @@
     .card:active{ transform: translateY(0px) scale(.995); }
 
     .cardHead{
-      display:flex; align-items:flex-start; gap:12px;
+      display:flex; align-items:flex-start; gap:10px;
     }
     .ico{
-      width:44px; height:44px; border-radius:14px;
+      width:40px; height:40px; border-radius:12px;
       display:grid; place-items:center;
       background:rgba(215,166,166,.18);
       border:1px solid rgba(215,166,166,.35);
-      font-size:18px;
+      font-size:17px;
       flex:0 0 auto;
     }
     .ttl{
       font-weight:900;
       margin:0;
-      font-size:16px;
-      letter-spacing:.15px;
+      font-size:15px;
+      letter-spacing:.12px;
+      line-height:1.15;
     }
     .sub{
-      margin:6px 0 0;
+      margin:5px 0 0;
       color:var(--muted);
-      line-height:1.35;
-      font-size:13px;
+      line-height:1.32;
+      font-size:12.5px;
     }
 
     .row{
-      margin-top:12px;
+      margin-top:10px;
       display:flex;
-      gap:10px;
+      gap:8px;
       flex-wrap:wrap;
       align-items:center;
       justify-content:space-between;
@@ -348,25 +378,25 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:7px 10px;
+      padding:6px 9px;
       border-radius:999px;
       background:rgba(127,185,179,.14);
       border:1px solid rgba(127,185,179,.35);
-      font-size:12px;
+      font-size:11px;
       color:var(--ink);
       white-space:nowrap;
     }
 
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:8px;
-      padding:10px 12px;
-      border-radius:14px;
+      padding:9px 11px;
+      border-radius:12px;
       border:1px solid var(--line);
       background:#fff;
       cursor:pointer;
       box-shadow:0 6px 16px rgba(60,40,25,.08);
       transition:.15s transform, .15s background, .15s border-color;
-      font-size:14px;
+      font-size:13px;
       text-decoration:none;
       white-space:nowrap;
     }
@@ -375,18 +405,18 @@
     .btn:active{transform:scale(.99)}
 
     .note{
-      margin-top:14px;
-      padding:12px 14px;
-      border-radius:16px;
+      margin-top:12px;
+      padding:11px 12px;
+      border-radius:14px;
       border:1px dashed rgba(127,185,179,.65);
       background:rgba(127,185,179,.10);
       color:var(--ink);
       line-height:1.35;
-      font-size:13px;
+      font-size:12.5px;
     }
 
     footer{
-      margin-top:14px;
+      margin-top:12px;
       text-align:center;
       font-size:12px;
       color:var(--muted);
@@ -394,38 +424,38 @@
     }
 
     .sectionBlock{
-      margin-top:18px;
+      margin-top:14px;
     }
     .sectionHead{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap:12px;
-      margin:18px 2px 10px;
+      margin:14px 2px 8px;
       padding:0 2px;
     }
     .sectionEyebrow{
-      font-size:11px;
+      font-size:10px;
       font-weight:800;
-      letter-spacing:1.2px;
+      letter-spacing:1.1px;
       text-transform:uppercase;
       color:var(--accent);
       margin-bottom:4px;
     }
     .sectionTitle{
       margin:0;
-      font-size:24px;
-      line-height:1.05;
+      font-size:22px;
+      line-height:1.03;
     }
     .sectionText{
-      margin:5px 0 0;
+      margin:4px 0 0;
       color:var(--muted);
-      line-height:1.35;
-      font-size:14px;
+      line-height:1.32;
+      font-size:13px;
       max-width:700px;
     }
     .segmentedNav{
-      margin-top:14px;
+      margin-top:10px;
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:10px;
@@ -434,33 +464,72 @@
       display:flex;
       flex-direction:column;
       gap:4px;
-      padding:14px 16px;
-      border-radius:18px;
+      padding:13px 14px;
+      border-radius:16px;
       border:1px solid var(--line);
       background:rgba(255,255,255,.82);
       box-shadow:var(--shadow);
       text-decoration:none;
-      min-height:86px;
+      min-height:76px;
     }
     .segBtn strong{
-      font-size:16px;
+      font-size:15px;
       line-height:1.15;
     }
     .segBtn span{
       font-size:12px;
       color:var(--muted);
-      line-height:1.25;
+      line-height:1.22;
     }
     .segBtn.orders{border-color:rgba(127,185,179,.55); background:rgba(127,185,179,.12);}
     .segBtn.stock{border-color:rgba(215,166,166,.45); background:rgba(215,166,166,.10);}
     @media(max-width:560px){
-      .sectionHead{margin-top:16px}
-      .sectionTitle{font-size:21px}
-      .sectionText{font-size:13px}
-      .segmentedNav{grid-template-columns:1fr; gap:8px}
-      .segBtn{padding:13px 14px; min-height:auto}
-      .segBtn strong{font-size:15px}
-      .segBtn span{font-size:12px}
+      .wrap{padding:8px 8px 88px}
+      .topbar{
+        gap:8px;
+        padding:7px 8px;
+        border-radius:14px;
+        top:6px;
+      }
+      .brand img{width:34px; height:34px; border-radius:9px}
+      .brand .t1{font-size:14px}
+      .brand .t2{
+        font-size:10px;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        max-width:145px;
+      }
+      .lang{
+        gap:4px;
+        flex-wrap:nowrap;
+      }
+      .flag{
+        padding:6px 6px;
+        font-size:11px;
+        min-width:44px;
+      }
+      .hero{padding:12px 12px; margin-top:8px}
+      .hero h1{font-size:18px}
+      .hero p{font-size:13px}
+      .sectionBlock{margin-top:12px}
+      .sectionHead{margin-top:12px; margin-bottom:7px}
+      .sectionTitle{font-size:19px}
+      .sectionText{font-size:12.5px}
+      .segmentedNav{grid-template-columns:1fr; gap:8px; margin-top:8px}
+      .segBtn{padding:12px 13px; min-height:auto}
+      .segBtn strong{font-size:14px}
+      .segBtn span{font-size:11.5px}
+      .card{padding:11px}
+      .ttl{font-size:14px}
+      .sub{font-size:12px}
+      .row{gap:7px}
+      .btn{padding:8px 9px; font-size:12px}
+      .pill{font-size:10.5px; padding:5px 8px}
+      .installBar{padding:10px; gap:8px}
+      .installTitle{font-size:12px}
+      .installText{font-size:10px}
+      .installMini{padding:8px 9px; font-size:11px}
     }
 
     .installBar{
@@ -517,25 +586,6 @@
       background:rgba(127,185,179,.20);
       border-color:rgba(127,185,179,.65);
       font-weight:700;
-    }
-    @media(max-width:560px){
-      .wrap{padding:14px 10px 88px}
-      .topbar{padding:10px; gap:10px}
-      .brand{min-width:0; flex:1 1 auto}
-      .brand .t1{font-size:16px}
-      .brand .t2{font-size:11px}
-      .lang{gap:6px}
-      .flag{padding:7px 8px; font-size:12px}
-      .hero{padding:15px 14px}
-      .hero h1{font-size:20px}
-      .card{padding:12px}
-      .row{gap:8px}
-      .btn{padding:9px 10px; font-size:13px}
-      .pill{font-size:11px; padding:6px 9px}
-      .installBar{padding:10px; gap:8px}
-      .installTitle{font-size:12px}
-      .installText{font-size:10px}
-      .installMini{padding:8px 9px; font-size:11px}
     }
   </style>
 </head>
