@@ -14,12 +14,11 @@
     :root{
       --bg:#f5efe6;
       --card:rgba(255,255,255,.78);
-      --card2:#fff;
       --ink:#5f4636;
       --muted:#7a5c47;
       --line:#e6d6c6;
       --accent:#7fb9b3;
-      --accent2:#d7a6a6;
+      --accent2:#d7a6a6;   /* maquillaje */
       --accent3:#e8c98f;
       --shadow: 0 10px 30px rgba(60,40,25,.12);
       --shadow-strong: 0 16px 36px rgba(60,40,25,.16);
@@ -42,28 +41,62 @@
     .wrap{max-width:var(--max); margin:0 auto; padding:18px 14px 60px}
 
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:12px;
-      padding:12px 12px;
+      padding:12px;
       background:rgba(255,255,255,.72);
       border:1px solid var(--line);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      position:sticky; top:10px; z-index:20;
+      position:sticky;
+      top:10px;
+      z-index:20;
       backdrop-filter: blur(8px);
     }
-    .brand{display:flex; align-items:center; gap:12px; min-width: 230px;}
-    .brand img{
-      width:46px; height:46px; object-fit:contain;
-      border-radius:12px; background:#fff; border:1px solid var(--line)
-    }
-    .brand .t1{font-size:17px; font-weight:800; letter-spacing:.2px}
-    .brand .t2{font-size:12px; color:var(--muted); margin-top:2px}
 
-    .lang{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:230px;
+    }
+    .brand img{
+      width:46px;
+      height:46px;
+      object-fit:contain;
+      border-radius:12px;
+      background:#fff;
+      border:1px solid var(--line);
+    }
+    .brand .t1{
+      font-size:17px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .brand .t2{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .topbarRight{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
       justify-content:flex-end;
     }
+
+    .lang{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
     .flag{
       border:1px solid var(--line);
       background:#fff;
@@ -81,6 +114,29 @@
     }
     .flag:active{transform:scale(.98)}
 
+    .installTopBtn{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(127,185,179,.65);
+      background:rgba(127,185,179,.20);
+      color:var(--ink);
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(60,40,25,.08);
+      font-size:14px;
+      font-weight:800;
+      white-space:nowrap;
+      transition:.15s transform, .15s background, .15s border-color;
+    }
+    .installTopBtn:hover{
+      background:rgba(127,185,179,.28);
+      border-color:rgba(127,185,179,.85);
+    }
+    .installTopBtn:active{transform:scale(.99)}
+
     .hero{
       margin-top:14px;
       padding:20px 18px;
@@ -92,9 +148,7 @@
     .hero h1{margin:0 0 8px; font-size:25px}
     .hero p{margin:0; color:var(--muted); line-height:1.5}
 
-    .sectionBlock{
-      margin-top:18px;
-    }
+    .sectionBlock{margin-top:18px}
     .sectionHead{
       display:flex;
       align-items:flex-start;
@@ -127,11 +181,11 @@
     .grid{
       margin-top:14px;
       display:grid;
-      grid-template-columns: 1fr;
+      grid-template-columns:1fr;
       gap:14px;
     }
     @media(min-width:900px){
-      .grid{grid-template-columns: 1fr 1fr;}
+      .grid{grid-template-columns:1fr 1fr;}
     }
 
     .card{
@@ -155,22 +209,22 @@
       pointer-events:none;
     }
     .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 18px 40px rgba(60,40,25,.18);
+      transform:translateY(-3px);
+      box-shadow:0 18px 40px rgba(60,40,25,.18);
     }
-    .card:active{ transform: translateY(0px) scale(.995); }
+    .card:active{transform:translateY(0) scale(.995)}
 
     .card.ceremony{
-      background:linear-gradient(180deg, rgba(127,185,179,.18), rgba(255,255,255,.85));
-      border-color:rgba(127,185,179,.45);
+      background:linear-gradient(180deg, rgba(215,166,166,.20), rgba(255,255,255,.88));
+      border-color:rgba(215,166,166,.50);
     }
     .card.summer{
       background:linear-gradient(180deg, rgba(232,201,143,.22), rgba(255,255,255,.88));
       border-color:rgba(232,201,143,.55);
     }
     .card.media{
-      background:linear-gradient(180deg, rgba(215,166,166,.18), rgba(255,255,255,.88));
-      border-color:rgba(215,166,166,.45);
+      background:linear-gradient(180deg, rgba(127,185,179,.16), rgba(255,255,255,.88));
+      border-color:rgba(127,185,179,.40);
     }
     .card.prices{
       background:linear-gradient(180deg, rgba(127,185,179,.14), rgba(255,255,255,.88));
@@ -182,19 +236,31 @@
     }
 
     .cardHead{
-      display:flex; align-items:flex-start; gap:14px;
+      display:flex;
+      align-items:flex-start;
+      gap:14px;
       position:relative;
       z-index:1;
     }
+
     .ico{
-      width:58px; height:58px; border-radius:18px;
-      display:grid; place-items:center;
+      width:58px;
+      height:58px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
       background:rgba(255,255,255,.65);
       border:1px solid rgba(255,255,255,.65);
       font-size:25px;
       flex:0 0 auto;
       box-shadow:0 8px 18px rgba(60,40,25,.10);
     }
+    .ico svg{
+      width:30px;
+      height:30px;
+      display:block;
+    }
+
     .ttl{
       font-weight:900;
       margin:0;
@@ -236,7 +302,10 @@
     }
 
     .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
       padding:11px 13px;
       border-radius:14px;
       border:1px solid var(--line);
@@ -250,9 +319,9 @@
       font-weight:700;
     }
     .btn:hover{background:rgba(127,185,179,.10); border-color:rgba(127,185,179,.45)}
-    .btn.primary{background:rgba(127,185,179,.20); border-color:rgba(127,185,179,.65)}
+    .btn.primary{background:rgba(215,166,166,.25); border-color:rgba(215,166,166,.70)}
     .btn.summerBtn{background:rgba(232,201,143,.28); border-color:rgba(232,201,143,.65)}
-    .btn.mediaBtn{background:rgba(215,166,166,.20); border-color:rgba(215,166,166,.55)}
+    .btn.mediaBtn{background:rgba(127,185,179,.20); border-color:rgba(127,185,179,.55)}
     .btn:active{transform:scale(.99)}
 
     .note{
@@ -330,6 +399,16 @@
       font-weight:700;
     }
 
+    @media(max-width:760px){
+      .topbar{
+        align-items:flex-start;
+      }
+      .topbarRight{
+        width:100%;
+        justify-content:flex-start;
+      }
+    }
+
     @media(max-width:560px){
       .wrap{padding:14px 10px 88px}
       .topbar{padding:10px; gap:10px}
@@ -338,6 +417,11 @@
       .brand .t2{font-size:11px}
       .lang{gap:6px}
       .flag{padding:7px 8px; font-size:12px}
+      .installTopBtn{
+        padding:9px 11px;
+        font-size:12px;
+        border-radius:12px;
+      }
       .hero{padding:16px 14px}
       .hero h1{font-size:21px}
       .sectionTitle{font-size:22px}
@@ -347,7 +431,12 @@
         min-height:170px;
       }
       .ico{
-        width:52px; height:52px; font-size:22px;
+        width:52px;
+        height:52px;
+      }
+      .ico svg{
+        width:27px;
+        height:27px;
       }
       .ttl{font-size:21px}
       .sub{font-size:13px}
@@ -373,10 +462,14 @@
         </div>
       </div>
 
-      <div class="lang" aria-label="Idioma">
-        <button class="flag" id="btn-es" aria-pressed="true" title="Español">🇪🇸 ES</button>
-        <button class="flag" id="btn-en" aria-pressed="false" title="English">🇬🇧 EN</button>
-        <button class="flag" id="btn-pt" aria-pressed="false" title="Português">🇵🇹 PT</button>
+      <div class="topbarRight">
+        <button class="installTopBtn" id="installTopBtn" type="button" data-i18n="install_top_btn">Instalar app</button>
+
+        <div class="lang" aria-label="Idioma">
+          <button class="flag" id="btn-es" aria-pressed="true" title="Español">🇪🇸 ES</button>
+          <button class="flag" id="btn-en" aria-pressed="false" title="English">🇬🇧 EN</button>
+          <button class="flag" id="btn-pt" aria-pressed="false" title="Português">🇵🇹 PT</button>
+        </div>
       </div>
     </div>
 
@@ -402,7 +495,17 @@
     <section class="grid" aria-label="Secciones principales">
       <a class="card ceremony" href="./ceremonia.html">
         <div class="cardHead">
-          <div class="ico">🎀</div>
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img" aria-label="Lazo maquillaje">
+              <path d="M32 27c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7z" fill="#c98f98"/>
+              <path d="M28 31c-6-10-16-15-23-13-2 1-3 3-2 5 2 6 10 13 20 16l5-8z" fill="#d7a6a6"/>
+              <path d="M36 31c6-10 16-15 23-13 2 1 3 3 2 5-2 6-10 13-20 16l-5-8z" fill="#d7a6a6"/>
+              <path d="M30 40l-5 17c0 1 1 2 2 2 5-1 9-4 11-8l-3-11h-5z" fill="#c98f98"/>
+              <path d="M34 40l5 17c0 1-1 2-2 2-5-1-9-4-11-8l3-11h5z" fill="#c98f98"/>
+              <path d="M20 21c4 1 8 4 11 9" stroke="#b87c86" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+              <path d="M44 21c-4 1-8 4-11 9" stroke="#b87c86" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
           <div>
             <h2 class="ttl" data-i18n="card_ceremony">Ceremonia 26</h2>
             <p class="sub" data-i18n="card_ceremony_sub">
@@ -528,10 +631,12 @@
         pill_terms:"Condiciones B2B",
         enter_btn:"Entrar →",
         note:"Nota: dentro de las apps de pedidos y stock, la vista inicial debe mostrar principalmente las fotografías de producto, y las tallas o cantidades aparecerán al pulsar sobre cada imagen.",
+        install_top_btn:"Instalar app",
         install_title:"Instala la app en tu móvil",
         install_text:"Acceso directo en pantalla de inicio.",
         install_btn:"Instalar",
-        install_ios:"En iPhone: pulsa Compartir y luego Añadir a pantalla de inicio."
+        install_ios:"En iPhone o iPad: pulsa Compartir y luego Añadir a pantalla de inicio.",
+        install_desktop:"En ordenador o tablet compatible: pulsa Instalar app para añadirla como acceso directo."
       },
       en: {
         brand_title:"Professional Area",
@@ -558,10 +663,12 @@
         pill_terms:"B2B terms",
         enter_btn:"Enter →",
         note:"Note: inside the order and stock apps, the initial view should mainly show the product photos, and sizes or quantities should appear when each image is tapped.",
+        install_top_btn:"Install app",
         install_title:"Install the app on your phone",
         install_text:"Add a shortcut to your home screen.",
         install_btn:"Install",
-        install_ios:"On iPhone: tap Share and then Add to Home Screen."
+        install_ios:"On iPhone or iPad: tap Share and then Add to Home Screen.",
+        install_desktop:"On compatible desktop or tablet: press Install app to add it as a shortcut."
       },
       pt: {
         brand_title:"Área Profissional",
@@ -588,12 +695,16 @@
         pill_terms:"Condições B2B",
         enter_btn:"Entrar →",
         note:"Nota: dentro das apps de pedidos e stock, a vista inicial deve mostrar principalmente as fotografias do produto, e os tamanhos ou quantidades devem aparecer ao tocar em cada imagem.",
+        install_top_btn:"Instalar app",
         install_title:"Instale a app no seu telemóvel",
         install_text:"Atalho direto no ecrã inicial.",
         install_btn:"Instalar",
-        install_ios:"No iPhone: toque em Partilhar e depois em Adicionar ao ecrã principal."
+        install_ios:"No iPhone ou iPad: toque em Partilhar e depois em Adicionar ao ecrã principal.",
+        install_desktop:"No computador ou tablet compatível: carregue em Instalar app para adicioná-la como atalho."
       }
     };
+
+    let deferredPrompt = null;
 
     function setLang(lang){
       document.documentElement.lang = lang;
@@ -605,18 +716,8 @@
       document.getElementById("btn-en").setAttribute("aria-pressed", String(lang==="en"));
       document.getElementById("btn-pt").setAttribute("aria-pressed", String(lang==="pt"));
       localStorage.setItem("lang", lang);
-      if (typeof updateInstallText === "function") updateInstallText(lang);
+      updateInstallUI();
     }
-
-    document.getElementById("btn-es").addEventListener("click", ()=>setLang("es"));
-    document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
-    document.getElementById("btn-pt").addEventListener("click", ()=>setLang("pt"));
-
-    setLang(localStorage.getItem("lang") || "es");
-  </script>
-
-  <script>
-    let deferredPrompt = null;
 
     function isIos(){
       return /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -626,13 +727,6 @@
       return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     }
 
-    function closeInstallBar(remind = true){
-      const bar = document.getElementById('installBar');
-      if(!bar) return;
-      bar.style.display = 'none';
-      if(remind) localStorage.setItem('installBarClosed', '1');
-    }
-
     function openInstallBar(){
       if(isInStandaloneMode()) return;
       if(localStorage.getItem('installBarClosed') === '1') return;
@@ -640,42 +734,83 @@
       if(bar) bar.style.display = 'flex';
     }
 
-    function updateInstallText(lang){
+    function closeInstallBar(remind = true){
+      const bar = document.getElementById('installBar');
+      if(!bar) return;
+      bar.style.display = 'none';
+      if(remind) localStorage.setItem('installBarClosed', '1');
+    }
+
+    function updateInstallUI(){
+      const lang = document.documentElement.lang || 'es';
+      const topBtn = document.getElementById('installTopBtn');
+      const bottomBtn = document.getElementById('installBtn');
       const txt = document.getElementById('installText');
-      const btn = document.getElementById('installBtn');
-      if(!txt || !btn) return;
+
+      if(!topBtn || !bottomBtn || !txt) return;
+
+      if(isInStandaloneMode()){
+        topBtn.style.display = 'none';
+        closeInstallBar(false);
+        return;
+      }
+
+      if(deferredPrompt){
+        topBtn.style.display = 'inline-flex';
+        bottomBtn.style.display = 'inline-flex';
+        txt.textContent = i18n[lang]?.install_desktop || i18n.es.install_desktop;
+        openInstallBar();
+        return;
+      }
+
+      if(isIos()){
+        topBtn.style.display = 'inline-flex';
+        bottomBtn.style.display = 'none';
+        txt.textContent = i18n[lang]?.install_ios || i18n.es.install_ios;
+        openInstallBar();
+        return;
+      }
+
+      topBtn.style.display = 'none';
+      bottomBtn.style.display = 'none';
+    }
+
+    async function triggerInstall(){
+      const lang = document.documentElement.lang || 'es';
 
       if(isIos() && !deferredPrompt){
-        txt.textContent = i18n[lang]?.install_ios || i18n.es.install_ios;
-        btn.style.display = 'none';
-      } else {
-        txt.textContent = i18n[lang]?.install_text || i18n.es.install_text;
-        btn.style.display = deferredPrompt ? 'inline-flex' : 'none';
+        alert(i18n[lang]?.install_ios || i18n.es.install_ios);
+        return;
       }
+
+      if(!deferredPrompt) return;
+
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      updateInstallUI();
     }
+
+    document.getElementById("btn-es").addEventListener("click", ()=>setLang("es"));
+    document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
+    document.getElementById("btn-pt").addEventListener("click", ()=>setLang("pt"));
+
+    document.getElementById('installTopBtn').addEventListener('click', triggerInstall);
+    document.getElementById('installBtn').addEventListener('click', triggerInstall);
+    document.getElementById('installClose').addEventListener('click', () => closeInstallBar(true));
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       localStorage.removeItem('installBarClosed');
-      updateInstallText(document.documentElement.lang || 'es');
-      openInstallBar();
+      updateInstallUI();
     });
 
     window.addEventListener('appinstalled', () => {
       deferredPrompt = null;
       closeInstallBar(false);
+      updateInstallUI();
     });
-
-    document.getElementById('installBtn').addEventListener('click', async () => {
-      if(!deferredPrompt) return;
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      closeInstallBar(false);
-    });
-
-    document.getElementById('installClose').addEventListener('click', () => closeInstallBar(true));
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -683,9 +818,10 @@
       });
     }
 
+    setLang(localStorage.getItem("lang") || "es");
+
     setTimeout(() => {
-      updateInstallText(document.documentElement.lang || 'es');
-      if(isIos() && !isInStandaloneMode()) openInstallBar();
+      updateInstallUI();
     }, 1200);
   </script>
 </body>
