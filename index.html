@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Área Profesional · Abuela Tata</title>
+
+  <link rel="icon" href="./assets/favicon.png" />
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#7fb9b3" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+
+  <style>
+    :root{
+      --bg:#f5efe6;
+      --card:rgba(255,255,255,.78);
+      --card2:#fff;
+      --ink:#5f4636;
+      --muted:#7a5c47;
+      --line:#e6d6c6;
+      --accent:#7fb9b3;
+      --accent2:#d7a6a6;
+      --accent3:#e8c98f;
+      --shadow: 0 10px 30px rgba(60,40,25,.12);
+      --shadow-strong: 0 16px 36px rgba(60,40,25,.16);
+      --radius:18px;
+      --max:1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-serif, Georgia, "Times New Roman", serif;
+      background: var(--bg);
+      background-image: radial-gradient(#e8dfd3 1px, transparent 1px);
+      background-size: 18px 18px;
+      color:var(--ink);
+    }
+    a{color:inherit}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:18px 14px 60px}
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px;
+      padding:12px 12px;
+      background:rgba(255,255,255,.72);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      position:sticky; top:10px; z-index:20;
+      backdrop-filter: blur(8px);
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width: 230px;}
+    .brand img{
+      width:46px; height:46px; object-fit:contain;
+      border-radius:12px; background:#fff; border:1px solid var(--line)
+    }
+    .brand .t1{font-size:17px; font-weight:800; letter-spacing:.2px}
+    .brand .t2{font-size:12px; color:var(--muted); margin-top:2px}
+
+    .lang{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .flag{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:8px 10px;
+      border-radius:12px;
+      box-shadow:0 6px 16px rgba(60,40,25,.08);
+      cursor:pointer;
+      font-size:14px;
+      user-select:none;
+      transition:.15s transform, .15s background, .15s border-color;
+    }
+    .flag[aria-pressed="true"]{
+      background:rgba(127,185,179,.18);
+      border-color:rgba(127,185,179,.55);
+    }
+    .flag:active{transform:scale(.98)}
+
+    .hero{
+      margin-top:14px;
+      padding:20px 18px;
+      background:rgba(255,255,255,.76);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 8px; font-size:25px}
+    .hero p{margin:0; color:var(--muted); line-height:1.5}
+
+    .sectionBlock{
+      margin-top:18px;
+    }
+    .sectionHead{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin:18px 2px 12px;
+      padding:0 2px;
+    }
+    .sectionEyebrow{
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      color:var(--accent);
+      margin-bottom:4px;
+    }
+    .sectionTitle{
+      margin:0;
+      font-size:26px;
+      line-height:1.05;
+    }
+    .sectionText{
+      margin:5px 0 0;
+      color:var(--muted);
+      line-height:1.4;
+      font-size:14px;
+      max-width:760px;
+    }
+
+    .grid{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+    }
+    @media(min-width:900px){
+      .grid{grid-template-columns: 1fr 1fr;}
+    }
+
+    .card{
+      padding:18px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow-strong);
+      transition:.18s transform, .18s background, .18s border-color, .18s box-shadow;
+      text-decoration:none;
+      display:block;
+      position:relative;
+      overflow:hidden;
+      min-height:190px;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, rgba(255,255,255,.35), rgba(255,255,255,0));
+      pointer-events:none;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(60,40,25,.18);
+    }
+    .card:active{ transform: translateY(0px) scale(.995); }
+
+    .card.ceremony{
+      background:linear-gradient(180deg, rgba(127,185,179,.18), rgba(255,255,255,.85));
+      border-color:rgba(127,185,179,.45);
+    }
+    .card.summer{
+      background:linear-gradient(180deg, rgba(232,201,143,.22), rgba(255,255,255,.88));
+      border-color:rgba(232,201,143,.55);
+    }
+    .card.media{
+      background:linear-gradient(180deg, rgba(215,166,166,.18), rgba(255,255,255,.88));
+      border-color:rgba(215,166,166,.45);
+    }
+    .card.prices{
+      background:linear-gradient(180deg, rgba(127,185,179,.14), rgba(255,255,255,.88));
+      border-color:rgba(127,185,179,.40);
+    }
+    .card.terms{
+      background:linear-gradient(180deg, rgba(245,239,230,.90), rgba(255,255,255,.96));
+      border-color:#dcc9b5;
+    }
+
+    .cardHead{
+      display:flex; align-items:flex-start; gap:14px;
+      position:relative;
+      z-index:1;
+    }
+    .ico{
+      width:58px; height:58px; border-radius:18px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.65);
+      border:1px solid rgba(255,255,255,.65);
+      font-size:25px;
+      flex:0 0 auto;
+      box-shadow:0 8px 18px rgba(60,40,25,.10);
+    }
+    .ttl{
+      font-weight:900;
+      margin:0;
+      font-size:23px;
+      letter-spacing:.15px;
+      line-height:1.05;
+    }
+    .sub{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.45;
+      font-size:14px;
+      max-width:540px;
+    }
+
+    .row{
+      margin-top:18px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      position:relative;
+      z-index:1;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(127,185,179,.25);
+      font-size:12px;
+      color:var(--ink);
+      white-space:nowrap;
+      font-weight:600;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:11px 13px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(60,40,25,.08);
+      transition:.15s transform, .15s background, .15s border-color;
+      font-size:14px;
+      text-decoration:none;
+      white-space:nowrap;
+      font-weight:700;
+    }
+    .btn:hover{background:rgba(127,185,179,.10); border-color:rgba(127,185,179,.45)}
+    .btn.primary{background:rgba(127,185,179,.20); border-color:rgba(127,185,179,.65)}
+    .btn.summerBtn{background:rgba(232,201,143,.28); border-color:rgba(232,201,143,.65)}
+    .btn.mediaBtn{background:rgba(215,166,166,.20); border-color:rgba(215,166,166,.55)}
+    .btn:active{transform:scale(.99)}
+
+    .note{
+      margin-top:16px;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px dashed rgba(127,185,179,.65);
+      background:rgba(127,185,179,.10);
+      color:var(--ink);
+      line-height:1.4;
+      font-size:13px;
+    }
+
+    footer{
+      margin-top:16px;
+      text-align:center;
+      font-size:12px;
+      color:var(--muted);
+      opacity:.95;
+    }
+
+    .installBar{
+      position:fixed;
+      left:50%;
+      bottom:12px;
+      transform:translateX(-50%);
+      width:min(calc(100% - 24px), 430px);
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      background:rgba(255,255,255,.96);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:0 12px 28px rgba(60,40,25,.16);
+      z-index:50;
+      backdrop-filter: blur(10px);
+    }
+    .installCopy{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .installTitle{
+      font-size:13px;
+      font-weight:800;
+      line-height:1.15;
+    }
+    .installText{
+      font-size:11px;
+      color:var(--muted);
+      line-height:1.2;
+    }
+    .installActions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:0 0 auto;
+    }
+    .installMini{
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      font-size:12px;
+      box-shadow:0 6px 16px rgba(60,40,25,.08);
+      white-space:nowrap;
+    }
+    .installMini.primary{
+      background:rgba(127,185,179,.20);
+      border-color:rgba(127,185,179,.65);
+      font-weight:700;
+    }
+
+    @media(max-width:560px){
+      .wrap{padding:14px 10px 88px}
+      .topbar{padding:10px; gap:10px}
+      .brand{min-width:0; flex:1 1 auto}
+      .brand .t1{font-size:16px}
+      .brand .t2{font-size:11px}
+      .lang{gap:6px}
+      .flag{padding:7px 8px; font-size:12px}
+      .hero{padding:16px 14px}
+      .hero h1{font-size:21px}
+      .sectionTitle{font-size:22px}
+      .sectionText{font-size:13px}
+      .card{
+        padding:16px 14px;
+        min-height:170px;
+      }
+      .ico{
+        width:52px; height:52px; font-size:22px;
+      }
+      .ttl{font-size:21px}
+      .sub{font-size:13px}
+      .row{gap:8px}
+      .btn{padding:9px 10px; font-size:13px}
+      .pill{font-size:11px; padding:6px 9px}
+      .installBar{padding:10px; gap:8px}
+      .installTitle{font-size:12px}
+      .installText{font-size:10px}
+      .installMini{padding:8px 9px; font-size:11px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="./assets/logo.png" alt="Abuela Tata" onerror="this.style.display='none'">
+        <div>
+          <div class="t1" data-i18n="brand_title">Área Profesional</div>
+          <div class="t2" data-i18n="brand_sub">Acceso para clientes · campañas · descargas · tarifas</div>
+        </div>
+      </div>
+
+      <div class="lang" aria-label="Idioma">
+        <button class="flag" id="btn-es" aria-pressed="true" title="Español">🇪🇸 ES</button>
+        <button class="flag" id="btn-en" aria-pressed="false" title="English">🇬🇧 EN</button>
+        <button class="flag" id="btn-pt" aria-pressed="false" title="Português">🇵🇹 PT</button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <h1 data-i18n="hero_title">Bienvenid@ al Área Profesional</h1>
+      <p data-i18n="hero_text">
+        Desde aquí podrás acceder de forma clara a las distintas secciones de campaña: Ceremonia 26, Verano 26, descargas multimedia, tarifas y condiciones comerciales.
+      </p>
+    </section>
+
+    <section class="sectionBlock">
+      <div class="sectionHead">
+        <div>
+          <div class="sectionEyebrow" data-i18n="main_eyebrow">Acceso principal</div>
+          <h2 class="sectionTitle" data-i18n="main_title">Selecciona una sección</h2>
+          <p class="sectionText" data-i18n="main_text">
+            Hemos organizado el área profesional por apartados para que todo quede más limpio y sea más fácil para las tiendas trabajar desde el móvil o desde escritorio.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Secciones principales">
+      <a class="card ceremony" href="./ceremonia.html">
+        <div class="cardHead">
+          <div class="ico">🎀</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_ceremony">Ceremonia 26</h2>
+            <p class="sub" data-i18n="card_ceremony_sub">
+              Acceso a la app de repeticiones, stock disponible y calendario de campaña.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_ceremony">Campaña principal</span>
+          <span class="btn primary" data-i18n="enter_btn">Entrar →</span>
+        </div>
+      </a>
+
+      <a class="card summer" href="./verano.html">
+        <div class="cardHead">
+          <div class="ico">☀️</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_summer">Verano 26</h2>
+            <p class="sub" data-i18n="card_summer_sub">
+              Consulta y pedido del stock disponible de la colección de verano.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_summer">Stock inmediato</span>
+          <span class="btn summerBtn" data-i18n="enter_btn">Entrar →</span>
+        </div>
+      </a>
+
+      <a class="card media" href="./multimedia.html">
+        <div class="cardHead">
+          <div class="ico">📸</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_media">Descargas multimedia</h2>
+            <p class="sub" data-i18n="card_media_sub">
+              Acceso a las descargas en alta resolución diferenciadas por campaña.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_media">Imágenes HD</span>
+          <span class="btn mediaBtn" data-i18n="enter_btn">Entrar →</span>
+        </div>
+      </a>
+
+      <a class="card prices" href="./tarifas.html">
+        <div class="cardHead">
+          <div class="ico">💶</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_prices">Tarifas</h2>
+            <p class="sub" data-i18n="card_prices_sub">
+              Tarifas oficiales de Ceremonia 26 y Verano 26 en un único apartado.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_prices">PDF</span>
+          <span class="btn" data-i18n="enter_btn">Entrar →</span>
+        </div>
+      </a>
+
+      <a class="card terms" href="./condiciones.html">
+        <div class="cardHead">
+          <div class="ico">📌</div>
+          <div>
+            <h2 class="ttl" data-i18n="card_terms">Condiciones</h2>
+            <p class="sub" data-i18n="card_terms_sub">
+              Condiciones comerciales generales de Abuela Tata válidas para ambas campañas.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <span class="pill" data-i18n="pill_terms">Condiciones B2B</span>
+          <span class="btn" data-i18n="enter_btn">Entrar →</span>
+        </div>
+      </a>
+    </section>
+
+    <div class="note" data-i18n="note">
+      Nota: dentro de las apps de pedidos y stock, la vista inicial debe mostrar principalmente las fotografías de producto, y las tallas o cantidades aparecerán al pulsar sobre cada imagen.
+    </div>
+
+    <div class="installBar" id="installBar" aria-live="polite">
+      <div class="installCopy">
+        <div class="installTitle" data-i18n="install_title">Instala la app en tu móvil</div>
+        <div class="installText" id="installText" data-i18n="install_text">Acceso directo en pantalla de inicio.</div>
+      </div>
+      <div class="installActions">
+        <button class="installMini" id="installClose" type="button" aria-label="Cerrar">✕</button>
+        <button class="installMini primary" id="installBtn" type="button" data-i18n="install_btn">Instalar</button>
+      </div>
+    </div>
+
+    <footer>
+      <span>© Abuela Tata · Uso profesional B2B</span>
+    </footer>
+  </div>
+
+  <script>
+    const i18n = {
+      es: {
+        brand_title:"Área Profesional",
+        brand_sub:"Acceso para clientes · campañas · descargas · tarifas",
+        hero_title:"Bienvenid@ al Área Profesional",
+        hero_text:"Desde aquí podrás acceder de forma clara a las distintas secciones de campaña: Ceremonia 26, Verano 26, descargas multimedia, tarifas y condiciones comerciales.",
+        main_eyebrow:"Acceso principal",
+        main_title:"Selecciona una sección",
+        main_text:"Hemos organizado el área profesional por apartados para que todo quede más limpio y sea más fácil para las tiendas trabajar desde el móvil o desde escritorio.",
+        card_ceremony:"Ceremonia 26",
+        card_ceremony_sub:"Acceso a la app de repeticiones, stock disponible y calendario de campaña.",
+        card_summer:"Verano 26",
+        card_summer_sub:"Consulta y pedido del stock disponible de la colección de verano.",
+        card_media:"Descargas multimedia",
+        card_media_sub:"Acceso a las descargas en alta resolución diferenciadas por campaña.",
+        card_prices:"Tarifas",
+        card_prices_sub:"Tarifas oficiales de Ceremonia 26 y Verano 26 en un único apartado.",
+        card_terms:"Condiciones",
+        card_terms_sub:"Condiciones comerciales generales de Abuela Tata válidas para ambas campañas.",
+        pill_ceremony:"Campaña principal",
+        pill_summer:"Stock inmediato",
+        pill_media:"Imágenes HD",
+        pill_prices:"PDF",
+        pill_terms:"Condiciones B2B",
+        enter_btn:"Entrar →",
+        note:"Nota: dentro de las apps de pedidos y stock, la vista inicial debe mostrar principalmente las fotografías de producto, y las tallas o cantidades aparecerán al pulsar sobre cada imagen.",
+        install_title:"Instala la app en tu móvil",
+        install_text:"Acceso directo en pantalla de inicio.",
+        install_btn:"Instalar",
+        install_ios:"En iPhone: pulsa Compartir y luego Añadir a pantalla de inicio."
+      },
+      en: {
+        brand_title:"Professional Area",
+        brand_sub:"Client access · campaigns · downloads · price lists",
+        hero_title:"Welcome to the Professional Area",
+        hero_text:"From here you can clearly access the different campaign sections: Ceremonia 26, Verano 26, media downloads, price lists and commercial terms.",
+        main_eyebrow:"Main access",
+        main_title:"Choose a section",
+        main_text:"We have organised the professional area by sections so everything feels cleaner and easier for stores to use on mobile or desktop.",
+        card_ceremony:"Ceremonia 26",
+        card_ceremony_sub:"Access to the repeat order app, available stock and campaign calendar.",
+        card_summer:"Summer 26",
+        card_summer_sub:"Check and order the available stock from the summer collection.",
+        card_media:"Media downloads",
+        card_media_sub:"Access to high-resolution downloads organised by campaign.",
+        card_prices:"Price lists",
+        card_prices_sub:"Official price lists for Ceremonia 26 and Summer 26 in one single area.",
+        card_terms:"Terms",
+        card_terms_sub:"General Abuela Tata commercial terms valid for both campaigns.",
+        pill_ceremony:"Main campaign",
+        pill_summer:"Immediate stock",
+        pill_media:"HD images",
+        pill_prices:"PDF",
+        pill_terms:"B2B terms",
+        enter_btn:"Enter →",
+        note:"Note: inside the order and stock apps, the initial view should mainly show the product photos, and sizes or quantities should appear when each image is tapped.",
+        install_title:"Install the app on your phone",
+        install_text:"Add a shortcut to your home screen.",
+        install_btn:"Install",
+        install_ios:"On iPhone: tap Share and then Add to Home Screen."
+      },
+      pt: {
+        brand_title:"Área Profissional",
+        brand_sub:"Acesso para clientes · campanhas · downloads · preços",
+        hero_title:"Bem-vind@ à Área Profissional",
+        hero_text:"A partir daqui pode aceder de forma clara às diferentes secções da campanha: Ceremonia 26, Verano 26, downloads multimédia, tabelas de preços e condições comerciais.",
+        main_eyebrow:"Acesso principal",
+        main_title:"Selecione uma secção",
+        main_text:"Organizámos a área profissional por apartados para que tudo fique mais limpo e mais fácil para as lojas trabalharem no telemóvel ou no computador.",
+        card_ceremony:"Ceremonia 26",
+        card_ceremony_sub:"Acesso à app de repetição, stock disponível e calendário da campanha.",
+        card_summer:"Verão 26",
+        card_summer_sub:"Consulta e pedido do stock disponível da coleção de verão.",
+        card_media:"Downloads multimédia",
+        card_media_sub:"Acesso aos downloads em alta resolução organizados por campanha.",
+        card_prices:"Tabelas de preços",
+        card_prices_sub:"Tabelas oficiais de Ceremonia 26 e Verão 26 num único apartado.",
+        card_terms:"Condições",
+        card_terms_sub:"Condições comerciais gerais da Abuela Tata válidas para ambas as campanhas.",
+        pill_ceremony:"Campanha principal",
+        pill_summer:"Stock imediato",
+        pill_media:"Imagens HD",
+        pill_prices:"PDF",
+        pill_terms:"Condições B2B",
+        enter_btn:"Entrar →",
+        note:"Nota: dentro das apps de pedidos e stock, a vista inicial deve mostrar principalmente as fotografias do produto, e os tamanhos ou quantidades devem aparecer ao tocar em cada imagem.",
+        install_title:"Instale a app no seu telemóvel",
+        install_text:"Atalho direto no ecrã inicial.",
+        install_btn:"Instalar",
+        install_ios:"No iPhone: toque em Partilhar e depois em Adicionar ao ecrã principal."
+      }
+    };
+
+    function setLang(lang){
+      document.documentElement.lang = lang;
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const k = el.getAttribute("data-i18n");
+        if(i18n[lang] && i18n[lang][k]) el.textContent = i18n[lang][k];
+      });
+      document.getElementById("btn-es").setAttribute("aria-pressed", String(lang==="es"));
+      document.getElementById("btn-en").setAttribute("aria-pressed", String(lang==="en"));
+      document.getElementById("btn-pt").setAttribute("aria-pressed", String(lang==="pt"));
+      localStorage.setItem("lang", lang);
+      if (typeof updateInstallText === "function") updateInstallText(lang);
+    }
+
+    document.getElementById("btn-es").addEventListener("click", ()=>setLang("es"));
+    document.getElementById("btn-en").addEventListener("click", ()=>setLang("en"));
+    document.getElementById("btn-pt").addEventListener("click", ()=>setLang("pt"));
+
+    setLang(localStorage.getItem("lang") || "es");
+  </script>
+
+  <script>
+    let deferredPrompt = null;
+
+    function isIos(){
+      return /iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    function isInStandaloneMode(){
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
+
+    function closeInstallBar(remind = true){
+      const bar = document.getElementById('installBar');
+      if(!bar) return;
+      bar.style.display = 'none';
+      if(remind) localStorage.setItem('installBarClosed', '1');
+    }
+
+    function openInstallBar(){
+      if(isInStandaloneMode()) return;
+      if(localStorage.getItem('installBarClosed') === '1') return;
+      const bar = document.getElementById('installBar');
+      if(bar) bar.style.display = 'flex';
+    }
+
+    function updateInstallText(lang){
+      const txt = document.getElementById('installText');
+      const btn = document.getElementById('installBtn');
+      if(!txt || !btn) return;
+
+      if(isIos() && !deferredPrompt){
+        txt.textContent = i18n[lang]?.install_ios || i18n.es.install_ios;
+        btn.style.display = 'none';
+      } else {
+        txt.textContent = i18n[lang]?.install_text || i18n.es.install_text;
+        btn.style.display = deferredPrompt ? 'inline-flex' : 'none';
+      }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      localStorage.removeItem('installBarClosed');
+      updateInstallText(document.documentElement.lang || 'es');
+      openInstallBar();
+    });
+
+    window.addEventListener('appinstalled', () => {
+      deferredPrompt = null;
+      closeInstallBar(false);
+    });
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      closeInstallBar(false);
+    });
+
+    document.getElementById('installClose').addEventListener('click', () => closeInstallBar(true));
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+
+    setTimeout(() => {
+      updateInstallText(document.documentElement.lang || 'es');
+      if(isIos() && !isInStandaloneMode()) openInstallBar();
+    }, 1200);
+  </script>
+</body>
+</html>
