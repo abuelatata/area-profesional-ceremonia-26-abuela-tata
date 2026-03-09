@@ -18,7 +18,7 @@
       --muted:#7a5c47;
       --line:#e6d6c6;
       --accent:#7fb9b3;
-      --accent2:#d7a6a6;   /* maquillaje */
+      --accent2:#d7a6a6;
       --accent3:#e8c98f;
       --shadow: 0 10px 30px rgba(60,40,25,.12);
       --shadow-strong: 0 16px 36px rgba(60,40,25,.16);
@@ -115,7 +115,7 @@
     .flag:active{transform:scale(.98)}
 
     .installTopBtn{
-      display:none;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
       gap:8px;
@@ -636,7 +636,7 @@
         install_text:"Acceso directo en pantalla de inicio.",
         install_btn:"Instalar",
         install_ios:"En iPhone o iPad: pulsa Compartir y luego Añadir a pantalla de inicio.",
-        install_desktop:"En ordenador o tablet compatible: pulsa Instalar app para añadirla como acceso directo."
+        install_fallback:"Si no se abre la instalación automática, usa el menú del navegador y busca “Instalar aplicación”, “Añadir a pantalla de inicio” o “Crear acceso directo”."
       },
       en: {
         brand_title:"Professional Area",
@@ -668,7 +668,7 @@
         install_text:"Add a shortcut to your home screen.",
         install_btn:"Install",
         install_ios:"On iPhone or iPad: tap Share and then Add to Home Screen.",
-        install_desktop:"On compatible desktop or tablet: press Install app to add it as a shortcut."
+        install_fallback:"If automatic install does not open, use the browser menu and look for “Install app”, “Add to Home Screen” or “Create shortcut”."
       },
       pt: {
         brand_title:"Área Profissional",
@@ -700,11 +700,19 @@
         install_text:"Atalho direto no ecrã inicial.",
         install_btn:"Instalar",
         install_ios:"No iPhone ou iPad: toque em Partilhar e depois em Adicionar ao ecrã principal.",
-        install_desktop:"No computador ou tablet compatível: carregue em Instalar app para adicioná-la como atalho."
+        install_fallback:"Se a instalação automática não abrir, use o menu do navegador e procure “Instalar aplicação”, “Adicionar ao ecrã inicial” ou “Criar atalho”."
       }
     };
 
     let deferredPrompt = null;
+
+    function isIos(){
+      return /iphone|ipad|ipod/i.test(navigator.userAgent);
+    }
+
+    function isInStandaloneMode(){
+      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    }
 
     function setLang(lang){
       document.documentElement.lang = lang;
@@ -717,14 +725,6 @@
       document.getElementById("btn-pt").setAttribute("aria-pressed", String(lang==="pt"));
       localStorage.setItem("lang", lang);
       updateInstallUI();
-    }
-
-    function isIos(){
-      return /iphone|ipad|ipod/i.test(navigator.userAgent);
-    }
-
-    function isInStandaloneMode(){
-      return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
     }
 
     function openInstallBar(){
@@ -755,40 +755,37 @@
         return;
       }
 
-      if(deferredPrompt){
-        topBtn.style.display = 'inline-flex';
-        bottomBtn.style.display = 'inline-flex';
-        txt.textContent = i18n[lang]?.install_desktop || i18n.es.install_desktop;
-        openInstallBar();
-        return;
-      }
+      topBtn.style.display = 'inline-flex';
+      txt.textContent = i18n[lang]?.install_text || i18n.es.install_text;
 
       if(isIos()){
-        topBtn.style.display = 'inline-flex';
         bottomBtn.style.display = 'none';
         txt.textContent = i18n[lang]?.install_ios || i18n.es.install_ios;
         openInstallBar();
         return;
       }
 
-      topBtn.style.display = 'none';
-      bottomBtn.style.display = 'none';
+      bottomBtn.style.display = deferredPrompt ? 'inline-flex' : 'none';
+      openInstallBar();
     }
 
     async function triggerInstall(){
       const lang = document.documentElement.lang || 'es';
 
-      if(isIos() && !deferredPrompt){
+      if(isIos()){
         alert(i18n[lang]?.install_ios || i18n.es.install_ios);
         return;
       }
 
-      if(!deferredPrompt) return;
+      if(deferredPrompt){
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        updateInstallUI();
+        return;
+      }
 
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      updateInstallUI();
+      alert(i18n[lang]?.install_fallback || i18n.es.install_fallback);
     }
 
     document.getElementById("btn-es").addEventListener("click", ()=>setLang("es"));
@@ -822,7 +819,7 @@
 
     setTimeout(() => {
       updateInstallUI();
-    }, 1200);
+    }, 800);
   </script>
 </body>
 </html>
