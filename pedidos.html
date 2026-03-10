@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pedidos · Abuela Tata</title>
+
+<link rel="icon" href="./assets/favicon.png">
+
+<style>
+:root{
+  --bg:#f5efe6;
+  --ink:#5f4636;
+  --line:#e6d6c6;
+  --accent:#7fb9b3;
+  --shadow:0 8px 20px rgba(60,40,25,.10);
+  --topbar-h:62px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+}
+
+body{
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  background:var(--bg);
+  overflow:hidden;
+  color:var(--ink);
+}
+
+/* Barra superior */
+.topbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--topbar-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 16px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--line);
+  z-index:100;
+}
+
+.brand{
+  font-weight:800;
+  letter-spacing:.3px;
+  font-size:15px;
+  text-align:right;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  min-width:0;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 14px;
+  border-radius:14px;
+  border:1px solid rgba(127,185,179,.55);
+  background:rgba(127,185,179,.18);
+  color:var(--ink);
+  text-decoration:none;
+  font-size:14px;
+  transition:.15s;
+  flex:0 0 auto;
+  box-shadow:0 2px 8px rgba(60,40,25,.04);
+}
+
+.btn:hover{
+  background:rgba(127,185,179,.25);
+}
+
+iframe{
+  position:fixed;
+  top:var(--topbar-h);
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:calc(100vh - var(--topbar-h));
+  border:0;
+  background:#fff;
+}
+
+@media (max-width:700px){
+  :root{
+    --topbar-h:58px;
+  }
+
+  .topbar{
+    padding:0 10px;
+    gap:8px;
+  }
+
+  .btn{
+    padding:8px 12px;
+    font-size:13px;
+    border-radius:12px;
+  }
+
+  .brand{
+    font-size:13px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  <a class="btn" href="./index.html">← Volver al Área Profesional</a>
+  <div class="brand" id="brandText">App de Pedidos · Comunión 2026</div>
+</div>
+
+<iframe
+  id="appFrame"
+  src="https://abuelatata.github.io/repeticiones-ceremonia-26/"
+  title="Pedidos Abuela Tata"
+  loading="eager">
+</iframe>
+
+<script>
+(function () {
+  const frame = document.getElementById("appFrame");
+  const brandText = document.getElementById("brandText");
+
+  const params = new URLSearchParams(window.location.search);
+  const modo = (params.get("modo") || "").toLowerCase().trim();
+
+  const baseUrl = "https://abuelatata.github.io/repeticiones-ceremonia-26/";
+  const allowedModos = ["repeticiones", "stock", "excedentes"];
+  const injectedStyleId = "finidi-desktop-visual-fix";
+
+  function buildIframeUrl() {
+    const url = new URL(baseUrl);
+
+    if (allowedModos.includes(modo)) {
+      url.searchParams.set("modo", modo);
+    }
+
+    return url.toString();
+  }
+
+  function getBrandLabel() {
+    if (modo === "stock") return "Stock disponible · Comunión 2026";
+    if (modo === "excedentes") return "Excedentes · Comunión 2026";
+    if (modo === "repeticiones") return "Repeticiones · Comunión 2026";
+    return "App de Pedidos · Comunión 2026";
+  }
+
+  function getInjectedCss() {
+    return `
+/* ===========================
+   AJUSTES VISUALES FINIDI
+   No toca lógica, solo layout
+   =========================== */
+
+:root{
+  --finidi-card-max: 420px;
+  --finidi-gap: 18px;
+  --finidi-qty-size: 18px;
+  --finidi-size-pill: 42px;
+}
+
+/* Anchos generales */
+body{
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+main,
+.app,
+.app-shell,
+.page,
+.page-shell,
+.content,
+.content-wrap,
+.view,
+.section,
+.products-section,
+.catalogue,
+.catalog,
+.listing,
+.product-list-wrap{
+  max-width: 1500px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Grids de productos */
+.products-grid,
+.product-grid,
+.grid-products,
+.cards-grid,
+.catalog-grid,
+.items-grid,
+.grid,
+.product-list,
+.products-list{
+  width: 100% !important;
+}
+
+@media (min-width: 1024px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list{
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 22px !important;
+    align-items: start !important;
+  }
+}
+
+@media (min-width: 1280px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list{
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+    gap: 24px !important;
+  }
+}
+
+/* Tarjetas */
+.product-card,
+.card,
+.item-card,
+.product,
+.product-item,
+.model-card,
+.article-card,
+.reference-card,
+.stock-card,
+.repeat-card{
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+@media (min-width: 1024px){
+  .product-card,
+  .card,
+  .item-card,
+  .product,
+  .product-item,
+  .model-card,
+  .article-card,
+  .reference-card,
+  .stock-card,
+  .repeat-card{
+    padding: 14px !important;
+  }
+}
+
+/* Imágenes: evitar cortes */
+.product-card img,
+.card img,
+.item-card img,
+.product img,
+.product-item img,
+.model-card img,
+.article-card img,
+.reference-card img,
+.stock-card img,
+.repeat-card img,
+.product-photo img,
+.product-image img,
+.thumb img,
+.image-wrap img,
+figure img{
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 3 / 4 !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  display: block !important;
+  background: #fff !important;
+  border-radius: 14px !important;
+}
+
+.product-photo,
+.product-image,
+.thumb,
+.image-wrap,
+figure{
+  overflow: visible !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+}
+
+/* Textos de referencia / precio */
+.ref,
+.reference,
+.codigo,
+.sku,
+.modelo-ref,
+.product-ref,
+.product-code,
+.price,
+.precio,
+.product-price,
+.unit-price{
+  font-size: 16px !important;
+  line-height: 1.25 !important;
+}
+
+@media (min-width: 1024px){
+  .ref,
+  .reference,
+  .codigo,
+  .sku,
+  .modelo-ref,
+  .product-ref,
+  .product-code{
+    font-size: 17px !important;
+    font-weight: 700 !important;
+  }
+
+  .price,
+  .precio,
+  .product-price,
+  .unit-price{
+    font-size: 18px !important;
+    font-weight: 700 !important;
+  }
+}
+
+/* Filas de tallas / stock / cantidades */
+.size-row,
+.talla-row,
+.stock-row,
+.qty-row,
+.quantity-row,
+.linea-talla,
+.linea-stock,
+.linea-cantidad,
+.variant-row,
+.size-item,
+.stock-item,
+.order-row{
+  display: grid !important;
+  grid-template-columns: minmax(54px, auto) 1fr auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 10px 0 !important;
+}
+
+@media (max-width: 640px){
+  .size-row,
+  .talla-row,
+  .stock-row,
+  .qty-row,
+  .quantity-row,
+  .linea-talla,
+  .linea-stock,
+  .linea-cantidad,
+  .variant-row,
+  .size-item,
+  .stock-item,
+  .order-row{
+    grid-template-columns: minmax(48px, auto) 1fr auto !important;
+    gap: 10px !important;
+    padding: 8px 0 !important;
+  }
+}
+
+/* Etiquetas talla */
+.size-label,
+.talla,
+.size-name,
+.talla-label,
+.badge-size,
+.size-pill,
+.stock-size{
+  min-width: 48px !important;
+  min-height: 36px !important;
+  padding: 7px 10px !important;
+  border-radius: 999px !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+@media (min-width: 1024px){
+  .size-label,
+  .talla,
+  .size-name,
+  .talla-label,
+  .badge-size,
+  .size-pill,
+  .stock-size{
+    min-width: 56px !important;
+    min-height: 40px !important;
+    font-size: 16px !important;
+  }
+}
+
+/* Cantidad / stock visibles */
+.stock-value,
+.qty,
+.quantity,
+.cantidad,
+.stock-qty,
+.available,
+.disponible,
+.value,
+.units,
+.unidades{
+  font-size: 18px !important;
+  line-height: 1.2 !important;
+  font-weight: 800 !important;
+}
+
+@media (min-width: 1024px){
+  .stock-value,
+  .qty,
+  .quantity,
+  .cantidad,
+  .stock-qty,
+  .available,
+  .disponible,
+  .value,
+  .units,
+  .unidades{
+    font-size: 22px !important;
+  }
+}
+
+/* Inputs numéricos grandes y cómodos */
+input[type="number"]{
+  width: 84px !important;
+  min-width: 84px !important;
+  height: 42px !important;
+  padding: 6px 10px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  border-radius: 12px !important;
+}
+
+@media (min-width: 1024px){
+  input[type="number"]{
+    width: 96px !important;
+    min-width: 96px !important;
+    height: 46px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* Botones +/- si existen */
+.qty-btn,
+.stepper button,
+.quantity-selector button,
+.counter button,
+button.minus,
+button.plus{
+  min-width: 38px !important;
+  min-height: 38px !important;
+  font-size: 18px !important;
+  border-radius: 12px !important;
+}
+
+@media (min-width: 1024px){
+  .qty-btn,
+  .stepper button,
+  .quantity-selector button,
+  .counter button,
+  button.minus,
+  button.plus{
+    min-width: 42px !important;
+    min-height: 42px !important;
+    font-size: 20px !important;
+  }
+}
+
+/* Tablas de tallas más respiradas */
+.sizes,
+.size-list,
+.tallas,
+.stock-list,
+.qty-list,
+.variants,
+.options{
+  width: 100% !important;
+  margin-top: 10px !important;
+}
+
+.sizes > *,
+.size-list > *,
+.tallas > *,
+.stock-list > *,
+.qty-list > *,
+.variants > *,
+.options > *{
+  border-bottom-width: 1px !important;
+}
+
+@media (min-width: 1024px){
+  .sizes,
+  .size-list,
+  .tallas,
+  .stock-list,
+  .qty-list,
+  .variants,
+  .options{
+    margin-top: 12px !important;
+  }
+}
+
+/* Cabeceras de modo / filtros / búsqueda */
+.sticky,
+.sticky-bar,
+.toolbar,
+.filters,
+.mode-switch,
+.search-bar,
+.search-wrap,
+.actions,
+.top-actions{
+  max-width: 1500px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Móvil: mantener buena visualización */
+@media (max-width: 767px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list{
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .product-card,
+  .card,
+  .item-card,
+  .product,
+  .product-item,
+  .model-card,
+  .article-card,
+  .reference-card,
+  .stock-card,
+  .repeat-card{
+    padding: 10px !important;
+    border-radius: 16px !important;
+  }
+
+  .product-card img,
+  .card img,
+  .item-card img,
+  .product img,
+  .product-item img,
+  .model-card img,
+  .article-card img,
+  .reference-card img,
+  .stock-card img,
+  .repeat-card img,
+  .product-photo img,
+  .product-image img,
+  .thumb img,
+  .image-wrap img,
+  figure img{
+    aspect-ratio: 3 / 4 !important;
+    object-fit: contain !important;
+  }
+
+  .ref,
+  .reference,
+  .codigo,
+  .sku,
+  .modelo-ref,
+  .product-ref,
+  .product-code,
+  .price,
+  .precio,
+  .product-price,
+  .unit-price{
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+
+  input[type="number"]{
+    width: 72px !important;
+    min-width: 72px !important;
+    height: 38px !important;
+    font-size: 17px !important;
+  }
+
+  .stock-value,
+  .qty,
+  .quantity,
+  .cantidad,
+  .stock-qty,
+  .available,
+  .disponible,
+  .value,
+  .units,
+  .unidades{
+    font-size: 18px !important;
+  }
+}
+`;
+  }
+
+  function injectCssIntoIframe() {
+    let doc;
+
+    try {
+      doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+      if (!doc || !doc.head) return;
+    } catch (err) {
+      return;
+    }
+
+    let styleTag = doc.getElementById(injectedStyleId);
+    if (!styleTag) {
+      styleTag = doc.createElement("style");
+      styleTag.id = injectedStyleId;
+      doc.head.appendChild(styleTag);
+    }
+
+    styleTag.textContent = getInjectedCss();
+  }
+
+  function installIframeEnhancer() {
+    frame.addEventListener("load", function () {
+      injectCssIntoIframe();
+
+      try {
+        const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+        if (!doc || !doc.body) return;
+
+        const observer = new MutationObserver(function () {
+          injectCssIntoIframe();
+        });
+
+        observer.observe(doc.body, {
+          childList: true,
+          subtree: true
+        });
+      } catch (err) {
+        /* sin acceso al iframe, no hacemos nada */
+      }
+    });
+  }
+
+  frame.src = buildIframeUrl();
+  brandText.textContent = getBrandLabel();
+  document.title = getBrandLabel() + " · Abuela Tata";
+  installIframeEnhancer();
+})();
+</script>
+
+</body>
+</html>
