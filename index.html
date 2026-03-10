@@ -132,7 +132,6 @@ body{
 
 <body>
 
-<!-- FOTO INICIAL -->
 <div id="splash">
   <img src="images/portada-area.jpg" alt="Área Profesional">
   <div id="splashContent">
@@ -141,7 +140,6 @@ body{
   </div>
 </div>
 
-<!-- AREA PROFESIONAL -->
 <div id="app">
 
   <div class="header">
@@ -149,56 +147,40 @@ body{
     <div class="title">Área Profesional</div>
   </div>
 
-  <div class="sectionTitle">
-    PEDIDOS
-  </div>
+  <div class="sectionTitle">PEDIDOS</div>
 
   <div class="grid">
 
     <div class="card">
       <div>
-        <div class="cardTitle">
-          Repetición de campaña
-        </div>
-        <div class="cardText">
-          Producción según calendario
-        </div>
+        <div class="cardTitle">Repetición de campaña</div>
+        <div class="cardText">Producción según calendario</div>
       </div>
-      <a class="button" href="index.html?modo=repeticiones">
+      <a class="button" href="pedidos.html?modo=repeticiones">
         Entrar →
       </a>
     </div>
 
     <div class="card">
       <div>
-        <div class="cardTitle">
-          Stock disponible
-        </div>
-        <div class="cardText">
-          Entrega inmediata
-        </div>
+        <div class="cardTitle">Stock disponible</div>
+        <div class="cardText">Entrega inmediata</div>
       </div>
-      <a class="button" href="index.html?modo=stock">
+      <a class="button" href="pedidos.html?modo=stock">
         Entrar →
       </a>
     </div>
 
   </div>
 
-  <div class="sectionTitle">
-    DOCUMENTACIÓN
-  </div>
+  <div class="sectionTitle">DOCUMENTACIÓN</div>
 
   <div class="grid">
 
     <div class="card">
       <div>
-        <div class="cardTitle">
-          Descarga multimedia
-        </div>
-        <div class="cardText">
-          Imágenes en alta resolución
-        </div>
+        <div class="cardTitle">Descarga multimedia</div>
+        <div class="cardText">Imágenes en alta resolución</div>
       </div>
       <a class="button" href="multimedia.html">
         Entrar →
@@ -207,12 +189,8 @@ body{
 
     <div class="card">
       <div>
-        <div class="cardTitle">
-          Tarifas
-        </div>
-        <div class="cardText">
-          Precios de campaña
-        </div>
+        <div class="cardTitle">Tarifas</div>
+        <div class="cardText">Precios de campaña</div>
       </div>
       <a class="button" href="tarifas.html">
         Entrar →
@@ -221,12 +199,8 @@ body{
 
     <div class="card">
       <div>
-        <div class="cardTitle">
-          Guía de tallas
-        </div>
-        <div class="cardText">
-          Medidas y equivalencias
-        </div>
+        <div class="cardTitle">Guía de tallas</div>
+        <div class="cardText">Medidas y equivalencias</div>
       </div>
       <a class="button" href="tallas.html">
         Entrar →
@@ -235,12 +209,8 @@ body{
 
     <div class="card">
       <div>
-        <div class="cardTitle">
-          Condiciones
-        </div>
-        <div class="cardText">
-          Calendario y normas
-        </div>
+        <div class="cardTitle">Condiciones</div>
+        <div class="cardText">Calendario y normas</div>
       </div>
       <a class="button" href="condiciones.html">
         Entrar →
@@ -264,8 +234,7 @@ body{
 
   function getModoFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    const modo = (params.get("modo") || "").toLowerCase().trim();
-    return modo;
+    return (params.get("modo") || "").toLowerCase().trim();
   }
 
   function buildFileUrl(fileName, extraParams) {
@@ -280,18 +249,12 @@ body{
 
   function openModoIfRequested() {
     const modo = getModoFromUrl();
-
     if (!modo) return false;
 
-    // IMPORTANTE:
-    // - repeticiones abre la app de pedidos
-    // - stock abre la app de stock
-    // - excedentes abre la app de stock en modo excedentes
-    // Ajustado para evitar 404 desde este index cuando entran por URL.
     const routes = {
       repeticiones: buildFileUrl("pedidos.html", { modo: "repeticiones" }),
-      stock: buildFileUrl("stock.html", { modo: "stock" }),
-      excedentes: buildFileUrl("stock.html", { modo: "excedentes" })
+      stock: buildFileUrl("pedidos.html", { modo: "stock" }),
+      excedentes: buildFileUrl("pedidos.html", { modo: "excedentes" })
     };
 
     if (routes[modo]) {
@@ -302,7 +265,6 @@ body{
     return false;
   }
 
-  // Si viene con ?modo=..., redirige directamente y no muestra splash
   const redirected = openModoIfRequested();
 
   if (!redirected) {
