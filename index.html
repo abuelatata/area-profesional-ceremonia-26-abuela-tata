@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Área Profesional · Abuela Tata</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Georgia, serif;
+background:#f5f1ea;
+color:#5a4636;
+}
+
+/* SPLASH FOTO */
+
+#splash{
+position:fixed;
+width:100%;
+height:100vh;
+background:black;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:10;
+}
+
+#splash img{
+width:100%;
+height:100%;
+object-fit:cover;
+position:absolute;
+top:0;
+left:0;
+}
+
+#splashContent{
+position:relative;
+z-index:20;
+text-align:center;
+color:white;
+}
+
+#enterBtn{
+margin-top:20px;
+padding:12px 28px;
+font-size:16px;
+border:none;
+border-radius:10px;
+background:#ffffffcc;
+cursor:pointer;
+}
+
+/* AREA PROFESIONAL */
+
+#app{
+display:none;
+padding:25px;
+max-width:900px;
+margin:auto;
+}
+
+.header{
+display:flex;
+align-items:center;
+gap:12px;
+margin-bottom:25px;
+}
+
+.logo{
+width:42px;
+}
+
+.title{
+font-size:26px;
+font-weight:bold;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr;
+gap:16px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+border:1px solid #e4ddd4;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.cardTitle{
+font-size:18px;
+font-weight:bold;
+}
+
+.cardText{
+font-size:14px;
+opacity:.7;
+}
+
+.button{
+background:#d9e8e6;
+padding:10px 16px;
+border-radius:8px;
+text-decoration:none;
+color:#333;
+}
+
+.sectionTitle{
+margin-top:30px;
+margin-bottom:10px;
+color:#7da6a1;
+letter-spacing:2px;
+font-size:14px;
+}
+
+@media(min-width:700px){
+
+.grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- FOTO INICIAL -->
+
+<div id="splash">
+
+<img src="images/inicio.jpg">
+
+<div id="splashContent">
+
+<h2>Área Profesional</h2>
+
+<button id="enterBtn">Entrar</button>
+
+</div>
+
+</div>
+
+<!-- AREA PROFESIONAL -->
+
+<div id="app">
+
+<div class="header">
+
+<img src="assets/logo.png" class="logo">
+
+<div class="title">Área Profesional</div>
+
+</div>
+
+<div class="sectionTitle">
+PEDIDOS
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<div>
+
+<div class="cardTitle">
+Repetición de campaña
+</div>
+
+<div class="cardText">
+Producción según calendario
+</div>
+
+</div>
+
+<a class="button" href="pedidos.html">
+Entrar →
+</a>
+
+</div>
+
+
+<div class="card">
+
+<div>
+
+<div class="cardTitle">
+Stock disponible
+</div>
+
+<div class="cardText">
+Entrega inmediata
+</div>
+
+</div>
+
+<a class="button" href="stock.html">
+Entrar →
+</a>
+
+</div>
+
+</div>
+
+<div class="sectionTitle">
+DOCUMENTACIÓN
+</div>
+
+<div class="grid">
+
+<div class="card">
+
+<div>
+
+<div class="cardTitle">
+Descarga multimedia
+</div>
+
+<div class="cardText">
+Imágenes en alta resolución
+</div>
+
+</div>
+
+<a class="button" href="multimedia.html">
+Entrar →
+</a>
+
+</div>
+
+
+<div class="card">
+
+<div>
+
+<div class="cardTitle">
+Tarifas
+</div>
+
+<div class="cardText">
+Precios de campaña
+</div>
+
+</div>
+
+<a class="button" href="tarifas.html">
+Entrar →
+</a>
+
+</div>
+
+<div class="card">
+
+<div>
+
+<div class="cardTitle">
+Guía de tallas
+</div>
+
+<div class="cardText">
+Medidas y equivalencias
+</div>
+
+</div>
+
+<a class="button" href="tallas.html">
+Entrar →
+</a>
+
+</div>
+
+<div class="card">
+
+<div>
+
+<div class="cardTitle">
+Condiciones
+</div>
+
+<div class="cardText">
+Calendario y normas
+</div>
+
+</div>
+
+<a class="button" href="condiciones.html">
+Entrar →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("enterBtn").onclick = function(){
+
+document.getElementById("splash").style.display="none";
+document.getElementById("app").style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
