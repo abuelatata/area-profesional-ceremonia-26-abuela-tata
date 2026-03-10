@@ -2,16 +2,12 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1,viewport-fit=cover">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Pedidos · Abuela Tata</title>
 
 <link rel="icon" href="./assets/favicon.png">
 
 <style>
-
 :root{
   --bg:#f5efe6;
   --ink:#5f4636;
@@ -24,236 +20,786 @@ content="width=device-width,initial-scale=1,viewport-fit=cover">
 *,
 *::before,
 *::after{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 html{
-width:100%;
-overflow-x:hidden;
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
 }
 
 body{
-margin:0;
-width:100%;
-min-height:100vh;
-font-family: ui-serif, Georgia, "Times New Roman", serif;
-background:var(--bg);
-color:var(--ink);
-
-overflow-x:hidden;
-overflow-y:auto;
-
--webkit-font-smoothing:antialiased;
-text-rendering:optimizeLegibility;
+  margin:0;
+  width:100%;
+  height:100%;
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  background:var(--bg);
+  overflow:hidden;
+  color:var(--ink);
 }
 
-/* BARRA SUPERIOR */
-
+/* Barra superior */
 .topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-
-height:var(--topbar-h);
-
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:12px;
-
-padding:0 16px;
-
-background:rgba(255,255,255,.92);
-backdrop-filter: blur(10px);
-
-border-bottom:1px solid var(--line);
-
-z-index:100;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--topbar-h);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 16px;
+  background:rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid var(--line);
+  z-index:100;
 }
 
 .brand{
-font-weight:800;
-letter-spacing:.3px;
-font-size:15px;
-
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-
-min-width:0;
-flex:1;
-text-align:right;
+  font-weight:800;
+  letter-spacing:.3px;
+  font-size:15px;
+  text-align:right;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  min-width:0;
+  flex:1 1 auto;
 }
 
 .btn{
-display:inline-flex;
-align-items:center;
-gap:6px;
-
-padding:9px 14px;
-
-border-radius:14px;
-
-border:1px solid rgba(127,185,179,.55);
-
-background:rgba(127,185,179,.18);
-
-color:var(--ink);
-
-text-decoration:none;
-font-size:14px;
-
-transition:.15s;
-
-flex:0 0 auto;
-
-box-shadow:0 2px 8px rgba(60,40,25,.04);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:9px 14px;
+  border-radius:14px;
+  border:1px solid rgba(127,185,179,.55);
+  background:rgba(127,185,179,.18);
+  color:var(--ink);
+  text-decoration:none;
+  font-size:14px;
+  transition:.15s;
+  flex:0 0 auto;
+  box-shadow:0 2px 8px rgba(60,40,25,.04);
 }
 
 .btn:hover{
-background:rgba(127,185,179,.25);
+  background:rgba(127,185,179,.25);
 }
-
-/* IFRAME APP */
 
 iframe{
-position:fixed;
-
-top:var(--topbar-h);
-left:0;
-right:0;
-bottom:0;
-
-width:100%;
-height:calc(100dvh - var(--topbar-h));
-
-border:0;
-background:#fff;
-
-overflow:hidden;
+  position:fixed;
+  top:var(--topbar-h);
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:calc(100dvh - var(--topbar-h));
+  border:0;
+  background:#fff;
+  display:block;
 }
 
-/* TABLET */
+@media (max-width:700px){
+  :root{
+    --topbar-h:58px;
+  }
 
-@media (max-width:900px){
+  .topbar{
+    padding:0 10px;
+    gap:8px;
+  }
 
-:root{
---topbar-h:58px;
+  .btn{
+    padding:8px 12px;
+    font-size:13px;
+    border-radius:12px;
+  }
+
+  .brand{
+    font-size:13px;
+  }
 }
-
-.topbar{
-padding:0 12px;
-gap:8px;
-}
-
-.brand{
-font-size:14px;
-}
-
-.btn{
-padding:8px 12px;
-font-size:13px;
-border-radius:12px;
-}
-
-}
-
-/* MÓVIL */
-
-@media (max-width:600px){
-
-:root{
---topbar-h:54px;
-}
-
-.topbar{
-padding:0 10px;
-gap:8px;
-}
-
-.brand{
-font-size:13px;
-}
-
-.btn{
-padding:7px 10px;
-font-size:12px;
-border-radius:10px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-
-<a class="btn" href="./index.html">
-← Área profesional
-</a>
-
-<div class="brand" id="brandText">
-App de Pedidos · Comunión 2026
-</div>
-
+  <a class="btn" href="./index.html">← Área profesional</a>
+  <div class="brand" id="brandText">App de Pedidos · Comunión 2026</div>
 </div>
 
 <iframe
-id="appFrame"
-src="https://abuelatata.github.io/repeticiones-ceremonia-26/"
-title="Pedidos Abuela Tata"
-loading="eager">
+  id="appFrame"
+  src="https://abuelatata.github.io/repeticiones-ceremonia-26/"
+  title="Pedidos Abuela Tata"
+  loading="eager">
 </iframe>
 
 <script>
-
 (function () {
+  const frame = document.getElementById("appFrame");
+  const brandText = document.getElementById("brandText");
 
-const frame = document.getElementById("appFrame");
-const brandText = document.getElementById("brandText");
+  const params = new URLSearchParams(window.location.search);
+  const modo = (params.get("modo") || "").toLowerCase().trim();
 
-const params = new URLSearchParams(window.location.search);
-const modo = (params.get("modo") || "").toLowerCase().trim();
+  const baseUrl = "https://abuelatata.github.io/repeticiones-ceremonia-26/";
+  const allowedModos = ["repeticiones", "stock", "excedentes"];
+  const injectedStyleId = "finidi-desktop-overflow-fix";
 
-const baseUrl = "https://abuelatata.github.io/repeticiones-ceremonia-26/";
-const allowedModos = ["repeticiones","stock","excedentes"];
+  function buildIframeUrl() {
+    const url = new URL(baseUrl);
+    if (allowedModos.includes(modo)) {
+      url.searchParams.set("modo", modo);
+    }
+    return url.toString();
+  }
 
-function buildIframeUrl(){
+  function getBrandLabel() {
+    if (modo === "stock") return "Stock disponible · Comunión 2026";
+    if (modo === "excedentes") return "Excedentes · Comunión 2026";
+    if (modo === "repeticiones") return "Repeticiones · Comunión 2026";
+    return "App de Pedidos · Comunión 2026";
+  }
 
-const url = new URL(baseUrl);
+  function getInjectedCss() {
+    return `
+/* =========================
+   FIX FUERTE DESKTOP/MÓVIL
+   Solo visual. No toca lógica.
+   ========================= */
 
-if(allowedModos.includes(modo)){
-url.searchParams.set("modo",modo);
+*,
+*::before,
+*::after{
+  box-sizing:border-box !important;
 }
 
-return url.toString();
+html,
+body{
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:hidden !important;
 }
 
-function getBrandLabel(){
-
-if(modo==="stock")
-return "Stock disponible · Comunión 2026";
-
-if(modo==="excedentes")
-return "Excedentes · Comunión 2026";
-
-if(modo==="repeticiones")
-return "Repeticiones · Comunión 2026";
-
-return "App de Pedidos · Comunión 2026";
-
+/* Contenedores generales */
+body,
+main,
+.app,
+.app-shell,
+.page,
+.page-shell,
+.content,
+.content-wrap,
+.view,
+.section,
+.products-section,
+.catalogue,
+.catalog,
+.listing,
+.product-list-wrap,
+.products-wrap,
+.products-container,
+.cards-wrap,
+.results,
+.results-wrap{
+  min-width:0 !important;
 }
 
-frame.src = buildIframeUrl();
+/* Sticky / cabeceras / buscador */
+.sticky,
+.sticky-bar,
+.toolbar,
+.filters,
+.mode-switch,
+.search-bar,
+.search-wrap,
+.actions,
+.top-actions,
+.header,
+.header-inner,
+.topbar,
+.top-panel{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+}
 
-brandText.textContent = getBrandLabel();
-document.title = getBrandLabel()+" · Abuela Tata";
+@media (min-width: 1024px){
+  .sticky,
+  .sticky-bar,
+  .toolbar,
+  .filters,
+  .mode-switch,
+  .search-bar,
+  .search-wrap,
+  .actions,
+  .top-actions,
+  .header,
+  .header-inner,
+  .topbar,
+  .top-panel{
+    padding-left:14px !important;
+    padding-right:14px !important;
+  }
+}
 
+/* Grid principal de productos */
+.products-grid,
+.product-grid,
+.grid-products,
+.cards-grid,
+.catalog-grid,
+.items-grid,
+.grid,
+.product-list,
+.products-list,
+.results-grid{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  align-items:start !important;
+}
+
+@media (min-width: 1024px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list,
+  .results-grid{
+    display:grid !important;
+    grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+    gap:16px !important;
+  }
+}
+
+@media (min-width: 1400px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list,
+  .results-grid{
+    grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+    gap:18px !important;
+  }
+}
+
+@media (max-width: 1023px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list,
+  .results-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:12px !important;
+  }
+}
+
+@media (max-width: 640px){
+  .products-grid,
+  .product-grid,
+  .grid-products,
+  .cards-grid,
+  .catalog-grid,
+  .items-grid,
+  .grid,
+  .product-list,
+  .products-list,
+  .results-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:10px !important;
+  }
+}
+
+/* Tarjetas */
+.product-card,
+.card,
+.item-card,
+.product,
+.product-item,
+.model-card,
+.article-card,
+.reference-card,
+.stock-card,
+.repeat-card{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  overflow:hidden !important;
+  border-radius:18px !important;
+}
+
+/* Muy importante: permitir que el contenido interior encoja */
+.product-card > *,
+.card > *,
+.item-card > *,
+.product > *,
+.product-item > *,
+.model-card > *,
+.article-card > *,
+.reference-card > *,
+.stock-card > *,
+.repeat-card > *{
+  min-width:0 !important;
+  max-width:100% !important;
+}
+
+@media (min-width: 1024px){
+  .product-card,
+  .card,
+  .item-card,
+  .product,
+  .product-item,
+  .model-card,
+  .article-card,
+  .reference-card,
+  .stock-card,
+  .repeat-card{
+    padding:12px !important;
+  }
+}
+
+/* Imágenes */
+.product-card img,
+.card img,
+.item-card img,
+.product img,
+.product-item img,
+.model-card img,
+.article-card img,
+.reference-card img,
+.stock-card img,
+.repeat-card img,
+.product-photo img,
+.product-image img,
+.thumb img,
+.image-wrap img,
+figure img{
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:3 / 4 !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  display:block !important;
+  border-radius:14px !important;
+  max-width:100% !important;
+}
+
+.product-photo,
+.product-image,
+.thumb,
+.image-wrap,
+figure{
+  width:100% !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+  border-radius:14px !important;
+}
+
+/* Filas superiores de referencia y precio */
+.ref,
+.reference,
+.codigo,
+.sku,
+.modelo-ref,
+.product-ref,
+.product-code{
+  font-size:16px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+}
+
+.price,
+.precio,
+.product-price,
+.unit-price{
+  font-size:18px !important;
+  line-height:1.15 !important;
+  font-weight:800 !important;
+  white-space:normal !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+}
+
+/* Textos y chips */
+p,
+span,
+small,
+strong,
+label,
+.chip,
+.badge,
+.tag,
+.pill{
+  max-width:100% !important;
+  min-width:0 !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+}
+
+.chip,
+.badge,
+.tag,
+.pill{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  max-width:100% !important;
+  white-space:normal !important;
+}
+
+/* Zona desplegable de tallas */
+.sizes,
+.size-list,
+.tallas,
+.stock-list,
+.qty-list,
+.variants,
+.options,
+.product-sizes,
+.product-stock,
+.product-variants{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  margin-top:10px !important;
+}
+
+/* Cada línea de talla */
+.size-row,
+.talla-row,
+.stock-row,
+.qty-row,
+.quantity-row,
+.linea-talla,
+.linea-stock,
+.linea-cantidad,
+.variant-row,
+.size-item,
+.stock-item,
+.order-row{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  display:grid !important;
+  grid-template-columns:minmax(44px, 60px) minmax(0, 1fr) !important;
+  align-items:center !important;
+  gap:10px !important;
+  padding:8px 0 !important;
+}
+
+/* Si dentro hay selector con -, input y + */
+.size-row > :last-child,
+.talla-row > :last-child,
+.stock-row > :last-child,
+.qty-row > :last-child,
+.quantity-row > :last-child,
+.linea-talla > :last-child,
+.linea-stock > :last-child,
+.linea-cantidad > :last-child,
+.variant-row > :last-child,
+.size-item > :last-child,
+.stock-item > :last-child,
+.order-row > :last-child{
+  min-width:0 !important;
+  max-width:100% !important;
+}
+
+/* Contenedores típicos del stepper */
+.stepper,
+.quantity-selector,
+.counter,
+.qty-control,
+.qty-wrap,
+.input-group,
+.number-control{
+  display:grid !important;
+  grid-template-columns:36px minmax(48px, 1fr) 36px !important;
+  gap:8px !important;
+  align-items:center !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+}
+
+/* Talla izquierda */
+.size-label,
+.talla,
+.size-name,
+.talla-label,
+.badge-size,
+.size-pill,
+.stock-size{
+  min-width:44px !important;
+  min-height:36px !important;
+  padding:7px 8px !important;
+  border-radius:999px !important;
+  font-size:15px !important;
+  font-weight:800 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+
+/* Cantidad / stock bien visible */
+.stock-value,
+.qty,
+.quantity,
+.cantidad,
+.stock-qty,
+.available,
+.disponible,
+.value,
+.units,
+.unidades{
+  font-size:20px !important;
+  line-height:1.1 !important;
+  font-weight:800 !important;
+}
+
+/* Inputs */
+input[type="number"]{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  height:40px !important;
+  padding:6px 8px !important;
+  font-size:20px !important;
+  font-weight:800 !important;
+  text-align:center !important;
+  border-radius:12px !important;
+}
+
+/* Botones menos y más */
+.qty-btn,
+.stepper button,
+.quantity-selector button,
+.counter button,
+button.minus,
+button.plus{
+  width:36px !important;
+  min-width:36px !important;
+  max-width:36px !important;
+  height:36px !important;
+  min-height:36px !important;
+  font-size:20px !important;
+  border-radius:12px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:0 !important;
+}
+
+/* Pie inferior / acciones */
+.footer,
+.bottom-bar,
+.summary-bar,
+.action-bar,
+.actions-bottom,
+.sticky-footer{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+}
+
+.footer button,
+.bottom-bar button,
+.summary-bar button,
+.action-bar button,
+.actions-bottom button,
+.sticky-footer button{
+  min-width:0 !important;
+}
+
+/* Ajuste específico escritorio para evitar amputación */
+@media (min-width: 1024px){
+
+  .size-row,
+  .talla-row,
+  .stock-row,
+  .qty-row,
+  .quantity-row,
+  .linea-talla,
+  .linea-stock,
+  .linea-cantidad,
+  .variant-row,
+  .size-item,
+  .stock-item,
+  .order-row{
+    grid-template-columns:minmax(52px, 70px) minmax(0, 1fr) !important;
+    gap:12px !important;
+    padding:9px 0 !important;
+  }
+
+  .stepper,
+  .quantity-selector,
+  .counter,
+  .qty-control,
+  .qty-wrap,
+  .input-group,
+  .number-control{
+    grid-template-columns:40px minmax(56px, 1fr) 40px !important;
+    gap:8px !important;
+  }
+
+  .qty-btn,
+  .stepper button,
+  .quantity-selector button,
+  .counter button,
+  button.minus,
+  button.plus{
+    width:40px !important;
+    min-width:40px !important;
+    max-width:40px !important;
+    height:40px !important;
+    min-height:40px !important;
+  }
+
+  input[type="number"]{
+    height:42px !important;
+    font-size:21px !important;
+  }
+}
+
+/* Móvil fino */
+@media (max-width: 640px){
+
+  .ref,
+  .reference,
+  .codigo,
+  .sku,
+  .modelo-ref,
+  .product-ref,
+  .product-code{
+    font-size:14px !important;
+  }
+
+  .price,
+  .precio,
+  .product-price,
+  .unit-price{
+    font-size:15px !important;
+  }
+
+  .stock-value,
+  .qty,
+  .quantity,
+  .cantidad,
+  .stock-qty,
+  .available,
+  .disponible,
+  .value,
+  .units,
+  .unidades{
+    font-size:18px !important;
+  }
+
+  .size-label,
+  .talla,
+  .size-name,
+  .talla-label,
+  .badge-size,
+  .size-pill,
+  .stock-size{
+    font-size:14px !important;
+    min-width:40px !important;
+  }
+
+  input[type="number"]{
+    height:36px !important;
+    font-size:18px !important;
+  }
+
+  .qty-btn,
+  .stepper button,
+  .quantity-selector button,
+  .counter button,
+  button.minus,
+  button.plus{
+    width:34px !important;
+    min-width:34px !important;
+    max-width:34px !important;
+    height:34px !important;
+    min-height:34px !important;
+    font-size:18px !important;
+  }
+}
+`;
+  }
+
+  function injectCssIntoIframe() {
+    let doc;
+
+    try {
+      doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+      if (!doc || !doc.head) return;
+    } catch (err) {
+      return;
+    }
+
+    let styleTag = doc.getElementById(injectedStyleId);
+    if (!styleTag) {
+      styleTag = doc.createElement("style");
+      styleTag.id = injectedStyleId;
+      doc.head.appendChild(styleTag);
+    }
+
+    styleTag.textContent = getInjectedCss();
+  }
+
+  function installIframeEnhancer() {
+    frame.addEventListener("load", function () {
+      injectCssIntoIframe();
+
+      try {
+        const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+        if (!doc || !doc.body) return;
+
+        const observer = new MutationObserver(function () {
+          injectCssIntoIframe();
+        });
+
+        observer.observe(doc.body, {
+          childList: true,
+          subtree: true,
+          attributes: false
+        });
+      } catch (err) {
+        /* sin acceso al iframe */
+      }
+    });
+  }
+
+  frame.src = buildIframeUrl();
+  brandText.textContent = getBrandLabel();
+  document.title = getBrandLabel() + " · Abuela Tata";
+  installIframeEnhancer();
 })();
-
 </script>
 
 </body>
