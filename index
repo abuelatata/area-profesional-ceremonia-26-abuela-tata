@@ -1,0 +1,120 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Área Profesional · Abuela Tata</title>
+
+<link rel="icon" href="./assets/favicon.png">
+
+<script>
+
+/* Mostrar splash siempre al abrir el área profesional */
+
+if(!sessionStorage.getItem("splashSeen")){
+  sessionStorage.setItem("splashSeen","true");
+  window.location.href="splash.html";
+}
+
+</script>
+
+<style>
+
+body{
+margin:0;
+font-family: Georgia, serif;
+background:#f5efe6;
+color:#5b4636;
+}
+
+/* CABECERA */
+
+header{
+padding:20px 10px;
+text-align:center;
+background:white;
+border-bottom:1px solid #e6d6c6;
+}
+
+header img{
+height:65px;
+}
+
+header h1{
+margin:10px 0 0;
+font-size:22px;
+font-weight:500;
+}
+
+/* MENU */
+
+.menu{
+max-width:520px;
+margin:35px auto;
+display:grid;
+gap:14px;
+padding:0 18px;
+}
+
+.card{
+display:block;
+padding:18px;
+border-radius:16px;
+text-decoration:none;
+background:white;
+border:1px solid #e6d6c6;
+font-size:17px;
+text-align:center;
+box-shadow:0 10px 22px rgba(0,0,0,0.08);
+transition:all .2s ease;
+}
+
+.card:hover{
+background:#faf6f0;
+transform:translateY(-2px);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="./assets/logo.png">
+
+<h1>Área Profesional</h1>
+
+</header>
+
+<div class="menu">
+
+<a class="card" href="pedidos.html">
+📦 App de Repeticiones
+</a>
+
+<a class="card" href="multimedia.html">
+📸 Descarga Multimedia
+</a>
+
+<a class="card" href="tarifa.html">
+📄 Tarifa de Precios
+</a>
+
+<a class="card" href="calendario.html">
+📅 Calendario de Repeticiones
+</a>
+
+<a class="card" href="condiciones.html">
+ℹ️ Condiciones de Campaña
+</a>
+
+</div>
+
+</body>
+</html>
+```
