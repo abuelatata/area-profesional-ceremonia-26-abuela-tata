@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Área Profesional · Abuela Tata</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Georgia, serif;
+  background:#f5f1ea;
+  color:#5a4636;
+}
+
+/* SPLASH FOTO */
+#splash{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+
+#splash img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  top:0;
+  left:0;
+}
+
+#splashContent{
+  position:relative;
+  z-index:20;
+  text-align:center;
+  color:white;
+  padding:20px;
+}
+
+#enterBtn{
+  margin-top:20px;
+  padding:12px 28px;
+  font-size:16px;
+  border:none;
+  border-radius:10px;
+  background:#ffffffcc;
+  cursor:pointer;
+}
+
+/* AREA PROFESIONAL */
+#app{
+  display:none;
+  padding:25px;
+  max-width:900px;
+  margin:auto;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:25px;
+}
+
+.logo{
+  width:42px;
+}
+
+.title{
+  font-size:26px;
+  font-weight:bold;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #e4ddd4;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+}
+
+.cardTitle{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.cardText{
+  font-size:14px;
+  opacity:.7;
+}
+
+.button{
+  background:#d9e8e6;
+  padding:10px 16px;
+  border-radius:8px;
+  text-decoration:none;
+  color:#333;
+  white-space:nowrap;
+}
+
+.sectionTitle{
+  margin-top:30px;
+  margin-bottom:10px;
+  color:#7da6a1;
+  letter-spacing:2px;
+  font-size:14px;
+}
+
+@media(min-width:700px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FOTO INICIAL -->
+<div id="splash">
+  <img src="images/portada-area.jpg" alt="Área Profesional">
+  <div id="splashContent">
+    <h2>Área Profesional</h2>
+    <button id="enterBtn">Entrar</button>
+  </div>
+</div>
+
+<!-- AREA PROFESIONAL -->
+<div id="app">
+
+  <div class="header">
+    <img src="assets/logo.png" class="logo" alt="Logo Abuela Tata">
+    <div class="title">Área Profesional</div>
+  </div>
+
+  <div class="sectionTitle">
+    PEDIDOS
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div>
+        <div class="cardTitle">
+          Repetición de campaña
+        </div>
+        <div class="cardText">
+          Producción según calendario
+        </div>
+      </div>
+      <a class="button" href="index.html?modo=repeticiones">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="cardTitle">
+          Stock disponible
+        </div>
+        <div class="cardText">
+          Entrega inmediata
+        </div>
+      </div>
+      <a class="button" href="index.html?modo=stock">
+        Entrar →
+      </a>
+    </div>
+
+  </div>
+
+  <div class="sectionTitle">
+    DOCUMENTACIÓN
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div>
+        <div class="cardTitle">
+          Descarga multimedia
+        </div>
+        <div class="cardText">
+          Imágenes en alta resolución
+        </div>
+      </div>
+      <a class="button" href="multimedia.html">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="cardTitle">
+          Tarifas
+        </div>
+        <div class="cardText">
+          Precios de campaña
+        </div>
+      </div>
+      <a class="button" href="tarifas.html">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="cardTitle">
+          Guía de tallas
+        </div>
+        <div class="cardText">
+          Medidas y equivalencias
+        </div>
+      </div>
+      <a class="button" href="tallas.html">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div>
+        <div class="cardTitle">
+          Condiciones
+        </div>
+        <div class="cardText">
+          Calendario y normas
+        </div>
+      </div>
+      <a class="button" href="condiciones.html">
+        Entrar →
+      </a>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const splash = document.getElementById("splash");
+  const app = document.getElementById("app");
+  const enterBtn = document.getElementById("enterBtn");
+
+  function showApp() {
+    splash.style.display = "none";
+    app.style.display = "block";
+  }
+
+  function getModoFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const modo = (params.get("modo") || "").toLowerCase().trim();
+    return modo;
+  }
+
+  function buildFileUrl(fileName, extraParams) {
+    const url = new URL(fileName, window.location.href);
+    if (extraParams && typeof extraParams === "object") {
+      Object.keys(extraParams).forEach(function(key){
+        url.searchParams.set(key, extraParams[key]);
+      });
+    }
+    return url.toString();
+  }
+
+  function openModoIfRequested() {
+    const modo = getModoFromUrl();
+
+    if (!modo) return false;
+
+    // IMPORTANTE:
+    // - repeticiones abre la app de pedidos
+    // - stock abre la app de stock
+    // - excedentes abre la app de stock en modo excedentes
+    // Ajustado para evitar 404 desde este index cuando entran por URL.
+    const routes = {
+      repeticiones: buildFileUrl("pedidos.html", { modo: "repeticiones" }),
+      stock: buildFileUrl("stock.html", { modo: "stock" }),
+      excedentes: buildFileUrl("stock.html", { modo: "excedentes" })
+    };
+
+    if (routes[modo]) {
+      window.location.replace(routes[modo]);
+      return true;
+    }
+
+    return false;
+  }
+
+  // Si viene con ?modo=..., redirige directamente y no muestra splash
+  const redirected = openModoIfRequested();
+
+  if (!redirected) {
+    enterBtn.onclick = function () {
+      showApp();
+    };
+  }
+})();
+</script>
+
+</body>
+</html>
