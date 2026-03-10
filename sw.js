@@ -1,4 +1,5 @@
-const CACHE_NAME = 'abuela-tata-area-v1';
+const CACHE_NAME = 'abuela-tata-area-v2';
+
 const URLS_TO_CACHE = [
   './',
   './index.html',
@@ -15,27 +16,72 @@ const URLS_TO_CACHE = [
   './condiciones.html'
 ];
 
+// Instala y precachea archivos base
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(URLS_TO_CACHE.map(u => new Request(u, {cache: 'reload'}))).catch(() => Promise.resolve()))
+    caches.open(CACHE_NAME).then(async cache => {
+      try {
+        await cache.addAll(URLS_TO_CACHE);
+      } catch (err) {
+        console.warn('No se pudieron guardar todos los archivos en caché:', err);
+      }
+    })
   );
   self.skipWaiting();
 });
 
+// Activa y borra cachés antiguas
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
-      .then(() => self.clients.claim())
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
+// Estrategia:
+// - Para HTML: intenta red primero, si falla usa caché
+// - Para resto: usa caché primero y actualiza en segundo plano
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  const request = event.request;
+  const url = new URL(request.url);
+
+  // Solo manejar mismas rutas del sitio
+  if (url.origin !== location.origin) return;
+
+  // Para páginas HTML: network first
+  if (request.mode === 'navigate' || request.headers.get('accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(request, copy)).catch(() => {});
+          return response;
+        })
+        .catch(() => caches.match(request).then(cached => cached || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Para imágenes, css, js, etc: cache first
   event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request).then(response => {
-      const copy = response.clone();
-      caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy)).catch(() => {});
-      return response;
-    }).catch(() => cached))
+    caches.match(request).then(cached => {
+      if (cached) return cached;
+
+      return fetch(request).then(response => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(request, copy)).catch(() => {});
+        return response;
+      });
+    })
   );
 });
+ 
