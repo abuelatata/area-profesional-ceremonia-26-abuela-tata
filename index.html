@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Área Profesional · Abuela Tata</title>
+<meta name="theme-color" content="#d8b15f">
+
+<style>
+:root{
+  --bg:#f5f1ea;
+  --card:#ffffff;
+  --ink:#5a4636;
+  --muted:#8c7765;
+  --line:#e7ddd2;
+  --accent:#d8b15f;
+  --accent-2:#d9e8e6;
+  --shadow:0 10px 28px rgba(60,40,25,.10);
+  --radius:18px;
+}
+
+*{ box-sizing:border-box; }
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+}
+
+body{
+  font-family:Georgia, serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* SPLASH */
+#splash{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,.35), rgba(245,241,234,.96)),
+    #f5f1ea;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .65s ease, visibility .65s ease;
+}
+
+#splash.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+#splashInner{
+  width:min(96vw, 1200px);
+  height:min(92vh, 900px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+#splash img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:26px;
+  box-shadow:0 22px 48px rgba(0,0,0,.16);
+  background:#eee7de;
+}
+
+/* APP */
+#app{
+  display:none;
+  width:min(1120px, calc(100% - 28px));
+  margin:0 auto;
+  padding:18px 0 36px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  background:rgba(245,241,234,.82);
+  border:1px solid rgba(231,221,210,.95);
+  box-shadow:0 8px 24px rgba(80,58,41,.08);
+  border-radius:22px;
+  padding:12px;
+  margin:12px 0 18px;
+}
+
+.topbarRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.logo{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+
+.brandText{
+  min-width:0;
+}
+
+.title{
+  font-size:clamp(24px, 4vw, 34px);
+  line-height:1.05;
+  font-weight:700;
+  margin:0 0 4px;
+}
+
+.subtitle{
+  font-size:clamp(14px, 2vw, 17px);
+  color:var(--muted);
+  margin:0;
+}
+
+.topActions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.selectWrap{
+  position:relative;
+}
+
+.langSelect{
+  appearance:none;
+  -webkit-appearance:none;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:12px;
+  padding:10px 38px 10px 12px;
+  font:inherit;
+  cursor:pointer;
+  min-width:170px;
+  box-shadow:var(--shadow);
+}
+
+.selectWrap::after{
+  content:"▾";
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.installBtn{
+  display:none;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(180deg, #e2be6f, #cea24a);
+  color:#fff;
+  font:inherit;
+  font-weight:700;
+  padding:10px 16px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.installBtn.show{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.installHint{
+  display:none;
+  font-size:13px;
+  color:var(--muted);
+  margin-top:8px;
+}
+
+.hero{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.84)),
+    radial-gradient(circle at top, rgba(216,177,95,.16), transparent 48%);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:24px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.heroTitle{
+  margin:0 0 8px;
+  font-size:clamp(28px, 4.5vw, 50px);
+  line-height:1.03;
+}
+
+.heroText{
+  margin:0;
+  color:var(--muted);
+  font-size:clamp(15px, 2vw, 19px);
+  max-width:760px;
+}
+
+.sectionTitle{
+  margin:26px 0 10px;
+  color:#7da6a1;
+  letter-spacing:2px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  box-shadow:var(--shadow);
+}
+
+.cardInfo{
+  min-width:0;
+}
+
+.cardTitle{
+  font-size:19px;
+  font-weight:700;
+  margin:0 0 6px;
+}
+
+.cardText{
+  font-size:14px;
+  color:var(--muted);
+  margin:0;
+}
+
+.button{
+  background:var(--accent-2);
+  padding:12px 16px;
+  border-radius:12px;
+  text-decoration:none;
+  color:#38413f;
+  white-space:nowrap;
+  font-weight:700;
+  border:1px solid #cadad8;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  box-shadow:0 4px 14px rgba(60,40,25,.08);
+}
+
+.button:hover{
+  transform:translateY(-1px);
+  background:#d1e3e0;
+}
+
+.footerNote{
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+  margin-top:24px;
+}
+
+/* Tablets */
+@media (min-width:700px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* Desktop */
+@media (min-width:980px){
+  #app{
+    padding-top:24px;
+  }
+
+  .hero{
+    padding:28px;
+  }
+}
+
+/* Horizontal / low height */
+@media (orientation:landscape){
+  #splashInner{
+    width:min(96vw, 1360px);
+    height:min(88vh, 860px);
+  }
+}
+
+/* Mobile */
+@media (max-width:640px){
+  #app{
+    width:min(100% - 16px, 1120px);
+    padding-top:10px;
+  }
+
+  .topbar{
+    border-radius:18px;
+    padding:10px;
+    margin-top:8px;
+  }
+
+  .topbarRow{
+    align-items:stretch;
+  }
+
+  .brand{
+    width:100%;
+  }
+
+  .topActions{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .langSelect,
+  .installBtn{
+    width:100%;
+  }
+
+  .hero{
+    border-radius:22px;
+    padding:18px;
+  }
+
+  .card{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .button{
+    width:100%;
+    text-align:center;
+  }
+}
+
+/* RTL Arabic */
+html[dir="rtl"] body{
+  font-family:Georgia, serif;
+}
+
+html[dir="rtl"] .brand,
+html[dir="rtl"] .topActions,
+html[dir="rtl"] .card{
+  direction:rtl;
+}
+
+html[dir="rtl"] .selectWrap::after{
+  right:auto;
+  left:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="splash" aria-hidden="true">
+  <div id="splashInner">
+    <img src="images/portada-area.jpg" alt="Área Profesional">
+  </div>
+</div>
+
+<div id="app">
+
+  <div class="topbar">
+    <div class="topbarRow">
+      <div class="brand">
+        <img src="assets/logo.png" class="logo" alt="Logo Abuela Tata">
+        <div class="brandText">
+          <h1 class="title" data-i18n="appTitle">Área Profesional</h1>
+          <p class="subtitle" data-i18n="appSubtitle">Acceso para clientes profesionales, pedidos y documentación de campaña.</p>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <div class="selectWrap">
+          <select id="languageSelect" class="langSelect" aria-label="Idioma">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+            <option value="it">Italiano</option>
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+
+        <button id="installBtn" class="installBtn" type="button" data-i18n="installButton">
+          Instalar app
+        </button>
+      </div>
+    </div>
+
+    <div id="installHint" class="installHint" data-i18n="installHint">
+      Si no aparece el aviso automático, usa “Añadir a pantalla de inicio” o “Instalar aplicación” en el navegador.
+    </div>
+  </div>
+
+  <section class="hero">
+    <h2 class="heroTitle" data-i18n="heroTitle">Bienvenido al Área Profesional</h2>
+    <p class="heroText" data-i18n="heroText">Un acceso rápido y elegante para realizar pedidos, consultar stock y descargar toda la documentación de campaña.</p>
+  </section>
+
+  <div class="sectionTitle" data-i18n="sectionOrders">PEDIDOS</div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="repeatTitle">Repetición de campaña</div>
+        <div class="cardText" data-i18n="repeatText">Producción según calendario</div>
+      </div>
+      <a class="button" href="pedidos.html?modo=repeticiones" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="stockTitle">Stock disponible</div>
+        <div class="cardText" data-i18n="stockText">Entrega inmediata</div>
+      </div>
+      <a class="button" href="pedidos.html?modo=stock" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+  </div>
+
+  <div class="sectionTitle" data-i18n="sectionDocs">DOCUMENTACIÓN</div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="mediaTitle">Descarga multimedia</div>
+        <div class="cardText" data-i18n="mediaText">Imágenes en alta resolución</div>
+      </div>
+      <a class="button" href="multimedia.html" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="ratesTitle">Tarifas</div>
+        <div class="cardText" data-i18n="ratesText">Precios de campaña</div>
+      </div>
+      <a class="button" href="tarifas.html" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="sizesTitle">Guía de tallas</div>
+        <div class="cardText" data-i18n="sizesText">Medidas y equivalencias</div>
+      </div>
+      <a class="button" href="tallas.html" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="conditionsTitle">Condiciones</div>
+        <div class="cardText" data-i18n="conditionsText">Calendario y normas</div>
+      </div>
+      <a class="button" href="condiciones.html" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="calendarTitle">Calendario de repeticiones</div>
+        <div class="cardText" data-i18n="calendarText">Fechas clave y planificación</div>
+      </div>
+      <a class="button" href="calendario.html" data-i18n="enterButton">
+        Entrar →
+      </a>
+    </div>
+
+  </div>
+
+  <div class="footerNote" data-i18n="footerNote">
+    Diseñado para móvil, tablet y ordenador.
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const splash = document.getElementById("splash");
+  const app = document.getElementById("app");
+  const installBtn = document.getElementById("installBtn");
+  const installHint = document.getElementById("installHint");
+  const languageSelect = document.getElementById("languageSelect");
+
+  let deferredPrompt = null;
+
+  const translations = {
+    es: {
+      appTitle: "Área Profesional",
+      appSubtitle: "Acceso para clientes profesionales, pedidos y documentación de campaña.",
+      heroTitle: "Bienvenido al Área Profesional",
+      heroText: "Un acceso rápido y elegante para realizar pedidos, consultar stock y descargar toda la documentación de campaña.",
+      sectionOrders: "PEDIDOS",
+      repeatTitle: "Repetición de campaña",
+      repeatText: "Producción según calendario",
+      stockTitle: "Stock disponible",
+      stockText: "Entrega inmediata",
+      sectionDocs: "DOCUMENTACIÓN",
+      mediaTitle: "Descarga multimedia",
+      mediaText: "Imágenes en alta resolución",
+      ratesTitle: "Tarifas",
+      ratesText: "Precios de campaña",
+      sizesTitle: "Guía de tallas",
+      sizesText: "Medidas y equivalencias",
+      conditionsTitle: "Condiciones",
+      conditionsText: "Calendario y normas",
+      calendarTitle: "Calendario de repeticiones",
+      calendarText: "Fechas clave y planificación",
+      enterButton: "Entrar →",
+      installButton: "Instalar app",
+      installHint: "Si no aparece el aviso automático, usa “Añadir a pantalla de inicio” o “Instalar aplicación” en el navegador.",
+      footerNote: "Diseñado para móvil, tablet y ordenador."
+    },
+    en: {
+      appTitle: "Professional Area",
+      appSubtitle: "Access for professional clients, orders and campaign documentation.",
+      heroTitle: "Welcome to the Professional Area",
+      heroText: "A quick and elegant access point to place orders, check stock and download all campaign documentation.",
+      sectionOrders: "ORDERS",
+      repeatTitle: "Repeat campaign order",
+      repeatText: "Production according to calendar",
+      stockTitle: "Available stock",
+      stockText: "Immediate delivery",
+      sectionDocs: "DOCUMENTATION",
+      mediaTitle: "Media download",
+      mediaText: "High-resolution images",
+      ratesTitle: "Price lists",
+      ratesText: "Campaign prices",
+      sizesTitle: "Size guide",
+      sizesText: "Measurements and equivalences",
+      conditionsTitle: "Terms",
+      conditionsText: "Calendar and rules",
+      calendarTitle: "Reorder calendar",
+      calendarText: "Key dates and planning",
+      enterButton: "Enter →",
+      installButton: "Install app",
+      installHint: "If the automatic prompt does not appear, use “Add to Home Screen” or “Install app” in your browser.",
+      footerNote: "Designed for mobile, tablet and desktop."
+    },
+    pt: {
+      appTitle: "Área Profissional",
+      appSubtitle: "Acesso para clientes profissionais, encomendas e documentação da campanha.",
+      heroTitle: "Bem-vindo à Área Profissional",
+      heroText: "Um acesso rápido e elegante para fazer encomendas, consultar stock e descarregar toda a documentação da campanha.",
+      sectionOrders: "ENCOMENDAS",
+      repeatTitle: "Reposição de campanha",
+      repeatText: "Produção conforme calendário",
+      stockTitle: "Stock disponível",
+      stockText: "Entrega imediata",
+      sectionDocs: "DOCUMENTAÇÃO",
+      mediaTitle: "Descarga multimédia",
+      mediaText: "Imagens em alta resolução",
+      ratesTitle: "Tabelas de preços",
+      ratesText: "Preços da campanha",
+      sizesTitle: "Guia de tamanhos",
+      sizesText: "Medidas e equivalências",
+      conditionsTitle: "Condições",
+      conditionsText: "Calendário e normas",
+      calendarTitle: "Calendário de reposições",
+      calendarText: "Datas-chave e planeamento",
+      enterButton: "Entrar →",
+      installButton: "Instalar app",
+      installHint: "Se o aviso automático não aparecer, use “Adicionar ao ecrã inicial” ou “Instalar aplicação” no navegador.",
+      footerNote: "Desenvolvido para telemóvel, tablet e computador."
+    },
+    it: {
+      appTitle: "Area Professionale",
+      appSubtitle: "Accesso per clienti professionali, ordini e documentazione di campagna.",
+      heroTitle: "Benvenuto nell’Area Professionale",
+      heroText: "Un accesso rapido ed elegante per effettuare ordini, consultare lo stock e scaricare tutta la documentazione di campagna.",
+      sectionOrders: "ORDINI",
+      repeatTitle: "Riassortimento campagna",
+      repeatText: "Produzione secondo calendario",
+      stockTitle: "Stock disponibile",
+      stockText: "Consegna immediata",
+      sectionDocs: "DOCUMENTAZIONE",
+      mediaTitle: "Download multimedia",
+      mediaText: "Immagini ad alta risoluzione",
+      ratesTitle: "Listini prezzi",
+      ratesText: "Prezzi di campagna",
+      sizesTitle: "Guida alle taglie",
+      sizesText: "Misure ed equivalenze",
+      conditionsTitle: "Condizioni",
+      conditionsText: "Calendario e regole",
+      calendarTitle: "Calendario riassortimenti",
+      calendarText: "Date chiave e pianificazione",
+      enterButton: "Entra →",
+      installButton: "Installa app",
+      installHint: "Se l’avviso automatico non compare, usa “Aggiungi alla schermata Home” o “Installa app” nel browser.",
+      footerNote: "Progettato per mobile, tablet e computer."
+    },
+    ar: {
+      appTitle: "المنطقة المهنية",
+      appSubtitle: "دخول خاص للعملاء المهنيين والطلبات ووثائق الحملة.",
+      heroTitle: "مرحباً بك في المنطقة المهنية",
+      heroText: "وصول سريع وأنيق لتقديم الطلبات ومراجعة المخزون وتنزيل جميع وثائق الحملة.",
+      sectionOrders: "الطلبات",
+      repeatTitle: "إعادة طلب الحملة",
+      repeatText: "الإنتاج حسب الجدول",
+      stockTitle: "المخزون المتاح",
+      stockText: "تسليم فوري",
+      sectionDocs: "الوثائق",
+      mediaTitle: "تنزيل الوسائط",
+      mediaText: "صور عالية الدقة",
+      ratesTitle: "الأسعار",
+      ratesText: "أسعار الحملة",
+      sizesTitle: "دليل المقاسات",
+      sizesText: "القياسات والمعادلات",
+      conditionsTitle: "الشروط",
+      conditionsText: "الجدول والقواعد",
+      calendarTitle: "تقويم الإعادات",
+      calendarText: "التواريخ الأساسية والتخطيط",
+      enterButton: "دخول ←",
+      installButton: "تثبيت التطبيق",
+      installHint: "إذا لم يظهر التنبيه تلقائياً، استخدم “إضافة إلى الشاشة الرئيسية” أو “تثبيت التطبيق” من المتصفح.",
+      footerNote: "مصمم للجوال والتابلت والكمبيوتر."
+    }
+  };
+
+  function setLanguage(lang) {
+    const dict = translations[lang] || translations.es;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("at_lang", lang);
+    languageSelect.value = lang;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key]) el.textContent = dict[key];
+    });
+
+    const titleText = dict.appTitle || "Área Profesional";
+    document.title = titleText + " · Abuela Tata";
+  }
+
+  function showApp() {
+    app.style.display = "block";
+  }
+
+  function hideSplash() {
+    splash.classList.add("hide");
+    setTimeout(() => {
+      if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    }, 700);
+  }
+
+  function getModoFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return (params.get("modo") || "").toLowerCase().trim();
+  }
+
+  function buildFileUrl(fileName, extraParams) {
+    const url = new URL(fileName, window.location.href);
+    if (extraParams && typeof extraParams === "object") {
+      Object.keys(extraParams).forEach(function(key){
+        url.searchParams.set(key, extraParams[key]);
+      });
+    }
+    return url.toString();
+  }
+
+  function openModoIfRequested() {
+    const modo = getModoFromUrl();
+    if (!modo) return false;
+
+    const routes = {
+      repeticiones: buildFileUrl("pedidos.html", { modo: "repeticiones" }),
+      stock: buildFileUrl("pedidos.html", { modo: "stock" }),
+      excedentes: buildFileUrl("pedidos.html", { modo: "excedentes" })
+    };
+
+    if (routes[modo]) {
+      window.location.replace(routes[modo]);
+      return true;
+    }
+    return false;
+  }
+
+  function setupInstallPrompt() {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.add("show");
+      installHint.style.display = "block";
+    });
+
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        installHint.style.display = "block";
+        return;
+      }
+      deferredPrompt.prompt();
+      try {
+        await deferredPrompt.userChoice;
+      } catch (err) {}
+      deferredPrompt = null;
+      installBtn.classList.remove("show");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      installBtn.classList.remove("show");
+    });
+  }
+
+  const redirected = openModoIfRequested();
+  if (redirected) return;
+
+  const savedLang = localStorage.getItem("at_lang") || "es";
+  setLanguage(savedLang);
+  languageSelect.addEventListener("change", function () {
+    setLanguage(this.value);
+  });
+
+  setupInstallPrompt();
+  showApp();
+
+  window.addEventListener("load", function () {
+    setTimeout(() => {
+      hideSplash();
+    }, 3000);
+  });
+})();
+</script>
+
+</body>
+</html>
