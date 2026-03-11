@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ceremonia 26 · Abuela Tata</title>
+<meta name="theme-color" content="#d8b15f">
+
+<style>
+:root{
+  --bg:#f5efe6;
+  --card:#ffffff;
+  --ink:#5f4636;
+  --muted:#8a7462;
+  --line:#e6d6c6;
+  --accent:#d8b15f;
+  --accent-soft:#f4ece3;
+  --shadow:0 10px 28px rgba(0,0,0,.08);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+}
+
+body{
+  font-family:Georgia,serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* SPLASH */
+#splash{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at center, rgba(255,255,255,.30), rgba(245,239,230,.96)),
+    #f5efe6;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .65s ease, visibility .65s ease;
+}
+
+#splash.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+#splashInner{
+  width:min(96vw,1200px);
+  height:min(92vh,900px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+#splash img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:24px;
+  box-shadow:0 22px 48px rgba(0,0,0,.16);
+  background:#eee7de;
+}
+
+/* APP */
+.page{
+  width:min(1100px, calc(100% - 24px));
+  margin:0 auto;
+  padding:12px 0 32px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(245,239,230,.88);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(230,214,198,.95);
+  border-radius:22px;
+  padding:12px;
+  margin:10px 0 18px;
+  box-shadow:0 8px 24px rgba(80,58,41,.08);
+}
+
+.topbarRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.leftGroup{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.back{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:10px 16px;
+  border-radius:14px;
+  background:var(--accent-soft);
+  text-decoration:none;
+  color:var(--ink);
+  font-size:15px;
+  font-weight:600;
+  border:1px solid var(--line);
+  white-space:nowrap;
+}
+
+.title{
+  font-size:clamp(22px,3vw,30px);
+  color:var(--ink);
+  font-weight:700;
+  line-height:1.1;
+}
+
+.rightGroup{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.selectWrap{
+  position:relative;
+}
+
+.langSelect{
+  appearance:none;
+  -webkit-appearance:none;
+  min-height:44px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:12px;
+  padding:10px 38px 10px 12px;
+  font:inherit;
+  cursor:pointer;
+  min-width:170px;
+  box-shadow:var(--shadow);
+}
+
+.selectWrap::after{
+  content:"▾";
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.installBtn{
+  display:none;
+  min-height:44px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(180deg, #e2be6f, #cea24a);
+  color:#fff;
+  font:inherit;
+  font-weight:700;
+  padding:10px 16px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.installBtn.show{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.installHint{
+  display:none;
+  margin-top:8px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.hero{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.74), rgba(255,255,255,.88)),
+    radial-gradient(circle at top, rgba(216,177,95,.16), transparent 48%);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.hero h1{
+  margin:0 0 8px 0;
+  color:var(--ink);
+  font-size:clamp(30px,4.5vw,48px);
+  line-height:1.02;
+}
+
+.hero p{
+  margin:0;
+  color:var(--muted);
+  font-size:clamp(15px,2vw,18px);
+  line-height:1.45;
+  max-width:780px;
+}
+
+.container{
+  padding:0;
+  max-width:100%;
+  margin:auto;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:20px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  border:1px solid rgba(230,214,198,.9);
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(0,0,0,.09);
+  border-color:#dcc7b2;
+}
+
+.card h2{
+  margin:0 0 8px 0;
+  color:var(--ink);
+  font-size:clamp(24px,3vw,30px);
+  line-height:1.06;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.45;
+}
+
+.footerNote{
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+  margin-top:22px;
+}
+
+/* tablet */
+@media (min-width:700px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* horizontal */
+@media (orientation:landscape){
+  #splashInner{
+    width:min(96vw,1360px);
+    height:min(88vh,860px);
+  }
+}
+
+/* mobile */
+@media (max-width:640px){
+  .page{
+    width:min(100% - 14px, 1100px);
+    padding-top:8px;
+  }
+
+  .topbar{
+    padding:10px;
+    border-radius:18px;
+    margin-top:8px;
+  }
+
+  .topbarRow{
+    align-items:stretch;
+  }
+
+  .leftGroup,
+  .rightGroup{
+    width:100%;
+  }
+
+  .rightGroup{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .langSelect,
+  .installBtn{
+    width:100%;
+  }
+
+  .hero{
+    padding:18px;
+    border-radius:22px;
+  }
+
+  .card{
+    padding:20px;
+  }
+}
+
+/* RTL arabe */
+html[dir="rtl"] .topbarRow,
+html[dir="rtl"] .leftGroup,
+html[dir="rtl"] .rightGroup,
+html[dir="rtl"] .hero,
+html[dir="rtl"] .card{
+  direction:rtl;
+}
+
+html[dir="rtl"] .selectWrap::after{
+  right:auto;
+  left:12px;
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" aria-hidden="true">
+  <div id="splashInner">
+    <img src="images/portada-area.jpg" alt="Abuela Tata">
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="topbar">
+    <div class="topbarRow">
+      <div class="leftGroup">
+        <a class="back" href="index.html" data-i18n="back">← Volver</a>
+        <div class="title" data-i18n="title">Ceremonia 26</div>
+      </div>
+
+      <div class="rightGroup">
+        <div class="selectWrap">
+          <select id="languageSelect" class="langSelect" aria-label="Idioma">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+            <option value="it">Italiano</option>
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+
+        <button id="installBtn" class="installBtn" type="button" data-i18n="installButton">
+          Instalar app
+        </button>
+      </div>
+    </div>
+
+    <div id="installHint" class="installHint" data-i18n="installHint">
+      Si no aparece el aviso automático, usa “Añadir a pantalla de inicio” o “Instalar aplicación” en el navegador.
+    </div>
+  </div>
+
+  <section class="hero">
+    <h1 data-i18n="heroTitle">Ceremonia 26</h1>
+    <p data-i18n="heroText">Acceso rápido a pedidos, stock y documentación de la colección.</p>
+  </section>
+
+  <div class="container">
+    <div class="grid">
+
+      <div class="card" onclick="window.location.href='https://abuelatata.github.io/repeticiones-ceremonia-26/?modo=repeticiones'">
+        <h2 data-i18n="repeatTitle">Repeticiones</h2>
+        <p data-i18n="repeatText">Realizar pedidos de repetición de la colección.</p>
+      </div>
+
+      <div class="card" onclick="window.location.href='https://abuelatata.github.io/repeticiones-ceremonia-26/?modo=stock'">
+        <h2 data-i18n="stockTitle">Stock disponible</h2>
+        <p data-i18n="stockText">Consultar y comprar prendas disponibles en stock.</p>
+      </div>
+
+      <div class="card" onclick="window.location.href='calendario-repeticiones-ceremonia-26.pdf'">
+        <h2 data-i18n="calendarTitle">Calendario de repeticiones</h2>
+        <p data-i18n="calendarText">Fechas de pedidos y envíos.</p>
+      </div>
+
+      <div class="card" onclick="window.location.href='tarifa-ceremonia-26-abuela-tata.pdf'">
+        <h2 data-i18n="rateTitle">Tarifa</h2>
+        <p data-i18n="rateText">Consultar precios de la colección.</p>
+      </div>
+
+      <div class="card" onclick="window.location.href='condiciones.html'">
+        <h2 data-i18n="conditionsTitle">Condiciones de compra</h2>
+        <p data-i18n="conditionsText">Información comercial.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footerNote" data-i18n="footerNote">
+    Diseñado para móvil, tablet y ordenador.
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const splash = document.getElementById("splash");
+  const installBtn = document.getElementById("installBtn");
+  const installHint = document.getElementById("installHint");
+  const languageSelect = document.getElementById("languageSelect");
+
+  let deferredPrompt = null;
+
+  const translations = {
+    es: {
+      title: "Ceremonia 26",
+      back: "← Volver",
+      heroTitle: "Ceremonia 26",
+      heroText: "Acceso rápido a pedidos, stock y documentación de la colección.",
+      repeatTitle: "Repeticiones",
+      repeatText: "Realizar pedidos de repetición de la colección.",
+      stockTitle: "Stock disponible",
+      stockText: "Consultar y comprar prendas disponibles en stock.",
+      calendarTitle: "Calendario de repeticiones",
+      calendarText: "Fechas de pedidos y envíos.",
+      rateTitle: "Tarifa",
+      rateText: "Consultar precios de la colección.",
+      conditionsTitle: "Condiciones de compra",
+      conditionsText: "Información comercial.",
+      installButton: "Instalar app",
+      installHint: "Si no aparece el aviso automático, usa “Añadir a pantalla de inicio” o “Instalar aplicación” en el navegador.",
+      footerNote: "Diseñado para móvil, tablet y ordenador."
+    },
+    en: {
+      title: "Ceremony 26",
+      back: "← Back",
+      heroTitle: "Ceremony 26",
+      heroText: "Quick access to orders, stock and collection documentation.",
+      repeatTitle: "Reorders",
+      repeatText: "Place repeat orders for the collection.",
+      stockTitle: "Available stock",
+      stockText: "Check and buy garments available in stock.",
+      calendarTitle: "Reorder calendar",
+      calendarText: "Order and shipping dates.",
+      rateTitle: "Price list",
+      rateText: "Check collection prices.",
+      conditionsTitle: "Purchase conditions",
+      conditionsText: "Commercial information.",
+      installButton: "Install app",
+      installHint: "If the automatic prompt does not appear, use “Add to Home Screen” or “Install app” in your browser.",
+      footerNote: "Designed for mobile, tablet and desktop."
+    },
+    pt: {
+      title: "Cerimónia 26",
+      back: "← Voltar",
+      heroTitle: "Cerimónia 26",
+      heroText: "Acesso rápido a encomendas, stock e documentação da coleção.",
+      repeatTitle: "Reposições",
+      repeatText: "Fazer encomendas de reposição da coleção.",
+      stockTitle: "Stock disponível",
+      stockText: "Consultar e comprar peças disponíveis em stock.",
+      calendarTitle: "Calendário de reposições",
+      calendarText: "Datas de encomendas e envios.",
+      rateTitle: "Tabela de preços",
+      rateText: "Consultar preços da coleção.",
+      conditionsTitle: "Condições de compra",
+      conditionsText: "Informação comercial.",
+      installButton: "Instalar app",
+      installHint: "Se o aviso automático não aparecer, use “Adicionar ao ecrã inicial” ou “Instalar aplicação” no navegador.",
+      footerNote: "Desenvolvido para telemóvel, tablet e computador."
+    },
+    it: {
+      title: "Cerimonia 26",
+      back: "← Indietro",
+      heroTitle: "Cerimonia 26",
+      heroText: "Accesso rapido a ordini, stock e documentazione della collezione.",
+      repeatTitle: "Riassortimenti",
+      repeatText: "Effettuare ordini di riassortimento della collezione.",
+      stockTitle: "Stock disponibile",
+      stockText: "Consultare e acquistare capi disponibili a stock.",
+      calendarTitle: "Calendario riassortimenti",
+      calendarText: "Date di ordini e spedizioni.",
+      rateTitle: "Listino prezzi",
+      rateText: "Consultare i prezzi della collezione.",
+      conditionsTitle: "Condizioni di acquisto",
+      conditionsText: "Informazioni commerciali.",
+      installButton: "Installa app",
+      installHint: "Se l’avviso automatico non compare, usa “Aggiungi alla schermata Home” o “Installa app” nel browser.",
+      footerNote: "Progettato per mobile, tablet e computer."
+    },
+    ar: {
+      title: "سيريمونيا 26",
+      back: "رجوع ←",
+      heroTitle: "سيريمونيا 26",
+      heroText: "وصول سريع إلى الطلبات والمخزون ووثائق المجموعة.",
+      repeatTitle: "إعادات الطلب",
+      repeatText: "تنفيذ طلبات إعادة من المجموعة.",
+      stockTitle: "المخزون المتاح",
+      stockText: "الاطلاع على القطع المتوفرة وشراؤها.",
+      calendarTitle: "تقويم الإعادات",
+      calendarText: "مواعيد الطلبات والشحن.",
+      rateTitle: "الأسعار",
+      rateText: "الاطلاع على أسعار المجموعة.",
+      conditionsTitle: "شروط الشراء",
+      conditionsText: "معلومات تجارية.",
+      installButton: "تثبيت التطبيق",
+      installHint: "إذا لم يظهر التنبيه تلقائياً، استخدم “إضافة إلى الشاشة الرئيسية” أو “تثبيت التطبيق” من المتصفح.",
+      footerNote: "مصمم للجوال والتابلت والكمبيوتر."
+    }
+  };
+
+  function setLanguage(lang){
+    const dict = translations[lang] || translations.es;
+
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("at_lang_ceremonia26", lang);
+    languageSelect.value = lang;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if(dict[key]) el.textContent = dict[key];
+    });
+
+    document.title = (dict.title || "Ceremonia 26") + " · Abuela Tata";
+  }
+
+  function hideSplash(){
+    splash.classList.add("hide");
+    setTimeout(() => {
+      if(splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    }, 700);
+  }
+
+  function setupInstallPrompt(){
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.add("show");
+      installHint.style.display = "block";
+    });
+
+    installBtn.addEventListener("click", async () => {
+      if(!deferredPrompt){
+        installHint.style.display = "block";
+        return;
+      }
+
+      deferredPrompt.prompt();
+
+      try{
+        await deferredPrompt.userChoice;
+      }catch(err){}
+
+      deferredPrompt = null;
+      installBtn.classList.remove("show");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      installBtn.classList.remove("show");
+    });
+  }
+
+  const savedLang = localStorage.getItem("at_lang_ceremonia26") || "es";
+  setLanguage(savedLang);
+
+  languageSelect.addEventListener("change", function(){
+    setLanguage(this.value);
+  });
+
+  setupInstallPrompt();
+
+  window.addEventListener("load", function(){
+    setTimeout(() => {
+      hideSplash();
+    }, 3000);
+  });
+})();
+</script>
+
+</body>
+</html>
