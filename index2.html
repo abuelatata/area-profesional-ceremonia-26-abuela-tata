@@ -1558,8 +1558,7 @@ html[dir="rtl"] .authVisualText{
     });
 
     try {
-      await applyAuthCallbackIfNeeded();
-
+     
       const { data, error } = await supabase.auth.getSession();
 
       if (error) {
@@ -1739,6 +1738,8 @@ html[dir="rtl"] .authVisualText{
   setupInstallPrompt();
 
   window.addEventListener("load", async function () {
+  window.history.replaceState({}, "", window.location.pathname);
+
   try {
     await initSupabase();
   } catch (err) {
