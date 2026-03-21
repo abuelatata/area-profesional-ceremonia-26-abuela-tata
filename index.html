@@ -1038,7 +1038,7 @@ html[dir="rtl"] .authVisualText{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function () {
-  const RAW_SUPABASE_URL = "https://qoyrjhgjtydbcnqgfnyqn.supabase.co";
+  const SUPABASE_URL = "https://qoyrjhgjtydbcnqgfnyqn.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_w1UF4CwiWSCD5Ykd5yejfw_O--zV3OL";
 
   const splash = document.getElementById("splash");
@@ -1126,10 +1126,8 @@ html[dir="rtl"] .authVisualText{
       authErrorGeneric: "No ha sido posible completar la operación. Inténtalo de nuevo.",
       invalidCredentials: "Email o contraseña incorrectos.",
       missingSupabase: "Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY.",
-      invalidSupabaseUrl: "La URL de Supabase no es válida. Debe tener formato https://xxxx.supabase.co",
       passwordMismatch: "Las contraseñas no coinciden.",
       passwordShort: "La contraseña debe tener al menos 6 caracteres.",
-      recoveryTitle: "Nueva contraseña",
       userPrefix: "Sesión:"
     },
     en: {
@@ -1185,10 +1183,8 @@ html[dir="rtl"] .authVisualText{
       authErrorGeneric: "The operation could not be completed. Please try again.",
       invalidCredentials: "Incorrect email or password.",
       missingSupabase: "SUPABASE_URL and SUPABASE_ANON_KEY must be configured.",
-      invalidSupabaseUrl: "The Supabase URL is not valid. It must be in the format https://xxxx.supabase.co",
       passwordMismatch: "Passwords do not match.",
       passwordShort: "Password must be at least 6 characters long.",
-      recoveryTitle: "New password",
       userPrefix: "Session:"
     },
     pt: {
@@ -1244,10 +1240,8 @@ html[dir="rtl"] .authVisualText{
       authErrorGeneric: "Não foi possível concluir a operação. Tente novamente.",
       invalidCredentials: "Email ou palavra-passe incorretos.",
       missingSupabase: "É necessário configurar SUPABASE_URL e SUPABASE_ANON_KEY.",
-      invalidSupabaseUrl: "A URL do Supabase não é válida. Deve ter o formato https://xxxx.supabase.co",
       passwordMismatch: "As palavras-passe não coincidem.",
       passwordShort: "A palavra-passe deve ter pelo menos 6 caracteres.",
-      recoveryTitle: "Nova palavra-passe",
       userPrefix: "Sessão:"
     },
     it: {
@@ -1303,10 +1297,8 @@ html[dir="rtl"] .authVisualText{
       authErrorGeneric: "Impossibile completare l’operazione. Riprova.",
       invalidCredentials: "Email o password non corretti.",
       missingSupabase: "È necessario configurare SUPABASE_URL e SUPABASE_ANON_KEY.",
-      invalidSupabaseUrl: "L’URL di Supabase non è valido. Deve avere il formato https://xxxx.supabase.co",
       passwordMismatch: "Le password non coincidono.",
       passwordShort: "La password deve contenere almeno 6 caratteri.",
-      recoveryTitle: "Nuova password",
       userPrefix: "Sessione:"
     },
     ar: {
@@ -1362,10 +1354,8 @@ html[dir="rtl"] .authVisualText{
       authErrorGeneric: "تعذر إتمام العملية. حاول مرة أخرى.",
       invalidCredentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
       missingSupabase: "يجب إعداد SUPABASE_URL وSUPABASE_ANON_KEY.",
-      invalidSupabaseUrl: "رابط Supabase غير صالح. يجب أن يكون بصيغة https://xxxx.supabase.co",
       passwordMismatch: "كلمتا المرور غير متطابقتين.",
       passwordShort: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
-      recoveryTitle: "كلمة مرور جديدة",
       userPrefix: "الجلسة:"
     }
   };
@@ -1374,52 +1364,6 @@ html[dir="rtl"] .authVisualText{
     const dict = translations[currentLang] || translations.es;
     return dict[key] || translations.es[key] || key;
   }
-
-  function normalizeSupabaseUrl(value) {
-    if (!value || typeof value !== "string") return "";
-    let url = value.trim();
-
-    if (!url) return "";
-
-    url = url.replace(/\s+/g, "");
-    url = url.replace(/^https?:\/\/https?:\/\//i, "https://");
-
-    if (!/^https?:\/\//i.test(url)) {
-      url = "https://" + url;
-    }
-
-    try {
-      const parsed = new URL(url);
-      let host = (parsed.hostname || "").toLowerCase().replace(/\/+$/, "");
-      host = host.replace(/^www\./, "");
-
-      const simpleRef = host.match(/^([a-z0-9-]+)$/i);
-      if (simpleRef) {
-        return "https://" + simpleRef[1] + ".supabase.co";
-      }
-
-      const supabaseHost = host.match(/^([a-z0-9-]+)\.supabase\.co$/i);
-      if (supabaseHost) {
-        return "https://" + supabaseHost[1] + ".supabase.co";
-      }
-
-      const fromText = url.match(/([a-z0-9-]+)\.supabase\.co/i);
-      if (fromText && fromText[1]) {
-        return "https://" + fromText[1] + ".supabase.co";
-      }
-
-      return "";
-    } catch (err) {
-      const cleaned = url.replace(/^https?:\/\//i, "").split("/")[0];
-      if (/^[a-z0-9-]+$/i.test(cleaned)) {
-        return "https://" + cleaned + ".supabase.co";
-      }
-      const fromText = cleaned.match(/^([a-z0-9-]+)\.supabase\.co$/i);
-      return fromText ? ("https://" + fromText[1] + ".supabase.co") : "";
-    }
-  }
-
-  const SUPABASE_URL = normalizeSupabaseUrl(RAW_SUPABASE_URL);
 
   function setLanguage(lang) {
     currentLang = translations[lang] ? lang : "es";
@@ -1436,9 +1380,9 @@ html[dir="rtl"] .authVisualText{
 
     document.title = (dict.appTitle || "Área Profesional") + " · Abuela Tata";
 
-    if (userEmail.textContent) {
-      const emailOnly = userEmail.getAttribute("data-email") || userEmail.textContent;
-      userEmail.textContent = dict.userPrefix + " " + emailOnly;
+    const savedEmail = userEmail.getAttribute("data-email");
+    if (savedEmail) {
+      userEmail.textContent = dict.userPrefix + " " + savedEmail;
     }
   }
 
@@ -1455,7 +1399,6 @@ html[dir="rtl"] .authVisualText{
   function setActiveForm(name) {
     [loginForm, resetForm, updateForm].forEach(form => form.classList.remove("active"));
     [tabLogin, tabReset, tabUpdate].forEach(tab => tab.classList.remove("active"));
-
     tabUpdate.style.display = "none";
 
     if (name === "login") {
@@ -1479,14 +1422,15 @@ html[dir="rtl"] .authVisualText{
   function showAppView(session) {
     authView.style.display = "none";
     app.style.display = "block";
-    const email = (session && session.user && session.user.email) ? session.user.email : "";
+
+    const email = session && session.user && session.user.email ? session.user.email : "";
     if (email) {
       userEmail.setAttribute("data-email", email);
       userEmail.textContent = t("userPrefix") + " " + email;
       userBadge.classList.add("show");
     } else {
-      userEmail.textContent = "";
       userEmail.removeAttribute("data-email");
+      userEmail.textContent = "";
       userBadge.classList.remove("show");
     }
   }
@@ -1527,83 +1471,65 @@ html[dir="rtl"] .authVisualText{
   }
 
   function isSupabaseConfigured() {
-    return !!SUPABASE_URL && !!SUPABASE_ANON_KEY &&
-      SUPABASE_URL !== "PEGA_AQUI_TU_SUPABASE_URL" &&
-      SUPABASE_ANON_KEY !== "PEGA_AQUI_TU_SUPABASE_ANON_KEY";
+    return !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
   }
 
-  function hasValidSupabaseUrl() {
+  function isValidSupabaseUrl() {
     return /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL);
   }
 
-  function urlHasRecoveryHash() {
-    const hash = window.location.hash || "";
-    return hash.includes("access_token") || hash.includes("refresh_token") || hash.includes("type=recovery");
+  function getHashParams() {
+    return new URLSearchParams((window.location.hash || "").replace(/^#/, ""));
   }
 
   function isRecoveryMode() {
     const search = new URLSearchParams(window.location.search);
-    const hash = new URLSearchParams((window.location.hash || "").replace(/^#/, ""));
-    return search.get("type") === "recovery" || hash.get("type") === "recovery" || urlHasRecoveryHash();
+    const hash = getHashParams();
+    return search.get("type") === "recovery" || hash.get("type") === "recovery";
   }
 
-  async function processAuthCallback() {
-    const search = new URLSearchParams(window.location.search);
-    const hashString = (window.location.hash || "").replace(/^#/, "");
-    const hash = new URLSearchParams(hashString);
+  async function applyAuthCallbackIfNeeded() {
+    const hash = getHashParams();
+    const hasTokens = hash.get("access_token") && hash.get("refresh_token");
 
-    if (hash.get("access_token") && hash.get("refresh_token")) {
+    if (hasTokens) {
       const { error } = await supabase.auth.setSession({
         access_token: hash.get("access_token"),
         refresh_token: hash.get("refresh_token")
       });
 
-      const type = hash.get("type");
-      const cleanSearch = new URLSearchParams(window.location.search);
-      if (type) cleanSearch.set("type", type);
-      const cleanUrl = window.location.pathname + (cleanSearch.toString() ? ("?" + cleanSearch.toString()) : "");
-      window.history.replaceState({}, "", cleanUrl);
-
       if (error) throw error;
+
+      const search = new URLSearchParams(window.location.search);
+      if (hash.get("type")) search.set("type", hash.get("type"));
+      const cleanUrl = window.location.pathname + (search.toString() ? "?" + search.toString() : "");
+      window.history.replaceState({}, "", cleanUrl);
       return;
     }
 
+    const search = new URLSearchParams(window.location.search);
     if (search.get("code")) {
       const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
-      const type = search.get("type");
-      const cleanSearch = new URLSearchParams();
-      if (type) cleanSearch.set("type", type);
-      const cleanUrl = window.location.pathname + (cleanSearch.toString() ? ("?" + cleanSearch.toString()) : "");
-      window.history.replaceState({}, "", cleanUrl);
-
       if (error) throw error;
-    }
-  }
 
-  function buildRedirectUrl() {
-    return window.location.origin + window.location.pathname;
+      const cleanSearch = new URLSearchParams();
+      if (search.get("type")) cleanSearch.set("type", search.get("type"));
+      const cleanUrl = window.location.pathname + (cleanSearch.toString() ? "?" + cleanSearch.toString() : "");
+      window.history.replaceState({}, "", cleanUrl);
+    }
   }
 
   async function initSupabase() {
     showAuthView();
 
     if (!isSupabaseConfigured()) {
-      clearMessage();
       showMessage(t("missingSupabase"), "error");
       hideSplash();
       return;
     }
 
-    if (!hasValidSupabaseUrl()) {
-      clearMessage();
-      showMessage(t("invalidSupabaseUrl"), "error");
-      hideSplash();
-      return;
-    }
-
-    if (!window.supabase || typeof window.supabase.createClient !== "function") {
-      clearMessage();
-      showMessage(t("authErrorGeneric"), "error");
+    if (!isValidSupabaseUrl()) {
+      showMessage("SUPABASE_URL inválida", "error");
       hideSplash();
       return;
     }
@@ -1640,7 +1566,7 @@ html[dir="rtl"] .authVisualText{
     });
 
     try {
-      await processAuthCallback();
+      await applyAuthCallbackIfNeeded();
 
       const { data, error } = await supabase.auth.getSession();
 
@@ -1668,7 +1594,7 @@ html[dir="rtl"] .authVisualText{
       hideSplash();
     } catch (err) {
       showAuthView();
-      showMessage((err && err.message) ? err.message : t("authErrorGeneric"), "error");
+      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
       hideSplash();
     }
   }
@@ -1714,7 +1640,7 @@ html[dir="rtl"] .authVisualText{
     });
 
     if (error) {
-      const msg = /invalid login credentials|email not confirmed|invalid credentials/i.test(error.message || "")
+      const msg = /invalid login credentials/i.test(error.message || "")
         ? t("invalidCredentials")
         : (error.message || t("authErrorGeneric"));
       showMessage(msg, "error");
@@ -1733,8 +1659,10 @@ html[dir="rtl"] .authVisualText{
       return;
     }
 
+    const redirectTo = window.location.origin + window.location.pathname;
+
     const { error } = await supabase.auth.resetPasswordForEmail(resetEmail.value.trim(), {
-      redirectTo: buildRedirectUrl()
+      redirectTo: redirectTo
     });
 
     if (error) {
@@ -1786,6 +1714,7 @@ html[dir="rtl"] .authVisualText{
     if (!supabase) return;
 
     const { error } = await supabase.auth.signOut();
+
     if (error) {
       showMessage(error.message || t("authErrorGeneric"), "error");
       return;
