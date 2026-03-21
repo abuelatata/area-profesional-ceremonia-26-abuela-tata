@@ -1033,8 +1033,8 @@ html[dir="rtl"] .authVisualText{
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function () {
-  const SUPABASE_URL = "https://qoyrjhgjtydbcnqgfnyqn.supabase.co";
-  const SUPABASE_ANON_KEY = "sb_publishable_w1UF4CwiWSCD5Ykd5yejfw_O--zV3OL";
+const SUPABASE_URL = "https://qoyrjhgjtydbcngfnyqn.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFveXJqaGdqdHlkYmNuZ2ZueXFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MTQ2NzQsImV4cCI6MjA4ODQ5MDY3NH0.ASOVIDOiJcuWOWExEzGBvwjjKEpZIfRLbxgVyc6Xr64";
 
   const splash = document.getElementById("splash");
   const authView = document.getElementById("authView");
@@ -1121,6 +1121,7 @@ html[dir="rtl"] .authVisualText{
       missingSupabase: "Falta configurar correctamente el acceso privado.",
       passwordMismatch: "Las contraseñas no coinciden.",
       passwordShort: "La contraseña debe tener al menos 6 caracteres.",
+      networkError: "No se ha podido conectar con el servidor. Revisa la URL del proyecto en Supabase y tu conexión.",
       userPrefix: "Sesión:"
     },
     en: {
@@ -1178,6 +1179,7 @@ html[dir="rtl"] .authVisualText{
       missingSupabase: "Private access is not configured correctly.",
       passwordMismatch: "Passwords do not match.",
       passwordShort: "Password must be at least 6 characters long.",
+      networkError: "Could not connect to the server. Check your Supabase project URL and your connection.",
       userPrefix: "Session:"
     },
     pt: {
@@ -1235,6 +1237,7 @@ html[dir="rtl"] .authVisualText{
       missingSupabase: "O acesso privado não está configurado corretamente.",
       passwordMismatch: "As palavras-passe não coincidem.",
       passwordShort: "A palavra-passe deve ter pelo menos 6 caracteres.",
+      networkError: "Não foi possível ligar ao servidor. Verifique a URL do projeto no Supabase e a sua ligação.",
       userPrefix: "Sessão:"
     },
     it: {
@@ -1292,6 +1295,7 @@ html[dir="rtl"] .authVisualText{
       missingSupabase: "L’accesso privato non è configurato correttamente.",
       passwordMismatch: "Le password non coincidono.",
       passwordShort: "La password deve contenere almeno 6 caratteri.",
+      networkError: "Impossibile connettersi al server. Controlla l’URL del progetto Supabase e la connessione.",
       userPrefix: "Sessione:"
     },
     ar: {
@@ -1349,6 +1353,7 @@ html[dir="rtl"] .authVisualText{
       missingSupabase: "إعداد الوصول الخاص غير صحيح.",
       passwordMismatch: "كلمتا المرور غير متطابقتين.",
       passwordShort: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
+      networkError: "تعذر الاتصال بالخادم. راجع رابط مشروع Supabase والاتصال بالإنترنت.",
       userPrefix: "الجلسة:"
     }
   };
@@ -1356,6 +1361,36 @@ html[dir="rtl"] .authVisualText{
   function t(key) {
     const dict = translations[currentLang] || translations.es;
     return dict[key] || translations.es[key] || key;
+  }
+
+  function getFriendlyError(error) {
+    const message = (error && (error.message || error.error_description || error.error))
+      ? String(error.message || error.error_description || error.error)
+      : "";
+
+    if (!message) return t("authErrorGeneric");
+
+    const lower = message.toLowerCase();
+
+    if (
+      lower.includes("invalid login credentials") ||
+      lower.includes("invalid_credentials") ||
+      lower.includes("invalid email or password") ||
+      lower.includes("email not confirmed")
+    ) {
+      return t("invalidCredentials");
+    }
+
+    if (
+      lower.includes("failed to fetch") ||
+      lower.includes("networkerror") ||
+      lower.includes("network request failed") ||
+      lower.includes("load failed")
+    ) {
+      return t("networkError");
+    }
+
+    return message;
   }
 
   function setLanguage(lang) {
@@ -1372,7 +1407,7 @@ html[dir="rtl"] .authVisualText{
       if (dict[key]) el.textContent = dict[key];
     });
 
-    document.title = (dict.appTitle || "Área Profesional") + " · Abuela Tata";
+    document.title = "Área Profesional TEST 2103 · Abuela Tata";
 
     const savedEmail = userEmail.getAttribute("data-email");
     if (savedEmail) {
@@ -1419,6 +1454,7 @@ html[dir="rtl"] .authVisualText{
   function showAppView(session) {
     authView.style.display = "none";
     app.style.display = "block";
+    clearMessage();
 
     const email = session && session.user && session.user.email ? session.user.email : "";
     if (email) {
@@ -1533,14 +1569,11 @@ html[dir="rtl"] .authVisualText{
       return;
     }
 
-    const createClient = window.supabase.createClient;
-
-    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
-        detectSessionInUrl: true,
-        flowType: "pkce"
+        detectSessionInUrl: true
       }
     });
 
@@ -1573,7 +1606,7 @@ html[dir="rtl"] .authVisualText{
 
       if (error) {
         showAuthView();
-        showMessage(error.message || t("authErrorGeneric"), "error");
+        showMessage(getFriendlyError(error), "error");
         hideSplash();
         return;
       }
@@ -1595,7 +1628,7 @@ html[dir="rtl"] .authVisualText{
       hideSplash();
     } catch (err) {
       showAuthView();
-      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
+      showMessage(getFriendlyError(err), "error");
       hideSplash();
     }
   }
@@ -1636,22 +1669,23 @@ html[dir="rtl"] .authVisualText{
     }
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: loginEmail.value.trim(),
         password: loginPassword.value
       });
 
       if (error) {
-        const msg = /invalid login credentials/i.test(error.message || "")
-          ? t("invalidCredentials")
-          : (error.message || t("authErrorGeneric"));
-        showMessage(msg, "error");
+        showMessage(getFriendlyError(error), "error");
         return;
+      }
+
+      if (data && data.session) {
+        showAppView(data.session);
       }
 
       showMessage(t("loginSuccess"), "success");
     } catch (err) {
-      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
+      showMessage(getFriendlyError(err), "error");
     }
   });
 
@@ -1672,13 +1706,13 @@ html[dir="rtl"] .authVisualText{
       });
 
       if (error) {
-        showMessage(error.message || t("authErrorGeneric"), "error");
+        showMessage(getFriendlyError(error), "error");
         return;
       }
 
       showMessage(t("resetSuccess"), "success");
     } catch (err) {
-      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
+      showMessage(getFriendlyError(err), "error");
     }
   });
 
@@ -1707,7 +1741,7 @@ html[dir="rtl"] .authVisualText{
       });
 
       if (error) {
-        showMessage(error.message || t("authErrorGeneric"), "error");
+        showMessage(getFriendlyError(error), "error");
         return;
       }
 
@@ -1717,7 +1751,7 @@ html[dir="rtl"] .authVisualText{
       window.history.replaceState({}, "", window.location.pathname);
       setActiveForm("login");
     } catch (err) {
-      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
+      showMessage(getFriendlyError(err), "error");
     }
   });
 
@@ -1730,15 +1764,15 @@ html[dir="rtl"] .authVisualText{
       const { error } = await supabase.auth.signOut();
 
       if (error) {
-        showMessage(error.message || t("authErrorGeneric"), "error");
+        showMessage(getFriendlyError(error), "error");
         return;
       }
 
-      showMessage(t("logoutSuccess"), "success");
       setActiveForm("login");
       showAuthView();
+      showMessage(t("logoutSuccess"), "success");
     } catch (err) {
-      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
+      showMessage(getFriendlyError(err), "error");
     }
   });
 
@@ -1749,8 +1783,14 @@ html[dir="rtl"] .authVisualText{
   setLanguage(currentLang);
   setupInstallPrompt();
 
-  window.addEventListener("load", function () {
-    initSupabase();
+  window.addEventListener("load", async function () {
+    try {
+      await initSupabase();
+    } catch (err) {
+      showMessage(getFriendlyError(err), "error");
+      hideSplash();
+    }
+
     setTimeout(() => {
       hideSplash();
     }, 3000);
