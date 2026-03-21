@@ -1632,8 +1632,9 @@ html[dir="rtl"] .authVisualText{
     });
 
     if (error) {
-      showMessage(error.message, "error");
-      return;
+       console.error("LOGIN ERROR REAL:", error);
+  showMessage(JSON.stringify(error), "error");
+  return;
     }
 
     showMessage("LOGIN OK", "success");
