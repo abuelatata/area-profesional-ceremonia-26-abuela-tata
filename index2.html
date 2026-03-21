@@ -1626,26 +1626,24 @@ html[dir="rtl"] .authVisualText{
     return;
   }
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: loginEmail.value.trim(),
-        password: loginPassword.value
-      });
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginEmail.value.trim(),
+      password: loginPassword.value
+    });
 
-      if (error) {
-        const msg = /invalid login credentials/i.test(error.message || "")
-          ? t("invalidCredentials")
-          : (error.message || t("authErrorGeneric"));
-        showMessage(msg, "error");
-        return;
-      }
-
-      showMessage(t("loginSuccess"), "success");
-    } catch (err) {
-      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
+    if (error) {
+      showMessage(error.message, "error");
+      return;
     }
-  });
 
+    showMessage("LOGIN OK", "success");
+    console.log(data);
+  } catch (err) {
+    showMessage("ERROR REAL: " + (err?.message || JSON.stringify(err)), "error");
+    console.error(err);
+  }
+});
   resetForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     clearMessage();
