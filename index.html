@@ -1417,6 +1417,9 @@ html[dir="rtl"] .authVisualText{
   function showAuthView() {
     authView.style.display = "block";
     app.style.display = "none";
+    userEmail.removeAttribute("data-email");
+    userEmail.textContent = "";
+    userBadge.classList.remove("show");
   }
 
   function showAppView(session) {
@@ -1460,7 +1463,7 @@ html[dir="rtl"] .authVisualText{
       deferredPrompt.prompt();
       try {
         await deferredPrompt.userChoice;
-      } catch (err) {}
+      } catch (_) {}
       deferredPrompt = null;
       installBtn.classList.remove("show");
     });
@@ -1472,10 +1475,6 @@ html[dir="rtl"] .authVisualText{
 
   function isSupabaseConfigured() {
     return !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
-  }
-
-  function isValidSupabaseUrl() {
-    return /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL);
   }
 
   function getHashParams() {
@@ -1490,25 +1489,29 @@ html[dir="rtl"] .authVisualText{
 
   async function applyAuthCallbackIfNeeded() {
     const hash = getHashParams();
-    const hasTokens = hash.get("access_token") && hash.get("refresh_token");
+    const accessToken = hash.get("access_token");
+    const refreshToken = hash.get("refresh_token");
+    const type = hash.get("type");
 
-    if (hasTokens) {
+    if (accessToken && refreshToken) {
       const { error } = await supabase.auth.setSession({
-        access_token: hash.get("access_token"),
-        refresh_token: hash.get("refresh_token")
+        access_token: accessToken,
+        refresh_token: refreshToken
       });
 
       if (error) throw error;
 
       const search = new URLSearchParams(window.location.search);
-      if (hash.get("type")) search.set("type", hash.get("type"));
+      if (type) search.set("type", type);
       const cleanUrl = window.location.pathname + (search.toString() ? "?" + search.toString() : "");
       window.history.replaceState({}, "", cleanUrl);
       return;
     }
 
     const search = new URLSearchParams(window.location.search);
-    if (search.get("code")) {
+    const code = search.get("code");
+
+    if (code) {
       const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
       if (error) throw error;
 
@@ -1522,14 +1525,8 @@ html[dir="rtl"] .authVisualText{
   async function initSupabase() {
     showAuthView();
 
-    if (!isSupabaseConfigured()) {
+    if (!isSupabaseConfigured() || !window.supabase || !window.supabase.createClient) {
       showMessage(t("missingSupabase"), "error");
-      hideSplash();
-      return;
-    }
-
-    if (!isValidSupabaseUrl()) {
-      showMessage("SUPABASE_URL inválida", "error");
       hideSplash();
       return;
     }
