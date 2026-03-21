@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Área Profesional · Abuela Tata</title>
+<meta name="theme-color" content="#d8b15f">
+
+<style>
+:root{
+  --bg:#f5f1ea;
+  --card:#ffffff;
+  --ink:#5a4636;
+  --muted:#8c7765;
+  --line:#e7ddd2;
+  --accent:#d8b15f;
+  --accent-2:#d9e8e6;
+  --shadow:0 10px 28px rgba(60,40,25,.10);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+}
+
+body{
+  font-family:Georgia, serif;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* SPLASH PREMIUM */
+#splash{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f5efe6;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .7s ease, visibility .7s ease;
+}
+
+#splash.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.splash-bg{
+  position:absolute;
+  inset:0;
+  background-image:url("images/portada-area.jpg");
+  background-size:cover;
+  background-position:center center;
+  transform:scale(1.08);
+  filter:blur(18px) saturate(.95) brightness(.9);
+}
+
+.splash-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(245,239,230,.18), rgba(245,239,230,.42)),
+    rgba(60,40,25,.14);
+}
+
+.splash-content{
+  position:relative;
+  z-index:2;
+  width:min(92vw, 760px);
+  padding:18px 18px 24px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.splash-photo-wrap{
+  width:min(88vw, 520px);
+  max-height:58vh;
+  border-radius:28px;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.8);
+  box-shadow:0 24px 50px rgba(0,0,0,.20);
+  background:#efe7dc;
+}
+
+.splash-photo{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:58vh;
+  object-fit:contain;
+}
+
+.splash-copy{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.splash-logo{
+  width:84px;
+  height:auto;
+  margin-top:-14px;
+  filter:drop-shadow(0 6px 16px rgba(0,0,0,.18));
+}
+
+.splash-brand{
+  margin-top:6px;
+  font-size:clamp(28px, 4vw, 48px);
+  line-height:1;
+  color:#7fc3f2;
+  text-shadow:0 2px 10px rgba(255,255,255,.35);
+  font-weight:600;
+}
+
+.splash-title{
+  margin:18px 0 10px;
+  font-size:clamp(30px, 5vw, 62px);
+  line-height:1.05;
+  color:#fff;
+  text-shadow:0 4px 18px rgba(0,0,0,.22);
+}
+
+.splash-text{
+  margin:0;
+  max-width:680px;
+  font-size:clamp(16px, 2.2vw, 24px);
+  line-height:1.45;
+  color:#fff;
+  text-shadow:0 3px 12px rgba(0,0,0,.20);
+}
+
+/* AUTH */
+#authView{
+  display:none;
+  width:min(1120px, calc(100% - 28px));
+  margin:0 auto;
+  padding:18px 0 36px;
+}
+
+.authShell{
+  min-height:calc(100vh - 54px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.authCard{
+  width:min(100%, 980px);
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+
+.authVisual{
+  position:relative;
+  min-height:540px;
+  background:
+    linear-gradient(180deg, rgba(245,239,230,.08), rgba(245,239,230,.22)),
+    url("images/portada-area.jpg") center center / cover no-repeat;
+}
+
+.authVisual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(60,40,25,.12), rgba(60,40,25,.18)),
+    linear-gradient(135deg, rgba(216,177,95,.14), rgba(217,232,230,.08));
+}
+
+.authVisualInner{
+  position:absolute;
+  inset:auto 24px 24px 24px;
+  z-index:2;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:22px;
+  padding:18px;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.authVisualLogo{
+  width:66px;
+  height:auto;
+  display:block;
+  margin-bottom:10px;
+}
+
+.authVisualBrand{
+  margin:0 0 6px;
+  font-size:28px;
+  line-height:1.05;
+}
+
+.authVisualText{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.5;
+}
+
+.authPanel{
+  padding:30px 26px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.96)),
+    radial-gradient(circle at top, rgba(216,177,95,.12), transparent 50%);
+}
+
+.authHeader{
+  margin-bottom:18px;
+}
+
+.authTitle{
+  margin:0 0 6px;
+  font-size:clamp(28px, 4vw, 40px);
+  line-height:1.05;
+}
+
+.authSubtitle{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.5;
+}
+
+.authTabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:0 0 16px;
+}
+
+.authTab{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:999px;
+  padding:10px 14px;
+  font:inherit;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(60,40,25,.06);
+}
+
+.authTab.active{
+  background:var(--accent-2);
+  border-color:#cadad8;
+  color:#38413f;
+  font-weight:700;
+}
+
+.authForm{
+  display:none;
+}
+
+.authForm.active{
+  display:block;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.label{
+  display:block;
+  margin:0 0 8px;
+  font-size:14px;
+  color:var(--ink);
+}
+
+.input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:14px;
+  padding:13px 14px;
+  font:inherit;
+  outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+.input:focus{
+  border-color:#d9c29a;
+  box-shadow:0 0 0 3px rgba(216,177,95,.14);
+}
+
+.authButton{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(180deg, #e2be6f, #cea24a);
+  color:#fff;
+  font:inherit;
+  font-weight:700;
+  padding:13px 16px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.authButton.secondary{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--line);
+  box-shadow:0 4px 14px rgba(60,40,25,.06);
+}
+
+.authActions{
+  display:grid;
+  gap:10px;
+}
+
+.authMeta{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.45;
+}
+
+.authSwitch{
+  margin-top:14px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.linkButton{
+  border:none;
+  background:none;
+  padding:0;
+  margin:0;
+  color:#7da6a1;
+  font:inherit;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.message{
+  display:none;
+  margin:0 0 14px;
+  padding:12px 14px;
+  border-radius:14px;
+  font-size:14px;
+  line-height:1.45;
+  border:1px solid transparent;
+}
+
+.message.show{
+  display:block;
+}
+
+.message.error{
+  background:#fff3f1;
+  border-color:#f0d3cf;
+  color:#8a4c44;
+}
+
+.message.success{
+  background:#f4faf8;
+  border-color:#d4e7df;
+  color:#47685f;
+}
+
+/* APP */
+#app{
+  display:none;
+  width:min(1120px, calc(100% - 28px));
+  margin:0 auto;
+  padding:18px 0 36px;
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  background:rgba(245,241,234,.82);
+  border:1px solid rgba(231,221,210,.95);
+  box-shadow:0 8px 24px rgba(80,58,41,.08);
+  border-radius:22px;
+  padding:12px;
+  margin:12px 0 18px;
+}
+
+.topbarRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.logo{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+
+.brandText{
+  min-width:0;
+}
+
+.title{
+  font-size:clamp(24px, 4vw, 34px);
+  line-height:1.05;
+  font-weight:700;
+  margin:0 0 4px;
+}
+
+.subtitle{
+  font-size:clamp(14px, 2vw, 17px);
+  color:var(--muted);
+  margin:0;
+}
+
+.topActions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.selectWrap{
+  position:relative;
+}
+
+.langSelect{
+  appearance:none;
+  -webkit-appearance:none;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  border-radius:12px;
+  padding:10px 38px 10px 12px;
+  font:inherit;
+  cursor:pointer;
+  min-width:170px;
+  box-shadow:var(--shadow);
+}
+
+.selectWrap::after{
+  content:"▾";
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.installBtn{
+  display:none;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(180deg, #e2be6f, #cea24a);
+  color:#fff;
+  font:inherit;
+  font-weight:700;
+  padding:10px 16px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.installBtn.show{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.installHint{
+  display:none;
+  font-size:13px;
+  color:var(--muted);
+  margin-top:8px;
+}
+
+.logoutBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+  font-weight:700;
+  padding:10px 16px;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+
+.userBadge{
+  display:none;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  color:var(--muted);
+  font-size:14px;
+}
+
+.userBadge.show{
+  display:inline-flex;
+}
+
+.hero{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.84)),
+    radial-gradient(circle at top, rgba(216,177,95,.16), transparent 48%);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:24px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.heroTitle{
+  margin:0 0 8px;
+  font-size:clamp(28px, 4.5vw, 50px);
+  line-height:1.03;
+}
+
+.heroText{
+  margin:0;
+  color:var(--muted);
+  font-size:clamp(15px, 2vw, 19px);
+  max-width:760px;
+}
+
+.sectionTitle{
+  margin:26px 0 10px;
+  color:#7da6a1;
+  letter-spacing:2px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  box-shadow:var(--shadow);
+}
+
+.cardInfo{
+  min-width:0;
+}
+
+.cardTitle{
+  font-size:19px;
+  font-weight:700;
+  margin:0 0 6px;
+}
+
+.cardText{
+  font-size:14px;
+  color:var(--muted);
+  margin:0;
+}
+
+.button{
+  background:var(--accent-2);
+  padding:12px 16px;
+  border-radius:12px;
+  text-decoration:none;
+  color:#38413f;
+  white-space:nowrap;
+  font-weight:700;
+  border:1px solid #cadad8;
+  transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  box-shadow:0 4px 14px rgba(60,40,25,.08);
+}
+
+.button:hover{
+  transform:translateY(-1px);
+  background:#d1e3e0;
+}
+
+.footerNote{
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+  margin-top:24px;
+}
+
+/* Tablets */
+@media (min-width:700px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+/* Desktop */
+@media (min-width:980px){
+  #app,
+  #authView{
+    padding-top:24px;
+  }
+
+  .hero{
+    padding:28px;
+  }
+}
+
+/* móvil */
+@media (max-width:860px){
+  .authCard{
+    grid-template-columns:1fr;
+  }
+
+  .authVisual{
+    min-height:280px;
+  }
+}
+
+@media (max-width:640px){
+  #app,
+  #authView{
+    width:min(100% - 16px, 1120px);
+    padding-top:10px;
+  }
+
+  .topbar{
+    border-radius:18px;
+    padding:10px;
+    margin-top:8px;
+  }
+
+  .topbarRow{
+    align-items:stretch;
+  }
+
+  .brand{
+    width:100%;
+  }
+
+  .topActions{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .langSelect,
+  .installBtn,
+  .logoutBtn{
+    width:100%;
+  }
+
+  .userBadge{
+    width:100%;
+    justify-content:center;
+  }
+
+  .hero{
+    border-radius:22px;
+    padding:18px;
+  }
+
+  .card{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .button{
+    width:100%;
+    text-align:center;
+  }
+
+  .splash-content{
+    width:min(94vw, 760px);
+    padding:14px 14px 20px;
+  }
+
+  .splash-photo-wrap{
+    width:min(92vw, 520px);
+    max-height:50vh;
+    border-radius:22px;
+  }
+
+  .splash-photo{
+    max-height:50vh;
+  }
+
+  .splash-logo{
+    width:72px;
+  }
+
+  .splash-title{
+    margin-top:14px;
+  }
+
+  .authPanel{
+    padding:22px 18px;
+  }
+
+  .authVisualInner{
+    inset:auto 16px 16px 16px;
+  }
+}
+
+/* horizontal */
+@media (orientation:landscape){
+  .splash-content{
+    width:min(94vw, 1100px);
+    display:grid;
+    grid-template-columns:minmax(280px, 420px) 1fr;
+    align-items:center;
+    gap:28px;
+    text-align:left;
+  }
+
+  .splash-photo-wrap{
+    width:100%;
+    max-height:74vh;
+    margin:0;
+  }
+
+  .splash-photo{
+    max-height:74vh;
+  }
+
+  .splash-logo{
+    margin-top:0;
+  }
+
+  .splash-copy{
+    align-items:flex-start;
+  }
+
+  .splash-brand,
+  .splash-title,
+  .splash-text{
+    text-align:left;
+  }
+}
+
+/* RTL Arabic */
+html[dir="rtl"] body{
+  font-family:Georgia, serif;
+}
+
+html[dir="rtl"] .brand,
+html[dir="rtl"] .topActions,
+html[dir="rtl"] .card,
+html[dir="rtl"] .splash-content,
+html[dir="rtl"] .splash-copy,
+html[dir="rtl"] .authCard,
+html[dir="rtl"] .authTabs,
+html[dir="rtl"] .authPanel,
+html[dir="rtl"] .authVisualInner{
+  direction:rtl;
+}
+
+html[dir="rtl"] .selectWrap::after{
+  right:auto;
+  left:12px;
+}
+
+html[dir="rtl"] .splash-brand,
+html[dir="rtl"] .splash-title,
+html[dir="rtl"] .splash-text,
+html[dir="rtl"] .authTitle,
+html[dir="rtl"] .authSubtitle,
+html[dir="rtl"] .authVisualBrand,
+html[dir="rtl"] .authVisualText{
+  text-align:right;
+}
+</style>
+</head>
+
+<body>
+
+<div id="splash" aria-hidden="true">
+  <div class="splash-bg"></div>
+
+  <div class="splash-content">
+    <div class="splash-photo-wrap">
+      <img class="splash-photo" src="images/portada-area.jpg" alt="Abuela Tata">
+    </div>
+
+    <div class="splash-copy">
+      <img class="splash-logo" src="assets/logo.png" alt="Logo Abuela Tata">
+      <div class="splash-brand">Abuela Tata</div>
+      <h1 class="splash-title" data-i18n="splashTitle">Bienvenid@ al Área Profesional</h1>
+      <p class="splash-text" data-i18n="splashText">Un espacio pensado para realizar pedidos, consultar stock y acceder a toda la documentación de campaña.</p>
+    </div>
+  </div>
+</div>
+
+<div id="authView">
+  <div class="authShell">
+    <div class="authCard">
+      <div class="authVisual">
+        <div class="authVisualInner">
+          <img class="authVisualLogo" src="assets/logo.png" alt="Logo Abuela Tata">
+          <h2 class="authVisualBrand">Abuela Tata</h2>
+          <p class="authVisualText" data-i18n="authVisualText">Un acceso privado, elegante y seguro para clientes profesionales.</p>
+        </div>
+      </div>
+
+      <div class="authPanel">
+        <div class="authHeader">
+          <h1 class="authTitle" data-i18n="authTitle">Acceso privado</h1>
+          <p class="authSubtitle" data-i18n="authSubtitle">Introduce tu email y contraseña para entrar en tu Área Profesional.</p>
+        </div>
+
+        <div class="authTabs">
+          <button id="tabLogin" class="authTab active" type="button" data-i18n="tabLogin">Entrar</button>
+          <button id="tabReset" class="authTab" type="button" data-i18n="tabReset">Recuperar contraseña</button>
+          <button id="tabUpdate" class="authTab" type="button" data-i18n="tabUpdate" style="display:none;">Nueva contraseña</button>
+        </div>
+
+        <div id="authMessage" class="message" aria-live="polite"></div>
+
+        <form id="loginForm" class="authForm active" autocomplete="on">
+          <div class="field">
+            <label class="label" for="loginEmail" data-i18n="emailLabel">Email</label>
+            <input id="loginEmail" class="input" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label class="label" for="loginPassword" data-i18n="passwordLabel">Contraseña</label>
+            <input id="loginPassword" class="input" type="password" autocomplete="current-password" required>
+          </div>
+
+          <div class="authActions">
+            <button class="authButton" type="submit" data-i18n="loginButton">Entrar</button>
+          </div>
+
+          <div class="authSwitch">
+            <span data-i18n="forgotInline">¿Has olvidado tu contraseña?</span>
+            <button id="goToReset" class="linkButton" type="button" data-i18n="recoverHere">Recupérala aquí</button>
+          </div>
+        </form>
+
+        <form id="resetForm" class="authForm" autocomplete="on">
+          <div class="field">
+            <label class="label" for="resetEmail" data-i18n="emailLabel">Email</label>
+            <input id="resetEmail" class="input" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="authActions">
+            <button class="authButton" type="submit" data-i18n="resetButton">Enviar enlace</button>
+            <button id="backToLogin" class="authButton secondary" type="button" data-i18n="backToLogin">Volver al acceso</button>
+          </div>
+
+          <div class="authMeta" data-i18n="resetHelp">
+            Te enviaremos un enlace seguro para restablecer tu contraseña.
+          </div>
+        </form>
+
+        <form id="updateForm" class="authForm" autocomplete="on">
+          <div class="field">
+            <label class="label" for="newPassword" data-i18n="newPasswordLabel">Nueva contraseña</label>
+            <input id="newPassword" class="input" type="password" autocomplete="new-password" minlength="6">
+          </div>
+
+          <div class="field">
+            <label class="label" for="confirmPassword" data-i18n="confirmPasswordLabel">Confirmar contraseña</label>
+            <input id="confirmPassword" class="input" type="password" autocomplete="new-password" minlength="6">
+          </div>
+
+          <div class="authActions">
+            <button class="authButton" type="submit" data-i18n="savePasswordButton">Guardar nueva contraseña</button>
+          </div>
+
+          <div class="authMeta" data-i18n="updateHelp">
+            Introduce tu nueva contraseña para completar la recuperación de acceso.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="app">
+
+  <div class="topbar">
+    <div class="topbarRow">
+      <div class="brand">
+        <img src="assets/logo.png" class="logo" alt="Logo Abuela Tata">
+        <div class="brandText">
+          <h1 class="title" data-i18n="appTitle">Área Profesional</h1>
+          <p class="subtitle" data-i18n="appSubtitle">Acceso para clientes profesionales, pedidos y documentación de campaña.</p>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <div id="userBadge" class="userBadge">
+          <span id="userEmail"></span>
+        </div>
+
+        <div class="selectWrap">
+          <select id="languageSelect" class="langSelect" aria-label="Idioma">
+            <option value="es">Español</option>
+            <option value="en">English</option>
+            <option value="pt">Português</option>
+            <option value="it">Italiano</option>
+            <option value="ar">العربية</option>
+          </select>
+        </div>
+
+        <button id="installBtn" class="installBtn" type="button" data-i18n="installButton">
+          Instalar app
+        </button>
+
+        <button id="logoutBtn" class="logoutBtn" type="button" data-i18n="logoutButton">
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+
+    <div id="installHint" class="installHint" data-i18n="installHint">
+      Si no aparece el aviso automático, usa “Añadir a pantalla de inicio” o “Instalar aplicación” en el navegador.
+    </div>
+  </div>
+
+  <section class="hero">
+    <h2 class="heroTitle" data-i18n="heroTitle">Bienvenido al Área Profesional</h2>
+    <p class="heroText" data-i18n="heroText">Un acceso rápido y elegante para realizar pedidos, consultar stock y descargar toda la documentación de campaña.</p>
+  </section>
+
+  <div class="sectionTitle" data-i18n="sectionOrders">PEDIDOS</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="repeatTitle">Repetición de campaña</div>
+        <div class="cardText" data-i18n="repeatText">Producción según calendario</div>
+      </div>
+      <a class="button" href="pedidos.html?modo=repeticiones" data-i18n="enterButton">Entrar →</a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="stockTitle">Stock disponible</div>
+        <div class="cardText" data-i18n="stockText">Entrega inmediata</div>
+      </div>
+      <a class="button" href="pedidos.html?modo=stock" data-i18n="enterButton">Entrar →</a>
+    </div>
+  </div>
+
+  <div class="sectionTitle" data-i18n="sectionDocs">DOCUMENTACIÓN</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="mediaTitle">Descarga multimedia</div>
+        <div class="cardText" data-i18n="mediaText">Imágenes en alta resolución</div>
+      </div>
+      <a class="button" href="multimedia.html" data-i18n="enterButton">Entrar →</a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="ratesTitle">Tarifas</div>
+        <div class="cardText" data-i18n="ratesText">Precios de campaña</div>
+      </div>
+      <a class="button" href="./docs/tarifa-ceremonia-26-abuela-tata.pdf" target="_blank" rel="noopener" data-i18n="enterButton">Entrar →</a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="sizesTitle">Guía de tallas</div>
+        <div class="cardText" data-i18n="sizesText">Medidas y equivalencias</div>
+      </div>
+      <a class="button" href="./docs/guia-tallas.pdf" target="_blank" rel="noopener" data-i18n="enterButton">Entrar →</a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="conditionsTitle">Condiciones</div>
+        <div class="cardText" data-i18n="conditionsText">Calendario y normas</div>
+      </div>
+      <a class="button" href="condiciones.html" data-i18n="enterButton">Entrar →</a>
+    </div>
+
+    <div class="card">
+      <div class="cardInfo">
+        <div class="cardTitle" data-i18n="calendarTitle">Calendario de repeticiones</div>
+        <div class="cardText" data-i18n="calendarText">Fechas clave y planificación</div>
+      </div>
+      <a class="button" href="./docs/calendario-repeticiones-ceremonia-26.pdf" target="_blank" rel="noopener" data-i18n="enterButton">Entrar →</a>
+    </div>
+  </div>
+
+  <div class="footerNote" data-i18n="footerNote">
+    Diseñado para móvil, tablet y ordenador.
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function () {
+  const SUPABASE_URL = "PEGA_AQUI_TU_SUPABASE_URL";
+  const SUPABASE_ANON_KEY = "PEGA_AQUI_TU_SUPABASE_ANON_KEY";
+
+  const splash = document.getElementById("splash");
+  const authView = document.getElementById("authView");
+  const app = document.getElementById("app");
+  const installBtn = document.getElementById("installBtn");
+  const installHint = document.getElementById("installHint");
+  const languageSelect = document.getElementById("languageSelect");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const userBadge = document.getElementById("userBadge");
+  const userEmail = document.getElementById("userEmail");
+
+  const authMessage = document.getElementById("authMessage");
+  const tabLogin = document.getElementById("tabLogin");
+  const tabReset = document.getElementById("tabReset");
+  const tabUpdate = document.getElementById("tabUpdate");
+  const loginForm = document.getElementById("loginForm");
+  const resetForm = document.getElementById("resetForm");
+  const updateForm = document.getElementById("updateForm");
+  const goToReset = document.getElementById("goToReset");
+  const backToLogin = document.getElementById("backToLogin");
+
+  const loginEmail = document.getElementById("loginEmail");
+  const loginPassword = document.getElementById("loginPassword");
+  const resetEmail = document.getElementById("resetEmail");
+  const newPassword = document.getElementById("newPassword");
+  const confirmPassword = document.getElementById("confirmPassword");
+
+  let deferredPrompt = null;
+  let splashHidden = false;
+  let currentLang = localStorage.getItem("at_lang") || "es";
+  let supabase = null;
+
+  const translations = {
+    es: {
+      splashTitle: "Bienvenid@ al Área Profesional",
+      splashText: "Un espacio pensado para realizar pedidos, consultar stock y acceder a toda la documentación de campaña.",
+      appTitle: "Área Profesional",
+      appSubtitle: "Acceso para clientes profesionales, pedidos y documentación de campaña.",
+      heroTitle: "Bienvenido al Área Profesional",
+      heroText: "Un acceso rápido y elegante para realizar pedidos, consultar stock y descargar toda la documentación de campaña.",
+      sectionOrders: "PEDIDOS",
+      repeatTitle: "Repetición de campaña",
+      repeatText: "Producción según calendario",
+      stockTitle: "Stock disponible",
+      stockText: "Entrega inmediata",
+      sectionDocs: "DOCUMENTACIÓN",
+      mediaTitle: "Descarga multimedia",
+      mediaText: "Imágenes en alta resolución",
+      ratesTitle: "Tarifas",
+      ratesText: "Precios de campaña",
+      sizesTitle: "Guía de tallas",
+      sizesText: "Medidas y equivalencias",
+      conditionsTitle: "Condiciones",
+      conditionsText: "Calendario y normas",
+      calendarTitle: "Calendario de repeticiones",
+      calendarText: "Fechas clave y planificación",
+      enterButton: "Entrar →",
+      installButton: "Instalar app",
+      installHint: "Si no aparece el aviso automático, usa “Añadir a pantalla de inicio” o “Instalar aplicación” en el navegador.",
+      footerNote: "Diseñado para móvil, tablet y ordenador.",
+      logoutButton: "Cerrar sesión",
+      authVisualText: "Un acceso privado, elegante y seguro para clientes profesionales.",
+      authTitle: "Acceso privado",
+      authSubtitle: "Introduce tu email y contraseña para entrar en tu Área Profesional.",
+      tabLogin: "Entrar",
+      tabReset: "Recuperar contraseña",
+      tabUpdate: "Nueva contraseña",
+      emailLabel: "Email",
+      passwordLabel: "Contraseña",
+      loginButton: "Entrar",
+      forgotInline: "¿Has olvidado tu contraseña?",
+      recoverHere: "Recupérala aquí",
+      resetButton: "Enviar enlace",
+      backToLogin: "Volver al acceso",
+      resetHelp: "Te enviaremos un enlace seguro para restablecer tu contraseña.",
+      newPasswordLabel: "Nueva contraseña",
+      confirmPasswordLabel: "Confirmar contraseña",
+      savePasswordButton: "Guardar nueva contraseña",
+      updateHelp: "Introduce tu nueva contraseña para completar la recuperación de acceso.",
+      loginSuccess: "Acceso correcto. Bienvenid@.",
+      logoutSuccess: "Has cerrado sesión correctamente.",
+      resetSuccess: "Te hemos enviado un enlace para restablecer tu contraseña.",
+      updateSuccess: "Tu contraseña se ha actualizado correctamente.",
+      authErrorGeneric: "No ha sido posible completar la operación. Inténtalo de nuevo.",
+      invalidCredentials: "Email o contraseña incorrectos.",
+      missingSupabase: "Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY.",
+      passwordMismatch: "Las contraseñas no coinciden.",
+      passwordShort: "La contraseña debe tener al menos 6 caracteres.",
+      recoveryTitle: "Nueva contraseña",
+      userPrefix: "Sesión:"
+    },
+    en: {
+      splashTitle: "Welcome to the Professional Area",
+      splashText: "A space designed to place orders, check stock and access all campaign documentation.",
+      appTitle: "Professional Area",
+      appSubtitle: "Access for professional clients, orders and campaign documentation.",
+      heroTitle: "Welcome to the Professional Area",
+      heroText: "A quick and elegant access point to place orders, check stock and download all campaign documentation.",
+      sectionOrders: "ORDERS",
+      repeatTitle: "Repeat campaign order",
+      repeatText: "Production according to calendar",
+      stockTitle: "Available stock",
+      stockText: "Immediate delivery",
+      sectionDocs: "DOCUMENTATION",
+      mediaTitle: "Media download",
+      mediaText: "High-resolution images",
+      ratesTitle: "Price lists",
+      ratesText: "Campaign prices",
+      sizesTitle: "Size guide",
+      sizesText: "Measurements and equivalences",
+      conditionsTitle: "Terms",
+      conditionsText: "Calendar and rules",
+      calendarTitle: "Reorder calendar",
+      calendarText: "Key dates and planning",
+      enterButton: "Enter →",
+      installButton: "Install app",
+      installHint: "If the automatic prompt does not appear, use “Add to Home Screen” or “Install app” in your browser.",
+      footerNote: "Designed for mobile, tablet and desktop.",
+      logoutButton: "Log out",
+      authVisualText: "A private, elegant and secure access for professional clients.",
+      authTitle: "Private access",
+      authSubtitle: "Enter your email and password to access your Professional Area.",
+      tabLogin: "Sign in",
+      tabReset: "Recover password",
+      tabUpdate: "New password",
+      emailLabel: "Email",
+      passwordLabel: "Password",
+      loginButton: "Sign in",
+      forgotInline: "Forgot your password?",
+      recoverHere: "Recover it here",
+      resetButton: "Send link",
+      backToLogin: "Back to sign in",
+      resetHelp: "We will send you a secure link to reset your password.",
+      newPasswordLabel: "New password",
+      confirmPasswordLabel: "Confirm password",
+      savePasswordButton: "Save new password",
+      updateHelp: "Enter your new password to complete account recovery.",
+      loginSuccess: "Signed in successfully. Welcome.",
+      logoutSuccess: "You have logged out successfully.",
+      resetSuccess: "We have sent you a password reset link.",
+      updateSuccess: "Your password has been updated successfully.",
+      authErrorGeneric: "The operation could not be completed. Please try again.",
+      invalidCredentials: "Incorrect email or password.",
+      missingSupabase: "SUPABASE_URL and SUPABASE_ANON_KEY must be configured.",
+      passwordMismatch: "Passwords do not match.",
+      passwordShort: "Password must be at least 6 characters long.",
+      recoveryTitle: "New password",
+      userPrefix: "Session:"
+    },
+    pt: {
+      splashTitle: "Bem-vindo à Área Profissional",
+      splashText: "Um espaço pensado para fazer encomendas, consultar stock e aceder a toda a documentação da campanha.",
+      appTitle: "Área Profissional",
+      appSubtitle: "Acesso para clientes profissionais, encomendas e documentação da campanha.",
+      heroTitle: "Bem-vindo à Área Profissional",
+      heroText: "Um acesso rápido e elegante para fazer encomendas, consultar stock e descarregar toda a documentação da campanha.",
+      sectionOrders: "ENCOMENDAS",
+      repeatTitle: "Reposição de campanha",
+      repeatText: "Produção conforme calendário",
+      stockTitle: "Stock disponível",
+      stockText: "Entrega imediata",
+      sectionDocs: "DOCUMENTAÇÃO",
+      mediaTitle: "Descarga multimédia",
+      mediaText: "Imagens em alta resolução",
+      ratesTitle: "Tabelas de preços",
+      ratesText: "Preços da campanha",
+      sizesTitle: "Guia de tamanhos",
+      sizesText: "Medidas e equivalências",
+      conditionsTitle: "Condições",
+      conditionsText: "Calendário e normas",
+      calendarTitle: "Calendário de reposições",
+      calendarText: "Datas-chave e planeamento",
+      enterButton: "Entrar →",
+      installButton: "Instalar app",
+      installHint: "Se o aviso automático não aparecer, use “Adicionar ao ecrã inicial” ou “Instalar aplicação” no navegador.",
+      footerNote: "Desenvolvido para telemóvel, tablet e computador.",
+      logoutButton: "Terminar sessão",
+      authVisualText: "Um acesso privado, elegante e seguro para clientes profissionais.",
+      authTitle: "Acesso privado",
+      authSubtitle: "Introduza o seu email e palavra-passe para entrar na sua Área Profissional.",
+      tabLogin: "Entrar",
+      tabReset: "Recuperar palavra-passe",
+      tabUpdate: "Nova palavra-passe",
+      emailLabel: "Email",
+      passwordLabel: "Palavra-passe",
+      loginButton: "Entrar",
+      forgotInline: "Esqueceu-se da palavra-passe?",
+      recoverHere: "Recupere aqui",
+      resetButton: "Enviar link",
+      backToLogin: "Voltar ao acesso",
+      resetHelp: "Enviaremos um link seguro para redefinir a sua palavra-passe.",
+      newPasswordLabel: "Nova palavra-passe",
+      confirmPasswordLabel: "Confirmar palavra-passe",
+      savePasswordButton: "Guardar nova palavra-passe",
+      updateHelp: "Introduza a sua nova palavra-passe para concluir a recuperação de acesso.",
+      loginSuccess: "Sessão iniciada com sucesso. Bem-vindo.",
+      logoutSuccess: "Terminou a sessão corretamente.",
+      resetSuccess: "Enviámos um link para redefinir a sua palavra-passe.",
+      updateSuccess: "A sua palavra-passe foi atualizada com sucesso.",
+      authErrorGeneric: "Não foi possível concluir a operação. Tente novamente.",
+      invalidCredentials: "Email ou palavra-passe incorretos.",
+      missingSupabase: "É necessário configurar SUPABASE_URL e SUPABASE_ANON_KEY.",
+      passwordMismatch: "As palavras-passe não coincidem.",
+      passwordShort: "A palavra-passe deve ter pelo menos 6 caracteres.",
+      recoveryTitle: "Nova palavra-passe",
+      userPrefix: "Sessão:"
+    },
+    it: {
+      splashTitle: "Benvenuto nell’Area Professionale",
+      splashText: "Uno spazio pensato per effettuare ordini, consultare lo stock e accedere a tutta la documentazione di campagna.",
+      appTitle: "Area Professionale",
+      appSubtitle: "Accesso per clienti professionali, ordini e documentazione di campagna.",
+      heroTitle: "Benvenuto nell’Area Professionale",
+      heroText: "Un accesso rapido ed elegante per effettuare ordini, consultare lo stock e scaricare tutta la documentazione di campagna.",
+      sectionOrders: "ORDINI",
+      repeatTitle: "Riassortimento campagna",
+      repeatText: "Produzione secondo calendario",
+      stockTitle: "Stock disponibile",
+      stockText: "Consegna immediata",
+      sectionDocs: "DOCUMENTAZIONE",
+      mediaTitle: "Download multimedia",
+      mediaText: "Immagini ad alta risoluzione",
+      ratesTitle: "Listini prezzi",
+      ratesText: "Prezzi di campagna",
+      sizesTitle: "Guida alle taglie",
+      sizesText: "Misure ed equivalenze",
+      conditionsTitle: "Condizioni",
+      conditionsText: "Calendario e regole",
+      calendarTitle: "Calendario riassortimenti",
+      calendarText: "Date chiave e pianificazione",
+      enterButton: "Entra →",
+      installButton: "Installa app",
+      installHint: "Se l’avviso automatico non compare, usa “Aggiungi alla schermata Home” o “Installa app” nel browser.",
+      footerNote: "Progettato per mobile, tablet e computer.",
+      logoutButton: "Disconnetti",
+      authVisualText: "Un accesso privato, elegante e sicuro per clienti professionali.",
+      authTitle: "Accesso privato",
+      authSubtitle: "Inserisci email e password per entrare nella tua Area Professionale.",
+      tabLogin: "Entra",
+      tabReset: "Recupera password",
+      tabUpdate: "Nuova password",
+      emailLabel: "Email",
+      passwordLabel: "Password",
+      loginButton: "Entra",
+      forgotInline: "Hai dimenticato la password?",
+      recoverHere: "Recuperala qui",
+      resetButton: "Invia link",
+      backToLogin: "Torna all’accesso",
+      resetHelp: "Ti invieremo un link sicuro per reimpostare la password.",
+      newPasswordLabel: "Nuova password",
+      confirmPasswordLabel: "Conferma password",
+      savePasswordButton: "Salva nuova password",
+      updateHelp: "Inserisci la nuova password per completare il recupero dell’accesso.",
+      loginSuccess: "Accesso effettuato correttamente. Benvenuto.",
+      logoutSuccess: "Hai effettuato il logout correttamente.",
+      resetSuccess: "Ti abbiamo inviato un link per reimpostare la password.",
+      updateSuccess: "La tua password è stata aggiornata correttamente.",
+      authErrorGeneric: "Impossibile completare l’operazione. Riprova.",
+      invalidCredentials: "Email o password non corretti.",
+      missingSupabase: "È necessario configurare SUPABASE_URL e SUPABASE_ANON_KEY.",
+      passwordMismatch: "Le password non coincidono.",
+      passwordShort: "La password deve contenere almeno 6 caratteri.",
+      recoveryTitle: "Nuova password",
+      userPrefix: "Sessione:"
+    },
+    ar: {
+      splashTitle: "مرحباً بك في المنطقة المهنية",
+      splashText: "مساحة مخصصة لتقديم الطلبات ومراجعة المخزون والوصول إلى جميع وثائق الحملة.",
+      appTitle: "المنطقة المهنية",
+      appSubtitle: "دخول خاص للعملاء المهنيين والطلبات ووثائق الحملة.",
+      heroTitle: "مرحباً بك في المنطقة المهنية",
+      heroText: "وصول سريع وأنيق لتقديم الطلبات ومراجعة المخزون وتنزيل جميع وثائق الحملة.",
+      sectionOrders: "الطلبات",
+      repeatTitle: "إعادة طلب الحملة",
+      repeatText: "الإنتاج حسب الجدول",
+      stockTitle: "المخزون المتاح",
+      stockText: "تسليم فوري",
+      sectionDocs: "الوثائق",
+      mediaTitle: "تنزيل الوسائط",
+      mediaText: "صور عالية الدقة",
+      ratesTitle: "الأسعار",
+      ratesText: "أسعار الحملة",
+      sizesTitle: "دليل المقاسات",
+      sizesText: "القياسات والمعادلات",
+      conditionsTitle: "الشروط",
+      conditionsText: "الجدول والقواعد",
+      calendarTitle: "تقويم الإعادات",
+      calendarText: "التواريخ الأساسية والتخطيط",
+      enterButton: "دخول ←",
+      installButton: "تثبيت التطبيق",
+      installHint: "إذا لم يظهر التنبيه تلقائياً، استخدم “إضافة إلى الشاشة الرئيسية” أو “تثبيت التطبيق” من المتصفح.",
+      footerNote: "مصمم للجوال والتابلت والكمبيوتر.",
+      logoutButton: "تسجيل الخروج",
+      authVisualText: "وصول خاص وأنيق وآمن للعملاء المهنيين.",
+      authTitle: "وصول خاص",
+      authSubtitle: "أدخل بريدك الإلكتروني وكلمة المرور للوصول إلى منطقتك المهنية.",
+      tabLogin: "دخول",
+      tabReset: "استعادة كلمة المرور",
+      tabUpdate: "كلمة مرور جديدة",
+      emailLabel: "البريد الإلكتروني",
+      passwordLabel: "كلمة المرور",
+      loginButton: "دخول",
+      forgotInline: "هل نسيت كلمة المرور؟",
+      recoverHere: "استعدها هنا",
+      resetButton: "إرسال الرابط",
+      backToLogin: "العودة إلى الدخول",
+      resetHelp: "سنرسل لك رابطاً آمناً لإعادة تعيين كلمة المرور.",
+      newPasswordLabel: "كلمة المرور الجديدة",
+      confirmPasswordLabel: "تأكيد كلمة المرور",
+      savePasswordButton: "حفظ كلمة المرور الجديدة",
+      updateHelp: "أدخل كلمة المرور الجديدة لإكمال استعادة الوصول.",
+      loginSuccess: "تم تسجيل الدخول بنجاح. أهلاً بك.",
+      logoutSuccess: "تم تسجيل الخروج بنجاح.",
+      resetSuccess: "لقد أرسلنا لك رابطاً لإعادة تعيين كلمة المرور.",
+      updateSuccess: "تم تحديث كلمة المرور بنجاح.",
+      authErrorGeneric: "تعذر إتمام العملية. حاول مرة أخرى.",
+      invalidCredentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+      missingSupabase: "يجب إعداد SUPABASE_URL وSUPABASE_ANON_KEY.",
+      passwordMismatch: "كلمتا المرور غير متطابقتين.",
+      passwordShort: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
+      recoveryTitle: "كلمة مرور جديدة",
+      userPrefix: "الجلسة:"
+    }
+  };
+
+  function t(key) {
+    const dict = translations[currentLang] || translations.es;
+    return dict[key] || translations.es[key] || key;
+  }
+
+  function setLanguage(lang) {
+    currentLang = translations[lang] ? lang : "es";
+    const dict = translations[currentLang];
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+    localStorage.setItem("at_lang", currentLang);
+    languageSelect.value = currentLang;
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key]) el.textContent = dict[key];
+    });
+
+    document.title = (dict.appTitle || "Área Profesional") + " · Abuela Tata";
+
+    if (userEmail.textContent) {
+      const emailOnly = userEmail.getAttribute("data-email") || userEmail.textContent;
+      userEmail.textContent = dict.userPrefix + " " + emailOnly;
+    }
+  }
+
+  function showMessage(text, type) {
+    authMessage.className = "message show " + (type || "error");
+    authMessage.textContent = text;
+  }
+
+  function clearMessage() {
+    authMessage.className = "message";
+    authMessage.textContent = "";
+  }
+
+  function setActiveForm(name) {
+    [loginForm, resetForm, updateForm].forEach(form => form.classList.remove("active"));
+    [tabLogin, tabReset, tabUpdate].forEach(tab => tab.classList.remove("active"));
+
+    if (name === "login") {
+      loginForm.classList.add("active");
+      tabLogin.classList.add("active");
+    } else if (name === "reset") {
+      resetForm.classList.add("active");
+      tabReset.classList.add("active");
+    } else if (name === "update") {
+      updateForm.classList.add("active");
+      tabUpdate.style.display = "inline-flex";
+      tabUpdate.classList.add("active");
+    }
+  }
+
+  function showAuthView() {
+    authView.style.display = "block";
+    app.style.display = "none";
+  }
+
+  function showAppView(session) {
+    authView.style.display = "none";
+    app.style.display = "block";
+    const email = (session && session.user && session.user.email) ? session.user.email : "";
+    if (email) {
+      userEmail.setAttribute("data-email", email);
+      userEmail.textContent = t("userPrefix") + " " + email;
+      userBadge.classList.add("show");
+    } else {
+      userEmail.textContent = "";
+      userEmail.removeAttribute("data-email");
+      userBadge.classList.remove("show");
+    }
+  }
+
+  function hideSplash() {
+    if (splashHidden) return;
+    splashHidden = true;
+    splash.classList.add("hide");
+    setTimeout(() => {
+      if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    }, 700);
+  }
+
+  function setupInstallPrompt() {
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.classList.add("show");
+      installHint.style.display = "block";
+    });
+
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) {
+        installHint.style.display = "block";
+        return;
+      }
+      deferredPrompt.prompt();
+      try {
+        await deferredPrompt.userChoice;
+      } catch (err) {}
+      deferredPrompt = null;
+      installBtn.classList.remove("show");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      installBtn.classList.remove("show");
+    });
+  }
+
+  function isSupabaseConfigured() {
+    return SUPABASE_URL && SUPABASE_ANON_KEY &&
+      SUPABASE_URL !== "PEGA_AQUI_TU_SUPABASE_URL" &&
+      SUPABASE_ANON_KEY !== "PEGA_AQUI_TU_SUPABASE_ANON_KEY";
+  }
+
+  function normalizeHashParams() {
+    if (window.location.hash && window.location.hash.includes("access_token")) {
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const query = new URLSearchParams(window.location.search);
+
+      params.forEach((value, key) => {
+        query.set(key, value);
+      });
+
+      const newUrl = window.location.pathname + "?" + query.toString();
+      window.history.replaceState({}, "", newUrl);
+    }
+  }
+
+  function isRecoveryMode() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("type") === "recovery";
+  }
+
+  async function initSupabase() {
+    if (!isSupabaseConfigured()) {
+      showAuthView();
+      clearMessage();
+      showMessage(t("missingSupabase"), "error");
+      hideSplash();
+      return;
+    }
+
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        clearMessage();
+        setActiveForm("update");
+        showAuthView();
+        hideSplash();
+        return;
+      }
+
+      if (session) {
+        showAppView(session);
+      } else {
+        showAuthView();
+      }
+
+      if (event === "SIGNED_OUT") {
+        loginPassword.value = "";
+      }
+
+      hideSplash();
+    });
+
+    const { data, error } = await supabase.auth.getSession();
+
+    if (error) {
+      showAuthView();
+      showMessage(error.message || t("authErrorGeneric"), "error");
+      hideSplash();
+      return;
+    }
+
+    if (isRecoveryMode()) {
+      showAuthView();
+      setActiveForm("update");
+      hideSplash();
+      return;
+    }
+
+    if (data && data.session) {
+      showAppView(data.session);
+    } else {
+      showAuthView();
+    }
+
+    hideSplash();
+  }
+
+  tabLogin.addEventListener("click", () => {
+    clearMessage();
+    setActiveForm("login");
+  });
+
+  tabReset.addEventListener("click", () => {
+    clearMessage();
+    setActiveForm("reset");
+  });
+
+  tabUpdate.addEventListener("click", () => {
+    clearMessage();
+    setActiveForm("update");
+  });
+
+  goToReset.addEventListener("click", () => {
+    clearMessage();
+    setActiveForm("reset");
+    resetEmail.value = loginEmail.value || "";
+  });
+
+  backToLogin.addEventListener("click", () => {
+    clearMessage();
+    setActiveForm("login");
+  });
+
+  loginForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearMessage();
+
+    if (!supabase) {
+      showMessage(t("missingSupabase"), "error");
+      return;
+    }
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: loginEmail.value.trim(),
+      password: loginPassword.value
+    });
+
+    if (error) {
+      const msg = /invalid login credentials/i.test(error.message || "") ? t("invalidCredentials") : (error.message || t("authErrorGeneric"));
+      showMessage(msg, "error");
+      return;
+    }
+
+    showMessage(t("loginSuccess"), "success");
+  });
+
+  resetForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearMessage();
+
+    if (!supabase) {
+      showMessage(t("missingSupabase"), "error");
+      return;
+    }
+
+    const redirectTo = window.location.origin + window.location.pathname;
+
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail.value.trim(), {
+      redirectTo: redirectTo
+    });
+
+    if (error) {
+      showMessage(error.message || t("authErrorGeneric"), "error");
+      return;
+    }
+
+    showMessage(t("resetSuccess"), "success");
+  });
+
+  updateForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearMessage();
+
+    if (!supabase) {
+      showMessage(t("missingSupabase"), "error");
+      return;
+    }
+
+    if ((newPassword.value || "").length < 6) {
+      showMessage(t("passwordShort"), "error");
+      return;
+    }
+
+    if (newPassword.value !== confirmPassword.value) {
+      showMessage(t("passwordMismatch"), "error");
+      return;
+    }
+
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword.value
+    });
+
+    if (error) {
+      showMessage(error.message || t("authErrorGeneric"), "error");
+      return;
+    }
+
+    showMessage(t("updateSuccess"), "success");
+    newPassword.value = "";
+    confirmPassword.value = "";
+    window.history.replaceState({}, "", window.location.pathname);
+  });
+
+  logoutBtn.addEventListener("click", async function () {
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    showMessage(t("logoutSuccess"), "success");
+    setActiveForm("login");
+    showAuthView();
+  });
+
+  languageSelect.addEventListener("change", function () {
+    setLanguage(this.value);
+  });
+
+  setLanguage(currentLang);
+  normalizeHashParams();
+  setupInstallPrompt();
+
+  window.addEventListener("load", function () {
+    initSupabase();
+    setTimeout(() => {
+      hideSplash();
+    }, 3000);
+  });
+})();
+</script>
+
+</body>
+</html>
