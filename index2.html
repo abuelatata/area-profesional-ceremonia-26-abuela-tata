@@ -1738,12 +1738,18 @@ html[dir="rtl"] .authVisualText{
   setLanguage(currentLang);
   setupInstallPrompt();
 
-  window.addEventListener("load", function () {
-    initSupabase();
-    setTimeout(() => {
-      hideSplash();
-    }, 3000);
-  });
+  window.addEventListener("load", async function () {
+  try {
+    await initSupabase();
+  } catch (err) {
+    console.error("INIT SUPABASE ERROR REAL:", err);
+    alert("INIT ERROR: " + (err?.message || JSON.stringify(err)));
+  }
+
+  setTimeout(() => {
+    hideSplash();
+  }, 3000);
+});
 })();
 </script>
 
