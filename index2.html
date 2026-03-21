@@ -1617,14 +1617,14 @@ html[dir="rtl"] .authVisualText{
     setActiveForm("login");
   });
 
-  loginForm.addEventListener("submit", async function (e) {
-    e.preventDefault();
-    clearMessage();
+ loginForm.addEventListener("submit", async function (e) {
+  e.preventDefault();
+  clearMessage();
 
-    if (!supabase) {
-      showMessage(t("missingSupabase"), "error");
-      return;
-    }
+  if (!supabase) {
+    showMessage("Supabase no está inicializado.", "error");
+    return;
+  }
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
