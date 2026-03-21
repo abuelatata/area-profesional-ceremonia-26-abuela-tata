@@ -1533,16 +1533,7 @@ html[dir="rtl"] .authVisualText{
       return;
     }
 
-    const createClient = window.supabase.createClient;
-
-    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-        flowType: "pkce"
-      }
-    });
+ supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     supabase.auth.onAuthStateChange((event, session) => {
       if (event === "PASSWORD_RECOVERY") {
