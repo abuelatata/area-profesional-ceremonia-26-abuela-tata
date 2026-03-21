@@ -1364,7 +1364,9 @@ html[dir="rtl"] .authVisualText{
   }
 
   function getFriendlyError(error) {
-    const message = (error && (error.message || error.error_description || error.error)) ? String(error.message || error.error_description || error.error) : "";
+    const message = (error && (error.message || error.error_description || error.error))
+      ? String(error.message || error.error_description || error.error)
+      : "";
 
     if (!message) return t("authErrorGeneric");
 
@@ -1373,8 +1375,8 @@ html[dir="rtl"] .authVisualText{
     if (
       lower.includes("invalid login credentials") ||
       lower.includes("invalid_credentials") ||
-      lower.includes("email not confirmed") ||
-      lower.includes("invalid email or password")
+      lower.includes("invalid email or password") ||
+      lower.includes("email not confirmed")
     ) {
       return t("invalidCredentials");
     }
