@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Área Profesional · Abuela Tata</title>
 <meta name="theme-color" content="#d8b15f">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <style>
 :root{
@@ -817,7 +820,6 @@ html[dir="rtl"] .authVisualText{
 
 <div id="splash" aria-hidden="true">
   <div class="splash-bg"></div>
-
   <div class="splash-content">
     <div class="splash-photo-wrap">
       <img class="splash-photo" src="images/portada-area.jpg" alt="Abuela Tata">
@@ -919,7 +921,6 @@ html[dir="rtl"] .authVisualText{
 </div>
 
 <div id="app">
-
   <div class="topbar">
     <div class="topbarRow">
       <div class="brand">
@@ -945,13 +946,8 @@ html[dir="rtl"] .authVisualText{
           </select>
         </div>
 
-        <button id="installBtn" class="installBtn" type="button" data-i18n="installButton">
-          Instalar app
-        </button>
-
-        <button id="logoutBtn" class="logoutBtn" type="button" data-i18n="logoutButton">
-          Cerrar sesión
-        </button>
+        <button id="installBtn" class="installBtn" type="button" data-i18n="installButton">Instalar app</button>
+        <button id="logoutBtn" class="logoutBtn" type="button" data-i18n="logoutButton">Cerrar sesión</button>
       </div>
     </div>
 
@@ -1032,7 +1028,6 @@ html[dir="rtl"] .authVisualText{
   <div class="footerNote" data-i18n="footerNote">
     Diseñado para móvil, tablet y ordenador.
   </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1050,7 +1045,6 @@ html[dir="rtl"] .authVisualText{
   const logoutBtn = document.getElementById("logoutBtn");
   const userBadge = document.getElementById("userBadge");
   const userEmail = document.getElementById("userEmail");
-
   const authMessage = document.getElementById("authMessage");
   const tabLogin = document.getElementById("tabLogin");
   const tabReset = document.getElementById("tabReset");
@@ -1060,7 +1054,6 @@ html[dir="rtl"] .authVisualText{
   const updateForm = document.getElementById("updateForm");
   const goToReset = document.getElementById("goToReset");
   const backToLogin = document.getElementById("backToLogin");
-
   const loginEmail = document.getElementById("loginEmail");
   const loginPassword = document.getElementById("loginPassword");
   const resetEmail = document.getElementById("resetEmail");
@@ -1125,7 +1118,7 @@ html[dir="rtl"] .authVisualText{
       updateSuccess: "Tu contraseña se ha actualizado correctamente.",
       authErrorGeneric: "No ha sido posible completar la operación. Inténtalo de nuevo.",
       invalidCredentials: "Email o contraseña incorrectos.",
-      missingSupabase: "Falta configurar SUPABASE_URL y SUPABASE_ANON_KEY.",
+      missingSupabase: "Falta configurar correctamente el acceso privado.",
       passwordMismatch: "Las contraseñas no coinciden.",
       passwordShort: "La contraseña debe tener al menos 6 caracteres.",
       userPrefix: "Sesión:"
@@ -1182,7 +1175,7 @@ html[dir="rtl"] .authVisualText{
       updateSuccess: "Your password has been updated successfully.",
       authErrorGeneric: "The operation could not be completed. Please try again.",
       invalidCredentials: "Incorrect email or password.",
-      missingSupabase: "SUPABASE_URL and SUPABASE_ANON_KEY must be configured.",
+      missingSupabase: "Private access is not configured correctly.",
       passwordMismatch: "Passwords do not match.",
       passwordShort: "Password must be at least 6 characters long.",
       userPrefix: "Session:"
@@ -1239,7 +1232,7 @@ html[dir="rtl"] .authVisualText{
       updateSuccess: "A sua palavra-passe foi atualizada com sucesso.",
       authErrorGeneric: "Não foi possível concluir a operação. Tente novamente.",
       invalidCredentials: "Email ou palavra-passe incorretos.",
-      missingSupabase: "É necessário configurar SUPABASE_URL e SUPABASE_ANON_KEY.",
+      missingSupabase: "O acesso privado não está configurado corretamente.",
       passwordMismatch: "As palavras-passe não coincidem.",
       passwordShort: "A palavra-passe deve ter pelo menos 6 caracteres.",
       userPrefix: "Sessão:"
@@ -1296,7 +1289,7 @@ html[dir="rtl"] .authVisualText{
       updateSuccess: "La tua password è stata aggiornata correttamente.",
       authErrorGeneric: "Impossibile completare l’operazione. Riprova.",
       invalidCredentials: "Email o password non corretti.",
-      missingSupabase: "È necessario configurare SUPABASE_URL e SUPABASE_ANON_KEY.",
+      missingSupabase: "L’accesso privato non è configurato correttamente.",
       passwordMismatch: "Le password non coincidono.",
       passwordShort: "La password deve contenere almeno 6 caratteri.",
       userPrefix: "Sessione:"
@@ -1353,7 +1346,7 @@ html[dir="rtl"] .authVisualText{
       updateSuccess: "تم تحديث كلمة المرور بنجاح.",
       authErrorGeneric: "تعذر إتمام العملية. حاول مرة أخرى.",
       invalidCredentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-      missingSupabase: "يجب إعداد SUPABASE_URL وSUPABASE_ANON_KEY.",
+      missingSupabase: "إعداد الوصول الخاص غير صحيح.",
       passwordMismatch: "كلمتا المرور غير متطابقتين.",
       passwordShort: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
       userPrefix: "الجلسة:"
@@ -1368,12 +1361,13 @@ html[dir="rtl"] .authVisualText{
   function setLanguage(lang) {
     currentLang = translations[lang] ? lang : "es";
     const dict = translations[currentLang];
+
     document.documentElement.lang = currentLang;
     document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
     localStorage.setItem("at_lang", currentLang);
     languageSelect.value = currentLang;
 
-    document.querySelectorAll("[data-i18n]").forEach(el => {
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       if (dict[key]) el.textContent = dict[key];
     });
@@ -1397,8 +1391,8 @@ html[dir="rtl"] .authVisualText{
   }
 
   function setActiveForm(name) {
-    [loginForm, resetForm, updateForm].forEach(form => form.classList.remove("active"));
-    [tabLogin, tabReset, tabUpdate].forEach(tab => tab.classList.remove("active"));
+    [loginForm, resetForm, updateForm].forEach((form) => form.classList.remove("active"));
+    [tabLogin, tabReset, tabUpdate].forEach((tab) => tab.classList.remove("active"));
     tabUpdate.style.display = "none";
 
     if (name === "login") {
@@ -1460,10 +1454,12 @@ html[dir="rtl"] .authVisualText{
         installHint.style.display = "block";
         return;
       }
+
       deferredPrompt.prompt();
       try {
         await deferredPrompt.userChoice;
       } catch (_) {}
+
       deferredPrompt = null;
       installBtn.classList.remove("show");
     });
@@ -1474,7 +1470,11 @@ html[dir="rtl"] .authVisualText{
   }
 
   function isSupabaseConfigured() {
-    return !!SUPABASE_URL && !!SUPABASE_ANON_KEY;
+    return typeof SUPABASE_URL === "string" &&
+      typeof SUPABASE_ANON_KEY === "string" &&
+      SUPABASE_URL.startsWith("https://") &&
+      SUPABASE_URL.includes(".supabase.co") &&
+      SUPABASE_ANON_KEY.length > 20;
   }
 
   function getHashParams() {
@@ -1503,6 +1503,7 @@ html[dir="rtl"] .authVisualText{
 
       const search = new URLSearchParams(window.location.search);
       if (type) search.set("type", type);
+
       const cleanUrl = window.location.pathname + (search.toString() ? "?" + search.toString() : "");
       window.history.replaceState({}, "", cleanUrl);
       return;
@@ -1517,6 +1518,7 @@ html[dir="rtl"] .authVisualText{
 
       const cleanSearch = new URLSearchParams();
       if (search.get("type")) cleanSearch.set("type", search.get("type"));
+
       const cleanUrl = window.location.pathname + (cleanSearch.toString() ? "?" + cleanSearch.toString() : "");
       window.history.replaceState({}, "", cleanUrl);
     }
@@ -1525,13 +1527,15 @@ html[dir="rtl"] .authVisualText{
   async function initSupabase() {
     showAuthView();
 
-    if (!isSupabaseConfigured() || !window.supabase || !window.supabase.createClient) {
+    if (!isSupabaseConfigured() || !window.supabase || typeof window.supabase.createClient !== "function") {
       showMessage(t("missingSupabase"), "error");
       hideSplash();
       return;
     }
 
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    const createClient = window.supabase.createClient;
+
+    supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
@@ -1631,20 +1635,24 @@ html[dir="rtl"] .authVisualText{
       return;
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email: loginEmail.value.trim(),
-      password: loginPassword.value
-    });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: loginEmail.value.trim(),
+        password: loginPassword.value
+      });
 
-    if (error) {
-      const msg = /invalid login credentials/i.test(error.message || "")
-        ? t("invalidCredentials")
-        : (error.message || t("authErrorGeneric"));
-      showMessage(msg, "error");
-      return;
+      if (error) {
+        const msg = /invalid login credentials/i.test(error.message || "")
+          ? t("invalidCredentials")
+          : (error.message || t("authErrorGeneric"));
+        showMessage(msg, "error");
+        return;
+      }
+
+      showMessage(t("loginSuccess"), "success");
+    } catch (err) {
+      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
     }
-
-    showMessage(t("loginSuccess"), "success");
   });
 
   resetForm.addEventListener("submit", async function (e) {
@@ -1656,18 +1664,22 @@ html[dir="rtl"] .authVisualText{
       return;
     }
 
-    const redirectTo = window.location.origin + window.location.pathname;
+    const redirectTo = window.location.origin + window.location.pathname + "?type=recovery";
 
-    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail.value.trim(), {
-      redirectTo: redirectTo
-    });
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail.value.trim(), {
+        redirectTo: redirectTo
+      });
 
-    if (error) {
-      showMessage(error.message || t("authErrorGeneric"), "error");
-      return;
+      if (error) {
+        showMessage(error.message || t("authErrorGeneric"), "error");
+        return;
+      }
+
+      showMessage(t("resetSuccess"), "success");
+    } catch (err) {
+      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
     }
-
-    showMessage(t("resetSuccess"), "success");
   });
 
   updateForm.addEventListener("submit", async function (e) {
@@ -1689,20 +1701,24 @@ html[dir="rtl"] .authVisualText{
       return;
     }
 
-    const { error } = await supabase.auth.updateUser({
-      password: newPassword.value
-    });
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword.value
+      });
 
-    if (error) {
-      showMessage(error.message || t("authErrorGeneric"), "error");
-      return;
+      if (error) {
+        showMessage(error.message || t("authErrorGeneric"), "error");
+        return;
+      }
+
+      showMessage(t("updateSuccess"), "success");
+      newPassword.value = "";
+      confirmPassword.value = "";
+      window.history.replaceState({}, "", window.location.pathname);
+      setActiveForm("login");
+    } catch (err) {
+      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
     }
-
-    showMessage(t("updateSuccess"), "success");
-    newPassword.value = "";
-    confirmPassword.value = "";
-    window.history.replaceState({}, "", window.location.pathname);
-    setActiveForm("login");
   });
 
   logoutBtn.addEventListener("click", async function () {
@@ -1710,16 +1726,20 @@ html[dir="rtl"] .authVisualText{
 
     if (!supabase) return;
 
-    const { error } = await supabase.auth.signOut();
+    try {
+      const { error } = await supabase.auth.signOut();
 
-    if (error) {
-      showMessage(error.message || t("authErrorGeneric"), "error");
-      return;
+      if (error) {
+        showMessage(error.message || t("authErrorGeneric"), "error");
+        return;
+      }
+
+      showMessage(t("logoutSuccess"), "success");
+      setActiveForm("login");
+      showAuthView();
+    } catch (err) {
+      showMessage(err && err.message ? err.message : t("authErrorGeneric"), "error");
     }
-
-    showMessage(t("logoutSuccess"), "success");
-    setActiveForm("login");
-    showAuthView();
   });
 
   languageSelect.addEventListener("change", function () {
