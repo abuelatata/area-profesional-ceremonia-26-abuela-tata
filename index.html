@@ -1335,6 +1335,26 @@ html[dir="rtl"] .orderRight{
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+function mostrarModulo(nombre){
+
+  // Ocultar TODO el contenido principal
+  document.querySelectorAll('.grid, .sectionTitle, .ordersPanel').forEach(el => {
+    el.style.display = 'none';
+  });
+
+  // Ocultar módulos
+  document.querySelectorAll('.modulo').forEach(m => {
+    m.style.display = 'none';
+  });
+
+  // Mostrar módulo seleccionado
+  const destino = document.getElementById('modulo-' + nombre);
+  if (destino) {
+    destino.style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+}
+  
 (function () {
   const SUPABASE_URL = "https://qoyrjhgjtydbcngfnyqn.supabase.co";
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFveXJqaGdqdHlkYmNuZ2ZueXFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5MTQ2NzQsImV4cCI6MjA4ODQ5MDY3NH0.ASOVIDOiJcuWOWExEzGBvwjjKEpZIfRLbxgVyc6Xr64";
