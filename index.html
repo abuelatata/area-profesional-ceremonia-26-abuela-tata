@@ -1233,6 +1233,29 @@ html[dir="rtl"] .orderRight{
     <div id="ordersEmpty" class="ordersEmpty" style="display:none;" data-i18n="emptyOrders">Todavía no tienes pedidos guardados.</div>
     <div id="ordersList" class="ordersList"></div>
   </section>
+<section id="modulo-guia-tallas" class="modulo" style="display:none;">
+  <div class="card" style="padding:20px;">
+
+    <h2 style="margin-bottom:10px;">Guía de tallas</h2>
+    <p style="margin-bottom:16px; color:#8b6f5b;">
+      Calculadora de tallas Abuela Tata.
+    </p>
+
+    <div style="
+      width:100%;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+      background:white;
+    ">
+      <iframe
+        src="https://abuelatata.github.io/calculadora-talla-abuela-tata-general/"
+        style="width:100%; height:1800px; border:none;">
+      </iframe>
+    </div>
+
+  </div>
+</section>
 
   <div class="sectionTitle" data-i18n="sectionDocs">DOCUMENTACIÓN</div>
 
@@ -1269,6 +1292,14 @@ html[dir="rtl"] .orderRight{
       <a class="button" href="./docs/guia-tallas.pdf" target="_blank" rel="noopener" data-i18n="enterButton">Entrar →</a>
     </div>
 
+     <div class="card">
+      <div class="cardInfo">
+       <div class="cardTitle">Guía de tallas</div>
+       <div class="cardText">Calculadora de tallas inteligente.</div>
+     </div>
+     <button class="button" onclick="mostrarModulo('guia-tallas')">Abrir</button>
+    </div>
+    
     <div class="card">
       <div class="cardInfo">
         <div class="cardTitle" data-i18n="conditionsTitle">Condiciones</div>
